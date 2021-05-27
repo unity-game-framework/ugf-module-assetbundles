@@ -1,0 +1,121 @@
+
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch'
+        default: main
+        required: true
+      version:
+        description: 'Version'
+        required: true
+
+env:
+  GITHUB_TOKEN: ${{ secrets.userToken }}
+  branch: ${{ github.event.inputs.branch }}
+  version: ${{ github.event.inputs.version }}
+  configPath: .github/config.yml
+  packagePath: ''
+  packageFolder: ''
+  date: ''
+
+jobs:
+  main:
+    name: Main
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        token: ${{ secrets.userToken }}
+        ref: ${{ env.branch }}
+    - name: Setup
+      run: |
+        packagePath=$(find "Packages" -name "package.json" -type f)
+        packageFolder=$(dirname $packagePath)
+        date=$(date --iso-8601=seconds)
+
+        echo "packagePath=$packagePath" >> $GITHUB_ENV
+        echo "packageFolder=$packageFolder" >> $GITHUB_ENV
+        echo "date=$date" >> $GITHUB_ENV
+    - name: Config
+      uses: unity-game-framework-actions/file-access@master
+      id: config
+      with:
+        input: |
+          get:
+            changelog:
+              input: ${{ env.configPath }}
+              path: changelog
+            readme:
+              input: ${{ env.configPath }}
+              path: readme
+            notes:
+              input: ${{ env.configPath }}
+              path: notes
+    - name: Package
+      uses: unity-game-framework-actions/file-access@master
+      id: package
+      with:
+        input: |
+          get:
+            registry:
+              input: ${{ env.packagePath }}
+              path: publishConfig.registry
+          set:
+            version:
+              input: ${{ env.packagePath }}
+              path: version
+              value: ${{ env.version }}
+    - name: Readme
+      uses: unity-game-framework-actions/package-readme@master
+      with:
+        input: ${{ env.packagePath }}
+        config: ${{ steps.config.outputs.readme }}
+        output: readme.md
+    - name: Notes
+      uses: unity-game-framework-actions/milestone-changelog@master
+      id: notes
+      with:
+        milestone: ${{ env.version }}
+        config: ${{ steps.config.outputs.notes }}
+        output: notes.md
+    - name: Changelog
+      uses: unity-game-framework-actions/releases-changelog@master
+      with:
+        branch: ${{ env.branch }}
+        config: ${{ steps.config.outputs.changelog }}
+        input: |
+          releases:
+          - tag_name: ${{ env.version }}
+            html_url: https://github.com/${{ github.repository }}/releases/tag/${{ env.version }}
+            published_at: '${{ env.date }}'
+            body: notes.md
+        output: changelog.md
+    - name: Push
+      run: |
+        git config user.name ${{ secrets.userName }}
+        git config user.email ${{ secrets.userEmail }}
+        git add ${{ env.packagePath }}
+        git add changelog.md
+        git add readme.md
+        git commit -m "Setup release ${{ env.version }}"
+        git push
+    - name: Create
+      uses: actions/create-release@v1
+      with:
+        tag_name: ${{ env.version }}
+        release_name: ${{ env.version }}
+        commitish: ${{ env.branch }}
+        prerelease: ${{ contains(env.version, '-preview') }}
+        body: |
+          ${{ steps.notes.outputs.result }}
+    - name: Publish
+      run: |
+        registry=${{ steps.package.outputs.registry }}
+        authUrl=$(dirname ${registry#"https:"})
+
+        echo "$authUrl/:_authToken=${{ secrets.registryUserToken }}" >> .npmrc
+        npm publish ${{ github.workspace }}/${{ env.packageFolder }}

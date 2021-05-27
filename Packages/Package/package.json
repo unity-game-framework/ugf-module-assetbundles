@@ -1,0 +1,22 @@
+{
+  "name": "com.ugf.package.name",
+  "displayName": "UGF.Package.Name",
+  "version": "0.0.0-preview",
+  "unity": "2020.2",
+  "apiCompatibility": ".NET Standard 2.0",
+  "description": "No description.",
+  "author": {
+    "name": "Unity Game Framework",
+    "url": "https://github.com/unity-game-framework"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "changelogUrl": "",
+  "licensesUrl": "",
+  "publishConfig": {
+    "registry": "https://unitygameframework.jfrog.io/artifactory/api/npm/default"
+  },
+  "dependencies": {}
+}

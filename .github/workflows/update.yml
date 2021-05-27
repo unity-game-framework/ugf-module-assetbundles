@@ -1,0 +1,57 @@
+
+name: Update
+
+on:
+  workflow_dispatch:
+    inputs:
+      repo:
+        description: 'Repository'
+        default: unity-game-framework/ugf-draft
+        required: true
+      branch:
+        description: 'Branch'
+        default: main
+        required: true
+      target:
+        description: 'Target'
+        default: .github
+        required: true
+
+env:
+  repo: ${{ github.event.inputs.repo }}
+  branch: ${{ github.event.inputs.branch }}
+  sourceFolder: source
+  targetFolder: target
+  source: ${{ github.workspace }}/source/${{ github.event.inputs.target }}
+  target: ${{ github.workspace }}/target/${{ github.event.inputs.target }}
+
+jobs:
+  main:
+    name: Main
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Source
+      uses: actions/checkout@v2
+      with:
+        token: ${{ secrets.userToken }}
+        repository: ${{ env.repo }}
+        ref: ${{ env.branch }}
+        path: ${{ env.sourceFolder }}
+    - name: Checkout Destination
+      uses: actions/checkout@v2
+      with:
+        token: ${{ secrets.userToken }}
+        ref: ${{ env.branch }}
+        path: ${{ env.targetFolder }}
+    - name: Update
+      run: |
+        rm -rf ${{ env.target }}
+        cp -r ${{ env.source }} ${{ env.target }}
+    - name: Push
+      run: |
+        cd ${{ github.workspace }}/${{ env.targetFolder }}
+        git config user.name ${{ secrets.userName }}
+        git config user.email ${{ secrets.userEmail }}
+        git add ${{ env.target }}
+        git commit -m "Update workflows"
+        git push

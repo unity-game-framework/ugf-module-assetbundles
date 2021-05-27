@@ -1,0 +1,15 @@
+{
+  "dependencies": {
+    "com.unity.ide.rider": "3.0.3",
+    "com.unity.test-framework": "1.1.20"
+  },
+  "scopedRegistries": [
+    {
+      "name": "Unity Game Framework",
+      "url": "https://unitygameframework.jfrog.io/artifactory/api/npm/default",
+      "scopes": [
+        "com.ugf"
+      ]
+    }
+  ]
+}

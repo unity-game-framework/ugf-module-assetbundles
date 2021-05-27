@@ -1,0 +1,36 @@
+
+name: Issue Pull Request
+
+on:
+  workflow_dispatch:
+    inputs:
+      base:
+        description: 'Base branch'
+        default: main
+        required: true
+      head:
+        description: 'Head branch'
+        required: true
+      issue:
+        description: 'Issue number'
+        required: false
+
+env:
+  base: ${{ github.event.inputs.base }}
+  head: ${{ github.event.inputs.head }}
+  issue: ${{ github.event.inputs.issue }}
+
+jobs:
+  main:
+    name: Main
+    runs-on: ubuntu-latest
+    steps:
+    - name: Create
+      uses: unity-game-framework-actions/issue-pull-request@master
+      with:
+        token: ${{ secrets.userToken }}
+        issue: ${{ env.issue }}
+        base: ${{ env.base }}
+        head: ${{ env.head }}
+        body: false
+        link: true

@@ -1,0 +1,197 @@
+changelog:
+  # Body format of changelog.
+  # Available values:
+  #   context: Context object passed into action as 'context' parameter.
+  #   releases: Array of release objects. (Read about release object: https://docs.github.com/en/rest/reference/repos#list-releases.)
+  #   releasesFormatted: Formatted releases as text.
+  body: |
+    # Changelog
+
+    All notable changes to this project will be documented in this file.
+
+    The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+    and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+    {releasesFormatted}
+    
+  # Release format.
+  # Available values:
+  #   context: Context object passed into action as 'context' parameter.
+  #   releases: Array of release objects. (Same as 'releases' in body.)
+  #   release: Release object. (Read about release object: https://docs.github.com/en/rest/reference/repos#get-a-release.)
+  #   date: Date object created based on 'dateFormat' settings.
+  release: |
+    ## [{release.tag_name}]({release.html_url}) - {date.year}-{date.month}-{date.day}  
+
+  # Determines whether to include release body after 'release' format.
+  releaseBody: true
+
+  # Used instead of release body format when is empty.
+  empty: |
+    - No release notes.
+
+  # Settings used to format publish date of release.
+  # (Read about possible options: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat.)
+  dateFormat:
+    locale: en
+    day: 2-digit
+    month: 2-digit
+    year: numeric
+
+readme:
+  # Readme format of package.
+  # Available values:
+  #   context: Context object passed into action as 'context' parameter.
+  #   package: Package object.
+  #   dependenciesFormatted: Formatted dependencies as text.
+  body: |
+    # {package.name}
+
+    {package.displayName}
+
+    ## Info
+    
+    - **Version**: `{package.version}`
+    - **Unity**: `{package.unity}`
+    - **API Compatibility Level**: `{package.apiCompatibility}`
+
+    ### Dependencies
+
+    {dependenciesFormatted}
+
+    ### Description
+
+    {package.description}
+
+    ### Changelog
+
+    - [Full changelog](changelog.md)
+
+    ### Registry
+
+    Read about where packages stored: [Registry](https://github.com/unity-game-framework/organization/blob/main/docs/registry.md).
+
+    ## How to Install
+
+    Read about how to install any packages from the `Unity Game Framework` registry: [Install Package](https://github.com/unity-game-framework/organization/blob/main/docs/install-packages.md).
+
+  # Dependency format of package dependencies.
+  # Available values:
+  #   context: Context object passed into action as 'context' parameter.
+  #   package: Package object.
+  #   dependency: Dependency object.
+  #     name: Name of dependency.
+  #     version: Version of dependency.
+  dependency: |
+    - `{dependency.name}`: `{dependency.version}`
+
+  # Used instead of 'dependency' format when no any dependencies found.
+  dependenciesEmpty: |
+    - N/A
+
+notes:
+  # Body format of release changelog.
+  # Available values:
+  #   context: Context object passed into action as 'context' parameter.
+  #   milestone: Milestone object. (Read about milestone object: https://docs.github.com/en/rest/reference/issues#get-a-milestone.)
+  #   groups: Array of the group objects. (Read about group object below.)
+  #   groupsFormatted: Formatted groups as text.
+  # Description of group object.
+  # group:
+  #   name: Name of group from config.
+  #   issues: Array of issue objects. (Read about issue object: https://docs.github.com/en/rest/reference/issues#get-an-issue.)
+  body: |
+    ### Release Notes
+
+    - [Milestone]({milestone.html_url}?closed=1)  
+        {milestone.description}
+    
+    {groupsFormatted}
+
+  # Used instead of 'body' format when no any issues found for milestone.
+  empty: |
+    ### Release Notes
+
+    - No release notes.
+
+  # Group format of issues.
+  # Available values:
+  #   context: Context object passed into action as 'context' parameter.
+  #   milestone: Milestone object. (Same as milestone in body.)
+  #   groups: Array of the group objects. (Same as groups in body.)
+  #   group: Group object. (Read about group in body description.)
+  #   issuesFormatted: Formatted issues as text.
+  group: |
+    ### {group.name}
+    
+    {issuesFormatted}
+
+  # Issue format from group.
+  # Available values:
+  #   context: Context object passed into action as 'context' parameter.
+  #   milestone: Milestone object. (Same as 'milestone' in body.)
+  #   groups: Array of the group objects. (Same as 'groups' in body.)
+  #   group: Group object. (Read about 'group' in body description.)
+  #   issue: Issue object. (Read about issue object: https://docs.github.com/en/rest/reference/issues#get-an-issue.)
+  issue: |
+    - {issue.title} ([#{issue.number}]({issue.html_url}))  
+
+  # Determines whether to include indented issue body after 'issue' format.
+  issueBody: true
+
+  # Setting to group issues before formatting.
+  # Every group has some properties.
+  # group:
+  #   name: Name of group.
+  #   state: State of issue to find in milestone. (Possible values: 'open', 'closed' or 'all', more about issues: https://docs.github.com/en/rest/reference/issues.)
+  #   labels: List of comma separated label names used to determine whether to include issue in group. (Example: 'bug,fix'.) 
+  groups:
+  - name: Added
+    state: all
+    labels: Feature
+  - name: Changed
+    state: all
+    labels: Change
+  - name: Deprecated
+    state: all
+    labels: Deprecation
+  - name: Removed
+    state: all
+    labels: Remove
+  - name: Fixed
+    state: all
+    labels: Fix
+  - name: Security
+    state: all
+    labels: Security
+
+# List of labels to add or update.
+# Each element has some properties. (Read about labels: https://docs.github.com/en/rest/reference/issues#update-a-label)
+#   name: The name of the label.
+#   description: A short description of the label.
+#   color: The hexadecimal color code for the label, without the leading #.
+labels:
+- name: Archived
+  description: An issue no longer relevant, but can be reopened.
+  color: fef2c0
+- name: Bug
+  description: An issue describes an unexpected problem or unintended behavior.
+  color: f9d0c4
+- name: Change
+  description: Mentioned in changelog under the Changed section.
+  color: c5def5
+- name: Deprecation
+  description: Mentioned in changelog under the Deprecated section.
+  color: c5def5
+- name: Feature
+  description: Mentioned in changelog under the Added section.
+  color: c2e0c6
+- name: Fix
+  description: Mentioned in changelog under the Fixed section.
+  color: c5def5
+- name: Remove
+  description: Mentioned in changelog under the Removed section.
+  color: f9d0c4
+- name: Security
+  description: Mentioned in changelog under the Security section.
+  color: c5def5

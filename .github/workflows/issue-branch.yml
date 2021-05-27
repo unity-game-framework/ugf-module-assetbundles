@@ -1,0 +1,31 @@
+
+name: Issue Branch
+
+on:
+  workflow_dispatch:
+    inputs:
+      base:
+        description: 'Base branch'
+        default: main
+        required: true
+      issue:
+        description: 'Issue number'
+        required: true
+
+env:
+  base: ${{ github.event.inputs.base }}
+  issue: ${{ github.event.inputs.issue }}
+
+jobs:
+  main:
+    name: Main
+    runs-on: ubuntu-latest
+    steps:
+    - name: Create
+      uses: unity-game-framework-actions/issue-branch@master
+      with:
+        token: ${{ secrets.userToken }}
+        base: ${{ env.base }}
+        issue: ${{ env.issue }}
+        create: true
+        comment: true
