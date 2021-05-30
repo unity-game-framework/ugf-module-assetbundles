@@ -9,10 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa61b4c7b4cc496393b06e456a5656e9, type: 3}
-  m_Name: New Asset Bundle Group Asset
+  m_Script: {fileID: 11500000, guid: cf69069b73d2437f94d9f6a61a20a3c3, type: 3}
+  m_Name: New Asset Bundle Asset Loader Asset
   m_EditorClassIdentifier: 
-  m_loader: 057b1063358a4e146bcb5360c129833d
-  m_assetBundle: 20525d4c7b5600d4082c3f37c7a151c5
-  m_assets:
-  - 9fc0d4010bbf28b4594072e72b8655ab
