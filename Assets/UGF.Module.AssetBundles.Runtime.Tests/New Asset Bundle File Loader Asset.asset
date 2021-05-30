@@ -10,5 +10,5 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 23f43e15760642d9a2b8436ff3c439ad, type: 3}
-  m_Name: New Asset Bundle Loader File Asset
+  m_Name: New Asset Bundle File Loader Asset
   m_EditorClassIdentifier: 
