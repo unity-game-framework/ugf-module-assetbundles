@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UGF.EditorTools.Runtime.IMGUI.Attributes;
 using UGF.Module.Assets.Runtime;
 using UnityEngine;
