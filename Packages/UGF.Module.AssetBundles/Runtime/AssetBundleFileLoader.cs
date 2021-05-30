@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace UGF.Module.AssetBundles.Runtime
 {
-    public class AssetBundleLoaderFile : AssetBundleLoader<AssetBundleFileInfo, AssetBundleLoadParameters, AssetBundleUnloadParameters>
+    public class AssetBundleFileLoader : AssetBundleLoader<AssetBundleFileInfo, AssetBundleLoadParameters, AssetBundleUnloadParameters>
     {
         protected override AssetBundle OnLoadAssetBundle(AssetBundleFileInfo info, string id, Type type, AssetBundleLoadParameters parameters, IContext context)
         {
