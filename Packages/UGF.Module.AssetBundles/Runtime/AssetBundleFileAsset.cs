@@ -22,7 +22,7 @@ namespace UGF.Module.AssetBundles.Runtime
         public ulong Offset { get { return m_offset; } set { m_offset = value; } }
         public List<string> Dependencies { get { return m_dependencies; } }
 
-        protected override void OnGetAssets(IDictionary<string, IAssetInfo> assets)
+        protected override AssetBundleInfo OnBuild()
         {
             var info = new AssetBundleFileInfo(m_loader, m_file)
             {
@@ -30,7 +30,14 @@ namespace UGF.Module.AssetBundles.Runtime
                 Offset = m_offset
             };
 
-            assets.Add("", info);
+            for (int i = 0; i < m_dependencies.Count; i++)
+            {
+                string dependency = m_dependencies[i];
+
+                info.Dependencies.Add(dependency);
+            }
+
+            return info;
         }
     }
 }
