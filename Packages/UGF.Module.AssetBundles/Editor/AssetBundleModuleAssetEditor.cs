@@ -9,18 +9,22 @@ namespace UGF.Module.AssetBundles.Editor
     internal class AssetBundleModuleAssetEditor : UnityEditor.Editor
     {
         private SerializedProperty m_propertyScript;
+        private AssetReferenceListDrawer m_listStorages;
         private AssetReferenceListDrawer m_listAssetBundles;
 
         private void OnEnable()
         {
             m_propertyScript = serializedObject.FindProperty("m_Script");
+            m_listStorages = new AssetReferenceListDrawer(serializedObject.FindProperty("m_storages"));
             m_listAssetBundles = new AssetReferenceListDrawer(serializedObject.FindProperty("m_assetBundles"));
 
+            m_listStorages.Enable();
             m_listAssetBundles.Enable();
         }
 
         private void OnDisable()
         {
+            m_listStorages.Disable();
             m_listAssetBundles.Disable();
         }
 
@@ -33,6 +37,7 @@ namespace UGF.Module.AssetBundles.Editor
                     EditorGUILayout.PropertyField(m_propertyScript);
                 }
 
+                m_listStorages.DrawGUILayout();
                 m_listAssetBundles.DrawGUILayout();
             }
         }

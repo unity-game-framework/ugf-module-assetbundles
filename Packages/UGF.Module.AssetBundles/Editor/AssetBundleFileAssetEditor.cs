@@ -10,7 +10,7 @@ namespace UGF.Module.AssetBundles.Editor
     {
         private SerializedProperty m_propertyScript;
         private SerializedProperty m_propertyLoader;
-        private SerializedProperty m_propertyFile;
+        private SerializedProperty m_propertyStorage;
         private SerializedProperty m_propertyCrc;
         private SerializedProperty m_propertyOffset;
         private ReorderableListDrawer m_listDependencies;
@@ -19,7 +19,7 @@ namespace UGF.Module.AssetBundles.Editor
         {
             m_propertyScript = serializedObject.FindProperty("m_Script");
             m_propertyLoader = serializedObject.FindProperty("m_loader");
-            m_propertyFile = serializedObject.FindProperty("m_file");
+            m_propertyStorage = serializedObject.FindProperty("m_storage");
             m_propertyCrc = serializedObject.FindProperty("m_crc");
             m_propertyOffset = serializedObject.FindProperty("m_offset");
             m_listDependencies = new ReorderableListDrawer(serializedObject.FindProperty("m_dependencies"));
@@ -42,7 +42,7 @@ namespace UGF.Module.AssetBundles.Editor
                 }
 
                 EditorGUILayout.PropertyField(m_propertyLoader);
-                EditorGUILayout.PropertyField(m_propertyFile);
+                EditorGUILayout.PropertyField(m_propertyStorage);
                 EditorGUILayout.PropertyField(m_propertyCrc);
                 EditorGUILayout.PropertyField(m_propertyOffset);
 
