@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UGF.Application.Runtime;
+using UGF.Logs.Runtime;
 using UGF.Module.Assets.Runtime;
 using UGF.RuntimeTools.Runtime.Providers;
 
@@ -25,6 +26,12 @@ namespace UGF.Module.AssetBundles.Runtime
         {
             base.OnInitialize();
 
+            Log.Debug("Asset Bundle Module initialize", new
+            {
+                storages = Description.Storages.Count,
+                bundles = Description.AssetBundles.Count
+            });
+
             foreach (KeyValuePair<string, IAssetBundleStorageBuilder> pair in Description.Storages)
             {
                 IAssetBundleStorage storage = pair.Value.Build();
@@ -43,6 +50,12 @@ namespace UGF.Module.AssetBundles.Runtime
         protected override void OnUninitialize()
         {
             base.OnUninitialize();
+
+            Log.Debug("Asset Bundle Module uninitialize", new
+            {
+                storages = Storages.Entries.Count,
+                bundles = Description.AssetBundles.Count
+            });
 
             foreach (KeyValuePair<string, IAssetBundleInfoBuilder> pair in Description.AssetBundles)
             {
