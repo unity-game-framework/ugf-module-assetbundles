@@ -1,6 +1,6 @@
 {
     "name": "UGF.Module.AssetBundles.Editor.Tests",
-    "rootNamespace": "UGF.Module.AssetBundles.Editor.Tests",
+    "rootNamespace": "",
     "references": [
         "GUID:3b5b8977d352fb242a567b3135e5f708",
         "GUID:dcaebc8544bac23449b8a709dbc85258"
