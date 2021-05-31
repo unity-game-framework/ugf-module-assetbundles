@@ -3,7 +3,9 @@
     "rootNamespace": "UGF.Module.AssetBundles.Editor",
     "references": [
         "GUID:3b5b8977d352fb242a567b3135e5f708",
-        "GUID:abdd615e45137c74ca2ce9c636c78c15"
+        "GUID:abdd615e45137c74ca2ce9c636c78c15",
+        "GUID:6c7389a7d4bbed54e96eb1e71a69798e",
+        "GUID:dd1bd288ad84c4448aae281c0b1a63a4"
     ],
     "includePlatforms": [
         "Editor"
