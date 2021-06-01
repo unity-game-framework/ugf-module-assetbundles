@@ -42,7 +42,7 @@ namespace UGF.Module.AssetBundles.Runtime
 
             foreach (KeyValuePair<string, IBuilder<IAssetBundleInfo>> pair in Description.AssetBundles)
             {
-                IAssetInfo info = pair.Value.Build();
+                IAssetBundleInfo info = pair.Value.Build();
 
                 AssetModule.Assets.Add(pair.Key, info);
             }
