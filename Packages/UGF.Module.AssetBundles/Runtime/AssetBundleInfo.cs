@@ -3,7 +3,7 @@ using UGF.Module.Assets.Runtime;
 
 namespace UGF.Module.AssetBundles.Runtime
 {
-    public class AssetBundleInfo : AssetInfo
+    public class AssetBundleInfo : AssetInfo, IAssetBundleInfo
     {
         public List<string> Dependencies { get; } = new List<string>();
 

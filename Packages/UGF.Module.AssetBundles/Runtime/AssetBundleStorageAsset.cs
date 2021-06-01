@@ -2,7 +2,7 @@
 
 namespace UGF.Module.AssetBundles.Runtime
 {
-    public abstract class AssetBundleStorageAsset : BuilderAsset<IAssetBundleStorage>, IAssetBundleStorageBuilder
+    public abstract class AssetBundleStorageAsset : BuilderAsset<IAssetBundleStorage>
     {
     }
 }

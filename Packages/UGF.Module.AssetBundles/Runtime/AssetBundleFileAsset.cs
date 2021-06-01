@@ -15,7 +15,7 @@ namespace UGF.Module.AssetBundles.Runtime
         public uint Crc { get { return m_crc; } set { m_crc = value; } }
         public ulong Offset { get { return m_offset; } set { m_offset = value; } }
 
-        protected override AssetBundleInfo OnBuild()
+        protected override IAssetBundleInfo OnBuild()
         {
             var info = new AssetBundleFileInfo(Loader, m_storage)
             {

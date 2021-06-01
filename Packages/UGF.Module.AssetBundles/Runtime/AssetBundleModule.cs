@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UGF.Application.Runtime;
+using UGF.Builder.Runtime;
 using UGF.Logs.Runtime;
 using UGF.Module.Assets.Runtime;
 using UGF.RuntimeTools.Runtime.Providers;
@@ -32,14 +33,14 @@ namespace UGF.Module.AssetBundles.Runtime
                 bundles = Description.AssetBundles.Count
             });
 
-            foreach (KeyValuePair<string, IAssetBundleStorageBuilder> pair in Description.Storages)
+            foreach (KeyValuePair<string, IBuilder<IAssetBundleStorage>> pair in Description.Storages)
             {
                 IAssetBundleStorage storage = pair.Value.Build();
 
                 Storages.Add(pair.Key, storage);
             }
 
-            foreach (KeyValuePair<string, IAssetBundleInfoBuilder> pair in Description.AssetBundles)
+            foreach (KeyValuePair<string, IBuilder<IAssetBundleInfo>> pair in Description.AssetBundles)
             {
                 IAssetInfo info = pair.Value.Build();
 
@@ -57,7 +58,7 @@ namespace UGF.Module.AssetBundles.Runtime
                 bundles = Description.AssetBundles.Count
             });
 
-            foreach (KeyValuePair<string, IAssetBundleInfoBuilder> pair in Description.AssetBundles)
+            foreach (KeyValuePair<string, IBuilder<IAssetBundleInfo>> pair in Description.AssetBundles)
             {
                 AssetModule.Assets.Remove(pair.Key);
             }

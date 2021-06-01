@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace UGF.Module.AssetBundles.Runtime
 {
-    public abstract class AssetBundleAsset : BuilderAsset<AssetBundleInfo>, IAssetBundleInfoBuilder
+    public abstract class AssetBundleAsset : BuilderAsset<IAssetBundleInfo>
     {
         [AssetGuid(typeof(AssetLoaderAsset))]
         [SerializeField] private string m_loader;
@@ -15,15 +15,5 @@ namespace UGF.Module.AssetBundles.Runtime
 
         public string Loader { get { return m_loader; } set { m_loader = value; } }
         public List<string> Dependencies { get { return m_dependencies; } }
-
-        T IBuilder<IAssetInfo>.Build<T>()
-        {
-            return (T)(object)Build();
-        }
-
-        IAssetInfo IBuilder<IAssetInfo>.Build()
-        {
-            return Build();
-        }
     }
 }
