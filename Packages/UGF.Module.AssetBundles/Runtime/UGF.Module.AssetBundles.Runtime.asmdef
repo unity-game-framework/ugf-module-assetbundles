@@ -1,0 +1,23 @@
+{
+    "name": "UGF.Module.AssetBundles.Runtime",
+    "rootNamespace": "UGF.Module.AssetBundles.Runtime",
+    "references": [
+        "GUID:a4312e46e9f64bb4aa011ac96ffd2a61",
+        "GUID:6c7389a7d4bbed54e96eb1e71a69798e",
+        "GUID:3ad3a680cb737c6428dc532d551e7bb7",
+        "GUID:088d00b6871540e44bce58af1a3f0f17",
+        "GUID:d067af32d09350a4bb33960432735e4d",
+        "GUID:6ca210c6fc8b79d4292f3cdb1061c73e",
+        "GUID:dd1bd288ad84c4448aae281c0b1a63a4",
+        "GUID:16fde9420ef50f34db61e711e19381dd"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
