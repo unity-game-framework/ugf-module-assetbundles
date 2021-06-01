@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace UGF.Module.AssetBundles.Editor
 {
-    public static class AssetBundleUtility
+    public static class AssetBundleEditorUtility
     {
         [MenuItem("Tests/TestBuildAll")]
         public static void TestBuildAll()
@@ -23,7 +23,7 @@ namespace UGF.Module.AssetBundles.Editor
                 {
                     assets = new List<string>();
 
-                    groups.Add(guid, assets);
+                    groups.Add(group.AssetBundle, assets);
                 }
 
                 foreach (string asset in group.Assets)
