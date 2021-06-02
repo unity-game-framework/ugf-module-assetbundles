@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa61b4c7b4cc496393b06e456a5656e9, type: 3}
-  m_Name: Group_2
+  m_Script: {fileID: 11500000, guid: 836de821a38c42538dd694fe94d29aa6, type: 3}
+  m_Name: Bundle_3
   m_EditorClassIdentifier: 
   m_loader: 
-  m_assetBundle: 0d343186087e3ed44960ded9dda91207
-  m_assets:
-  - 8465382ca3b5f744aa10a0f5054cf171
-  - fd03074686a93c349ad09a5c3834c354
+  m_crc: 257131196
+  m_dependencies: []
+  m_storage: 
+  m_offset: 0
