@@ -56,7 +56,7 @@ namespace UGF.Module.AssetBundles.Editor
             try
             {
                 string name = assetBundle.name;
-                var assetNames = new List<string>();
+                var assets = new List<AssetBundleEditorInfo.AssetInfo>();
                 var dependencies = new List<string>();
                 bool isStreamedSceneAssetBundle = assetBundle.isStreamedSceneAssetBundle;
 
@@ -71,7 +71,11 @@ namespace UGF.Module.AssetBundles.Editor
 
                     if (value != null)
                     {
-                        assetNames.Add(value.name);
+                        string assetName = value.name;
+                        Type assetType = value.GetType();
+                        var assetInfo = new AssetBundleEditorInfo.AssetInfo(assetName, assetType);
+
+                        assets.Add(assetInfo);
                     }
                 }
 
@@ -84,7 +88,7 @@ namespace UGF.Module.AssetBundles.Editor
 
                 BuildPipeline.GetCRCForAssetBundle(path, out uint crc);
 
-                return new AssetBundleEditorInfo(name, crc, assetNames, dependencies, isStreamedSceneAssetBundle);
+                return new AssetBundleEditorInfo(name, crc, assets, dependencies, isStreamedSceneAssetBundle);
             }
             finally
             {

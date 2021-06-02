@@ -9,7 +9,7 @@ namespace UGF.Module.AssetBundles.Editor
         private SerializedProperty m_propertyName;
         private SerializedProperty m_propertyCrc;
         private SerializedProperty m_propertyIsStreamedSceneAssetBundle;
-        private ReorderableListDrawer m_listAssetNames;
+        private ReorderableListDrawer m_listAssets;
         private ReorderableListDrawer m_listDependencies;
 
         private void OnEnable()
@@ -17,23 +17,23 @@ namespace UGF.Module.AssetBundles.Editor
             m_propertyName = serializedObject.FindProperty("m_name");
             m_propertyCrc = serializedObject.FindProperty("m_crc");
             m_propertyIsStreamedSceneAssetBundle = serializedObject.FindProperty("m_isStreamedSceneAssetBundle");
-            m_listAssetNames = new ReorderableListDrawer(serializedObject.FindProperty("m_assetNames"));
+            m_listAssets = new ReorderableListDrawer(serializedObject.FindProperty("m_assets"));
             m_listDependencies = new ReorderableListDrawer(serializedObject.FindProperty("m_dependencies"));
 
-            m_listAssetNames.List.displayAdd = false;
-            m_listAssetNames.List.displayRemove = false;
-            m_listAssetNames.List.draggable = false;
+            m_listAssets.List.displayAdd = false;
+            m_listAssets.List.displayRemove = false;
+            m_listAssets.List.draggable = false;
             m_listDependencies.List.displayAdd = false;
             m_listDependencies.List.displayRemove = false;
             m_listDependencies.List.draggable = false;
 
-            m_listAssetNames.Enable();
+            m_listAssets.Enable();
             m_listDependencies.Enable();
         }
 
         private void OnDisable()
         {
-            m_listAssetNames.Disable();
+            m_listAssets.Disable();
             m_listDependencies.Disable();
         }
 
@@ -47,7 +47,7 @@ namespace UGF.Module.AssetBundles.Editor
                 EditorGUILayout.PropertyField(m_propertyCrc);
                 EditorGUILayout.PropertyField(m_propertyIsStreamedSceneAssetBundle);
 
-                m_listAssetNames.DrawGUILayout();
+                m_listAssets.DrawGUILayout();
                 m_listDependencies.DrawGUILayout();
             }
             else

@@ -89,8 +89,18 @@ namespace UGF.Module.AssetBundles.Editor
                         container.Name = info.Name;
                         container.Crc = info.Crc;
                         container.IsStreamedSceneAssetBundle = info.IsStreamedSceneAssetBundle;
-                        container.AssetNames.AddRange(info.AssetNames);
                         container.Dependencies.AddRange(info.Dependencies);
+
+                        for (int i = 0; i < info.Assets.Count; i++)
+                        {
+                            AssetBundleEditorInfo.AssetInfo assetInfo = info.Assets[i];
+
+                            container.Assets.Add(new AssetBundleEditorInfoContainer.AssetInfo
+                            {
+                                Name = assetInfo.Name,
+                                Type = assetInfo.Type.FullName
+                            });
+                        }
 
                         Drawer.Set(container);
                     }
