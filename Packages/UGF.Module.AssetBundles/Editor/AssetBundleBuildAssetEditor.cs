@@ -1,4 +1,5 @@
-﻿using UGF.EditorTools.Editor.IMGUI.Scopes;
+﻿using System.IO;
+using UGF.EditorTools.Editor.IMGUI.Scopes;
 using UnityEditor;
 using UnityEngine;
 
@@ -54,14 +55,20 @@ namespace UGF.Module.AssetBundles.Editor
                 {
                     GUILayout.FlexibleSpace();
 
-                    if (GUILayout.Button("Clear", GUILayout.Width(75F)))
+                    using (new EditorGUI.DisabledScope(!Directory.Exists(m_propertyOutputPath.stringValue)))
                     {
-                        OnClear();
+                        if (GUILayout.Button("Clear", GUILayout.Width(75F)))
+                        {
+                            OnClear();
+                        }
                     }
 
-                    if (GUILayout.Button("Build", GUILayout.Width(75F)))
+                    using (new EditorGUI.DisabledScope(EditorApplication.isPlayingOrWillChangePlaymode))
                     {
-                        OnBuild();
+                        if (GUILayout.Button("Build", GUILayout.Width(75F)))
+                        {
+                            OnBuild();
+                        }
                     }
                 }
             }
