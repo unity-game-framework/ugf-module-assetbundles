@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using UGF.EditorTools.Runtime.IMGUI.AssetReferences;
 using UGF.Module.AssetBundles.Runtime;
 using UnityEditor;
+using UnityEngine;
+using Directory = UnityEngine.Windows.Directory;
 
 namespace UGF.Module.AssetBundles.Editor
 {
@@ -12,11 +15,63 @@ namespace UGF.Module.AssetBundles.Editor
         public static void Build(AssetBundleBuildAsset buildAsset)
         {
             if (buildAsset == null) throw new ArgumentNullException(nameof(buildAsset));
+
+            Directory.CreateDirectory(buildAsset.OutputPath);
+
+            var groups = new Dictionary<string, IList<string>>();
+
+            GetGroupsAll(groups, buildAsset);
+
+            AssetBundleManifest manifest = AssetBundleEditorUtility.Build(groups, buildAsset.OutputPath, buildAsset.Options);
+
+            if (buildAsset.UpdateCrc)
+            {
+                UpdateCrc(buildAsset);
+            }
+
+            if (buildAsset.UpdateDependencies)
+            {
+                UpdateDependencies(buildAsset, manifest);
+            }
         }
 
-        public static void Refresh(AssetBundleBuildAsset buildAsset)
+        public static void UpdateCrc(AssetBundleBuildAsset buildAsset)
         {
             if (buildAsset == null) throw new ArgumentNullException(nameof(buildAsset));
+
+            for (int i = 0; i < buildAsset.AssetBundles.Count; i++)
+            {
+                AssetReference<AssetBundleAsset> reference = buildAsset.AssetBundles[i];
+                AssetBundleAsset asset = reference.Asset;
+
+                string path = Path.Combine(buildAsset.OutputPath, reference.Guid);
+
+                if (BuildPipeline.GetCRCForAssetBundle(path, out uint crc))
+                {
+                    asset.Crc = crc;
+
+                    EditorUtility.SetDirty(asset);
+                }
+            }
+        }
+
+        public static void UpdateDependencies(AssetBundleBuildAsset buildAsset, AssetBundleManifest manifest)
+        {
+            if (buildAsset == null) throw new ArgumentNullException(nameof(buildAsset));
+            if (manifest == null) throw new ArgumentNullException(nameof(manifest));
+
+            for (int i = 0; i < buildAsset.AssetBundles.Count; i++)
+            {
+                AssetReference<AssetBundleAsset> reference = buildAsset.AssetBundles[i];
+                AssetBundleAsset asset = reference.Asset;
+
+                string[] dependencies = manifest.GetDirectDependencies(reference.Guid);
+
+                asset.Dependencies.Clear();
+                asset.Dependencies.AddRange(dependencies);
+
+                EditorUtility.SetDirty(asset);
+            }
         }
 
         public static void GetGroupsAll(IDictionary<string, IList<string>> groups, AssetBundleBuildAsset buildAsset)
@@ -41,7 +96,7 @@ namespace UGF.Module.AssetBundles.Editor
             if (groups == null) throw new ArgumentNullException(nameof(groups));
             if (assetBundles == null) throw new ArgumentNullException(nameof(assetBundles));
 
-            string[] guids = AssetDatabase.FindAssets($"t:{nameof(AssetBundleAsset)}");
+            string[] guids = AssetDatabase.FindAssets($"t:{nameof(AssetBundleGroupAsset)}");
 
             foreach (string guid in guids)
             {

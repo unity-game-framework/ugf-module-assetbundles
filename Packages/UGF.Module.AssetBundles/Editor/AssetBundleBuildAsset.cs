@@ -11,10 +11,14 @@ namespace UGF.Module.AssetBundles.Editor
     {
         [SerializeField] private string m_outputPath;
         [SerializeField] private BuildAssetBundleOptions m_options = BuildAssetBundleOptions.None;
+        [SerializeField] private bool m_updateCrc = true;
+        [SerializeField] private bool m_updateDependencies = true;
         [SerializeField] private List<AssetReference<AssetBundleAsset>> m_assetBundles = new List<AssetReference<AssetBundleAsset>>();
 
         public string OutputPath { get { return m_outputPath; } set { m_outputPath = value; } }
         public BuildAssetBundleOptions Options { get { return m_options; } set { m_options = value; } }
+        public bool UpdateCrc { get { return m_updateCrc; } set { m_updateCrc = value; } }
+        public bool UpdateDependencies { get { return m_updateDependencies; } set { m_updateDependencies = value; } }
         public List<AssetReference<AssetBundleAsset>> AssetBundles { get { return m_assetBundles; } }
     }
 }
