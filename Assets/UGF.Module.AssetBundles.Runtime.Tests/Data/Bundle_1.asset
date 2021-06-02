@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Bundle_1
   m_EditorClassIdentifier: 
   m_loader: 
+  m_crc: 3896855476
   m_dependencies: []
   m_storage: 
-  m_crc: 0
   m_offset: 0
