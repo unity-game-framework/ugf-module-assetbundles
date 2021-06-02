@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace UGF.Module.AssetBundles.Editor
 {
@@ -44,6 +45,54 @@ namespace UGF.Module.AssetBundles.Editor
             AssetBundleManifest manifest = BuildPipeline.BuildAssetBundles(outputPath, builds, options, target);
 
             return manifest;
+        }
+
+        public static AssetBundleEditorInfo LoadInfo(string path)
+        {
+            if (string.IsNullOrEmpty(path)) throw new ArgumentException("Value cannot be null or empty.", nameof(path));
+
+            AssetBundle assetBundle = AssetBundle.LoadFromFile(path);
+
+            try
+            {
+                string name = assetBundle.name;
+                var assetNames = new List<string>();
+                var dependencies = new List<string>();
+                bool isStreamedSceneAssetBundle = assetBundle.isStreamedSceneAssetBundle;
+
+                var serializedObject = new SerializedObject(assetBundle);
+                SerializedProperty propertyPreloadTable = serializedObject.FindProperty("m_PreloadTable");
+                SerializedProperty propertyDependencies = serializedObject.FindProperty("m_Dependencies");
+
+                for (int i = 0; i < propertyPreloadTable.arraySize; i++)
+                {
+                    SerializedProperty propertyElement = propertyPreloadTable.GetArrayElementAtIndex(i);
+                    Object value = propertyElement.objectReferenceValue;
+
+                    if (value != null)
+                    {
+                        assetNames.Add(value.name);
+                    }
+                }
+
+                for (int i = 0; i < propertyDependencies.arraySize; i++)
+                {
+                    SerializedProperty propertyElement = propertyDependencies.GetArrayElementAtIndex(i);
+
+                    dependencies.Add(propertyElement.stringValue);
+                }
+
+                BuildPipeline.GetCRCForAssetBundle(path, out uint crc);
+
+                return new AssetBundleEditorInfo(name, crc, assetNames, dependencies, isStreamedSceneAssetBundle);
+            }
+            finally
+            {
+                if (assetBundle != null)
+                {
+                    assetBundle.Unload(true);
+                }
+            }
         }
     }
 }
