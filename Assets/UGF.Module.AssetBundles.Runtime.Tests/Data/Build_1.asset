@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_outputPath: Library/AssetBundles
   m_options: 560
+  m_updateCrc: 1
+  m_updateDependencies: 1
   m_assetBundles:
-  - m_guid: 2111030e8d2ca6b4e95c8c1945c8e151
-    m_asset: {fileID: 11400000, guid: 2111030e8d2ca6b4e95c8c1945c8e151, type: 2}
-  - m_guid: 0d343186087e3ed44960ded9dda91207
-    m_asset: {fileID: 11400000, guid: 0d343186087e3ed44960ded9dda91207, type: 2}
+  - {fileID: 11400000, guid: 2111030e8d2ca6b4e95c8c1945c8e151, type: 2}
+  - {fileID: 11400000, guid: 0d343186087e3ed44960ded9dda91207, type: 2}
