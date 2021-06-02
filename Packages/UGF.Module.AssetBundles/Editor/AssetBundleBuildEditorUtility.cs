@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using UGF.EditorTools.Runtime.IMGUI.AssetReferences;
 using UGF.Module.AssetBundles.Runtime;
 using UnityEditor;
 using UnityEngine;
@@ -41,10 +40,10 @@ namespace UGF.Module.AssetBundles.Editor
 
             for (int i = 0; i < buildAsset.AssetBundles.Count; i++)
             {
-                AssetReference<AssetBundleAsset> reference = buildAsset.AssetBundles[i];
-                AssetBundleAsset asset = reference.Asset;
+                AssetBundleAsset asset = buildAsset.AssetBundles[i];
 
-                string path = Path.Combine(buildAsset.OutputPath, reference.Guid);
+                string guid = AssetDatabase.AssetPathToGUID(AssetDatabase.GetAssetPath(asset));
+                string path = Path.Combine(buildAsset.OutputPath, guid);
 
                 if (BuildPipeline.GetCRCForAssetBundle(path, out uint crc))
                 {
@@ -62,10 +61,10 @@ namespace UGF.Module.AssetBundles.Editor
 
             for (int i = 0; i < buildAsset.AssetBundles.Count; i++)
             {
-                AssetReference<AssetBundleAsset> reference = buildAsset.AssetBundles[i];
-                AssetBundleAsset asset = reference.Asset;
+                AssetBundleAsset asset = buildAsset.AssetBundles[i];
 
-                string[] dependencies = manifest.GetDirectDependencies(reference.Guid);
+                string guid = AssetDatabase.AssetPathToGUID(AssetDatabase.GetAssetPath(asset));
+                string[] dependencies = manifest.GetDirectDependencies(guid);
 
                 asset.Dependencies.Clear();
                 asset.Dependencies.AddRange(dependencies);
@@ -83,9 +82,10 @@ namespace UGF.Module.AssetBundles.Editor
 
             for (int i = 0; i < buildAsset.AssetBundles.Count; i++)
             {
-                AssetReference<AssetBundleAsset> assetBundle = buildAsset.AssetBundles[i];
+                AssetBundleAsset asset = buildAsset.AssetBundles[i];
+                string guid = AssetDatabase.AssetPathToGUID(AssetDatabase.GetAssetPath(asset));
 
-                assetBundles.Add(assetBundle.Guid);
+                assetBundles.Add(guid);
             }
 
             GetGroupsAll(groups, assetBundles);

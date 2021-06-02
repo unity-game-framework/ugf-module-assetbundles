@@ -1,4 +1,4 @@
-﻿using UGF.EditorTools.Editor.IMGUI.AssetReferences;
+﻿using UGF.EditorTools.Editor.IMGUI;
 using UGF.EditorTools.Editor.IMGUI.Scopes;
 using UnityEditor;
 using UnityEngine;
@@ -13,7 +13,7 @@ namespace UGF.Module.AssetBundles.Editor
         private SerializedProperty m_propertyOptions;
         private SerializedProperty m_propertyUpdateCrc;
         private SerializedProperty m_propertyUpdateDependencies;
-        private AssetReferenceListDrawer m_listAssetBundles;
+        private ReorderableListDrawer m_listAssetBundles;
 
         private void OnEnable()
         {
@@ -22,7 +22,7 @@ namespace UGF.Module.AssetBundles.Editor
             m_propertyOptions = serializedObject.FindProperty("m_options");
             m_propertyUpdateCrc = serializedObject.FindProperty("m_updateCrc");
             m_propertyUpdateDependencies = serializedObject.FindProperty("m_updateDependencies");
-            m_listAssetBundles = new AssetReferenceListDrawer(serializedObject.FindProperty("m_assetBundles"));
+            m_listAssetBundles = new ReorderableListDrawer(serializedObject.FindProperty("m_assetBundles"));
 
             m_listAssetBundles.Enable();
         }
@@ -63,6 +63,7 @@ namespace UGF.Module.AssetBundles.Editor
 
             EditorGUILayout.Space();
             EditorGUILayout.HelpBox("This is Editor Only asset.", MessageType.Info);
+            EditorGUILayout.Space();
         }
 
         private void OnBuild()
