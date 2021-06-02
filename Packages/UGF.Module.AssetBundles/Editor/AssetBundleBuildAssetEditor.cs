@@ -54,6 +54,11 @@ namespace UGF.Module.AssetBundles.Editor
                 {
                     GUILayout.FlexibleSpace();
 
+                    if (GUILayout.Button("Clear", GUILayout.Width(75F)))
+                    {
+                        OnClear();
+                    }
+
                     if (GUILayout.Button("Build", GUILayout.Width(75F)))
                     {
                         OnBuild();
@@ -77,10 +82,21 @@ namespace UGF.Module.AssetBundles.Editor
 
         private void OnBuild()
         {
+            m_listAssetBundles.ClearSelection();
+
             var asset = (AssetBundleBuildAsset)target;
 
             AssetBundleBuildEditorUtility.Build(asset);
             AssetDatabase.SaveAssets();
+        }
+
+        private void OnClear()
+        {
+            m_listAssetBundles.ClearSelection();
+
+            var asset = (AssetBundleBuildAsset)target;
+
+            FileUtil.DeleteFileOrDirectory(asset.OutputPath);
         }
     }
 }

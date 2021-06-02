@@ -30,6 +30,8 @@ namespace UGF.Module.AssetBundles.Editor
         {
             base.OnDisable();
 
+            ClearSelection();
+
             Drawer.Disable();
         }
 
@@ -50,6 +52,18 @@ namespace UGF.Module.AssetBundles.Editor
         public void DrawSelectedLayout()
         {
             Drawer.DrawGUILayout();
+        }
+
+        public void ClearSelection()
+        {
+            if (Drawer.HasEditor)
+            {
+                Object target = Drawer.Editor.target;
+
+                Drawer.Clear();
+
+                Object.DestroyImmediate(target);
+            }
         }
 
         private void UpdateSelection()
@@ -80,19 +94,15 @@ namespace UGF.Module.AssetBundles.Editor
 
                         Drawer.Set(container);
                     }
+                    else
+                    {
+                        var container = ScriptableObject.CreateInstance<AssetBundleEditorInfoContainer>();
+
+                        container.name = element.name;
+
+                        Drawer.Set(container);
+                    }
                 }
-            }
-        }
-
-        private void ClearSelection()
-        {
-            if (Drawer.HasEditor)
-            {
-                Object target = Drawer.Editor.target;
-
-                Drawer.Clear();
-
-                Object.DestroyImmediate(target);
             }
         }
     }

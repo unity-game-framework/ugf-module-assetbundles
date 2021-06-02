@@ -41,12 +41,20 @@ namespace UGF.Module.AssetBundles.Editor
         {
             serializedObject.Update();
 
-            EditorGUILayout.PropertyField(m_propertyName);
-            EditorGUILayout.PropertyField(m_propertyCrc);
-            EditorGUILayout.PropertyField(m_propertyIsStreamedSceneAssetBundle);
+            if (!string.IsNullOrEmpty(m_propertyName.stringValue))
+            {
+                EditorGUILayout.PropertyField(m_propertyName);
+                EditorGUILayout.PropertyField(m_propertyCrc);
+                EditorGUILayout.PropertyField(m_propertyIsStreamedSceneAssetBundle);
 
-            m_listAssetNames.DrawGUILayout();
-            m_listDependencies.DrawGUILayout();
+                m_listAssetNames.DrawGUILayout();
+                m_listDependencies.DrawGUILayout();
+            }
+            else
+            {
+                EditorGUILayout.Space();
+                EditorGUILayout.HelpBox("No Asset Bundle found, build required.", MessageType.Info);
+            }
         }
     }
 }
