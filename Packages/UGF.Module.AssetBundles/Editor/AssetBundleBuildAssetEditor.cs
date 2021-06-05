@@ -83,7 +83,14 @@ namespace UGF.Module.AssetBundles.Editor
             }
             else
             {
-                EditorGUILayout.HelpBox("Select any Asset Bundle to display.", MessageType.Info);
+                if (EditorApplication.isPlayingOrWillChangePlaymode)
+                {
+                    EditorGUILayout.HelpBox("Previewing Asset Bundle unavailable in play mode.", MessageType.Info);
+                }
+                else
+                {
+                    EditorGUILayout.HelpBox("Select any Asset Bundle to display.", MessageType.Info);
+                }
             }
         }
 

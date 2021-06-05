@@ -70,7 +70,7 @@ namespace UGF.Module.AssetBundles.Editor
         {
             ClearSelection();
 
-            if (List.index >= 0 && List.index < List.count)
+            if (!EditorApplication.isPlayingOrWillChangePlaymode && List.index >= 0 && List.index < List.count)
             {
                 SerializedProperty propertyElement = SerializedProperty.GetArrayElementAtIndex(List.index);
                 Object element = propertyElement.objectReferenceValue;
