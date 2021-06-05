@@ -22,7 +22,7 @@ namespace UGF.Module.AssetBundles.Editor
             m_propertyOptions = serializedObject.FindProperty("m_options");
             m_propertyUpdateCrc = serializedObject.FindProperty("m_updateCrc");
             m_propertyUpdateDependencies = serializedObject.FindProperty("m_updateDependencies");
-            m_listAssetBundles = new AssetBundleAssetListDrawer(serializedObject.FindProperty("m_assetBundles"), m_propertyOutputPath.stringValue);
+            m_listAssetBundles = new AssetBundleAssetListDrawer(serializedObject.FindProperty("m_assetBundles"), m_propertyOutputPath);
             m_listAssetBundles.Drawer.DisplayTitlebar = true;
 
             m_listAssetBundles.Enable();

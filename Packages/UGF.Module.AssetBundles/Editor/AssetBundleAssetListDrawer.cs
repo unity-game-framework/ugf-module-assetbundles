@@ -9,14 +9,12 @@ namespace UGF.Module.AssetBundles.Editor
 {
     internal class AssetBundleAssetListDrawer : ReorderableListDrawer
     {
-        public string OutputPath { get; }
+        public SerializedProperty PropertyOutputPath { get; }
         public EditorDrawer Drawer { get; } = new EditorDrawer();
 
-        public AssetBundleAssetListDrawer(SerializedProperty serializedProperty, string outputPath) : base(serializedProperty)
+        public AssetBundleAssetListDrawer(SerializedProperty serializedProperty, SerializedProperty propertyOutputPath) : base(serializedProperty)
         {
-            if (string.IsNullOrEmpty(outputPath)) throw new ArgumentException("Value cannot be null or empty.", nameof(outputPath));
-
-            OutputPath = outputPath;
+            PropertyOutputPath = propertyOutputPath ?? throw new ArgumentNullException(nameof(propertyOutputPath));
         }
 
         protected override void OnEnable()
@@ -78,7 +76,7 @@ namespace UGF.Module.AssetBundles.Editor
                 if (element != null)
                 {
                     string guid = AssetDatabase.AssetPathToGUID(AssetDatabase.GetAssetPath(element));
-                    string path = Path.Combine(OutputPath, guid);
+                    string path = Path.Combine(PropertyOutputPath.stringValue, guid);
 
                     if (File.Exists(path))
                     {
