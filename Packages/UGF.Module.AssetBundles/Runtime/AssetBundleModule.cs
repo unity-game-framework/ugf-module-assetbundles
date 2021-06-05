@@ -60,6 +60,14 @@ namespace UGF.Module.AssetBundles.Runtime
 
             foreach (KeyValuePair<string, IBuilder<IAssetBundleInfo>> pair in Description.AssetBundles)
             {
+                if (AssetModule.Tracker.TryGet(pair.Key, out AssetTrack track))
+                {
+                    AssetModule.Unload(pair.Key, track.Asset, AssetBundleUnloadParameters.Default);
+                }
+            }
+
+            foreach (KeyValuePair<string, IBuilder<IAssetBundleInfo>> pair in Description.AssetBundles)
+            {
                 AssetModule.Assets.Remove(pair.Key);
             }
 

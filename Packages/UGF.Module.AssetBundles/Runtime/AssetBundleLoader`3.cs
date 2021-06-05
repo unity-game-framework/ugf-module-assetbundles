@@ -98,9 +98,11 @@ namespace UGF.Module.AssetBundles.Runtime
             for (int i = 0; i < info.Dependencies.Count; i++)
             {
                 string dependency = info.Dependencies[i];
-                AssetTrack track = assetModule.Tracker.Get(dependency);
 
-                assetModule.Unload(dependency, track.Asset, parameters);
+                if (assetModule.Tracker.TryGet(dependency, out AssetTrack track))
+                {
+                    assetModule.Unload(dependency, track.Asset, parameters);
+                }
             }
         }
 
@@ -112,9 +114,11 @@ namespace UGF.Module.AssetBundles.Runtime
             for (int i = 0; i < info.Dependencies.Count; i++)
             {
                 string dependency = info.Dependencies[i];
-                AssetTrack track = assetModule.Tracker.Get(dependency);
 
-                await assetModule.UnloadAsync(dependency, track.Asset, parameters);
+                if (assetModule.Tracker.TryGet(dependency, out AssetTrack track))
+                {
+                    await assetModule.UnloadAsync(dependency, track.Asset, parameters);
+                }
             }
         }
     }
