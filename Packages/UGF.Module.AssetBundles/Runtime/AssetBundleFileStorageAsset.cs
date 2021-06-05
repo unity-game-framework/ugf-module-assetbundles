@@ -1,17 +1,21 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace UGF.Module.AssetBundles.Runtime
 {
     [CreateAssetMenu(menuName = "Unity Game Framework/Assets/Asset Bundle File Storage", order = 2000)]
     public class AssetBundleFileStorageAsset : AssetBundleStorageAsset
     {
-        [SerializeField] private string m_relativePath = "Bundles";
+        [SerializeField] private AssetBundleFileStorageDirectory m_directory = AssetBundleFileStorageDirectory.None;
+        [SerializeField] private string m_directoryPath;
 
-        public string RelativePath { get { return m_relativePath; } set { m_relativePath = value; } }
+        public AssetBundleFileStorageDirectory Directory { get { return m_directory; } set { m_directory = value; } }
+        public string DirectoryPath { get { return m_directoryPath; } set { m_directoryPath = value; } }
 
         protected override IAssetBundleStorage OnBuild()
         {
-            var storage = new AssetBundleFileStorage(m_relativePath);
+            string path = AssetBundleFileStorageUtility.GetPath(m_directory, m_directoryPath);
+            var storage = new AssetBundleFileStorage(path);
 
             return storage;
         }

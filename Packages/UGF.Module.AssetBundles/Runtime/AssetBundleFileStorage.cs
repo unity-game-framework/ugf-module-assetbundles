@@ -7,19 +7,18 @@ namespace UGF.Module.AssetBundles.Runtime
 {
     public class AssetBundleFileStorage : AssetBundleStorage<AssetBundleFileInfo>
     {
-        public string RelativePath { get; }
+        public string DirectoryPath { get; }
 
-        public AssetBundleFileStorage(string relativePath)
+        public AssetBundleFileStorage(string directoryPath)
         {
-            if (string.IsNullOrEmpty(relativePath)) throw new ArgumentException("Value cannot be null or empty.", nameof(relativePath));
+            if (string.IsNullOrEmpty(directoryPath)) throw new ArgumentException("Value cannot be null or empty.", nameof(directoryPath));
 
-            RelativePath = relativePath;
+            DirectoryPath = directoryPath;
         }
 
         protected override string OnGetAddress(AssetBundleFileInfo info, string id, Type type, IAssetLoadParameters parameters, IContext context)
         {
-            string root = UnityEngine.Application.streamingAssetsPath;
-            string path = Path.Combine(root, RelativePath);
+            string path = DirectoryPath;
 
             path = Path.Combine(path, id);
 
