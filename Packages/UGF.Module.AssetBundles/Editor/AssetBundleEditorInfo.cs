@@ -10,22 +10,27 @@ namespace UGF.Module.AssetBundles.Editor
         public IReadOnlyList<AssetInfo> Assets { get; }
         public IReadOnlyList<string> Dependencies { get; }
         public bool IsStreamedSceneAssetBundle { get; }
+        public long Size { get; }
 
         public class AssetInfo
         {
             public string Name { get; }
             public Type Type { get; }
+            public string Address { get; }
+            public long Size { get; }
 
-            public AssetInfo(string name, Type type)
+            public AssetInfo(string name, Type type, string address, long size)
             {
                 if (string.IsNullOrEmpty(name)) throw new ArgumentException("Value cannot be null or empty.", nameof(name));
 
                 Name = name;
                 Type = type ?? throw new ArgumentNullException(nameof(type));
+                Address = address ?? string.Empty;
+                Size = size;
             }
         }
 
-        public AssetBundleEditorInfo(string name, uint crc, IReadOnlyList<AssetInfo> assets, IReadOnlyList<string> dependencies, bool isStreamedSceneAssetBundle)
+        public AssetBundleEditorInfo(string name, uint crc, IReadOnlyList<AssetInfo> assets, IReadOnlyList<string> dependencies, bool isStreamedSceneAssetBundle, long size)
         {
             if (string.IsNullOrEmpty(name)) throw new ArgumentException("Value cannot be null or empty.", nameof(name));
 
@@ -34,6 +39,7 @@ namespace UGF.Module.AssetBundles.Editor
             Assets = assets ?? throw new ArgumentNullException(nameof(assets));
             Dependencies = dependencies ?? throw new ArgumentNullException(nameof(dependencies));
             IsStreamedSceneAssetBundle = isStreamedSceneAssetBundle;
+            Size = size;
         }
     }
 }

@@ -85,10 +85,12 @@ namespace UGF.Module.AssetBundles.Editor
                         AssetBundleEditorInfo info = AssetBundleEditorUtility.LoadInfo(path);
                         var container = ScriptableObject.CreateInstance<AssetBundleEditorInfoContainer>();
 
+                        container.Path = path;
                         container.name = element.name;
                         container.Name = info.Name;
                         container.Crc = info.Crc;
                         container.IsStreamedSceneAssetBundle = info.IsStreamedSceneAssetBundle;
+                        container.Size = info.Size;
                         container.Dependencies.AddRange(info.Dependencies);
 
                         for (int i = 0; i < info.Assets.Count; i++)
@@ -98,7 +100,9 @@ namespace UGF.Module.AssetBundles.Editor
                             container.Assets.Add(new AssetBundleEditorInfoContainer.AssetInfo
                             {
                                 Name = assetInfo.Name,
-                                Type = assetInfo.Type.FullName
+                                Type = assetInfo.Type.FullName,
+                                Address = assetInfo.Address,
+                                Size = assetInfo.Size
                             });
                         }
 
