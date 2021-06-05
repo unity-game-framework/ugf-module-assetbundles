@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa61b4c7b4cc496393b06e456a5656e9, type: 3}
   m_Name: AssetBundleGroup_1
   m_EditorClassIdentifier: 
-  m_loader: db0646586f5396b4990c9d6033e05b38
+  m_loader: 69bb1c14a5444c048af9ed48011ba3cb
   m_assetBundle: 2dd0fbb7c34dc8f46941c1e243676f42
   m_assets:
   - cb5ab67ec562f6a45882416d2d613c27
