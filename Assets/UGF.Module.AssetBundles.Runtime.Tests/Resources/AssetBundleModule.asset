@@ -18,3 +18,5 @@ MonoBehaviour:
   m_assetBundles:
   - m_guid: 2dd0fbb7c34dc8f46941c1e243676f42
     m_asset: {fileID: 11400000, guid: 2dd0fbb7c34dc8f46941c1e243676f42, type: 2}
+  - m_guid: 8b70bec1c0894b74487521c7727a1b4d
+    m_asset: {fileID: 11400000, guid: 8b70bec1c0894b74487521c7727a1b4d, type: 2}

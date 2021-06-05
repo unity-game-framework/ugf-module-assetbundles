@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 836de821a38c42538dd694fe94d29aa6, type: 3}
-  m_Name: AssetBundleFile
+  m_Name: AssetBundleFile_2
   m_EditorClassIdentifier: 
   m_loader: db0646586f5396b4990c9d6033e05b38
+  m_crc: 2050875523
+  m_dependencies:
+  - 2dd0fbb7c34dc8f46941c1e243676f42
   m_storage: 33e3aee69b67a7b42b240d0f42a3f66b
-  m_crc: 0
   m_offset: 0
-  m_dependencies: []
