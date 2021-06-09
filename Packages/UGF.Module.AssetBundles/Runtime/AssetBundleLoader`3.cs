@@ -12,6 +12,10 @@ namespace UGF.Module.AssetBundles.Runtime
         where TLoadParameters : class, IAssetLoadParameters
         where TUnloadParameters : AssetBundleUnloadParameters
     {
+        protected AssetBundleLoader(TLoadParameters defaultLoadParameters, TUnloadParameters defaultUnloadParameters) : base(defaultLoadParameters, defaultUnloadParameters)
+        {
+        }
+
         protected override object OnLoad(TInfo info, string id, Type type, TLoadParameters parameters, IContext context)
         {
             OnLoadDependencies(info, id, type, parameters, context);
