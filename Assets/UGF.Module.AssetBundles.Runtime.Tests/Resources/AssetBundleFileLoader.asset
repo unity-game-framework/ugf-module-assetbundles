@@ -12,3 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23f43e15760642d9a2b8436ff3c439ad, type: 3}
   m_Name: AssetBundleFileLoader
   m_EditorClassIdentifier: 
+  m_defaultUnloadParameters:
+    m_unloadAllLoadedObjects: 1

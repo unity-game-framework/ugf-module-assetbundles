@@ -10,6 +10,14 @@ namespace UGF.Module.AssetBundles.Runtime
 {
     public class AssetBundleAssetLoader : AssetLoader<AssetBundleAssetInfo, AssetBundleAssetLoadParameters, AssetBundleAssetUnloadParameters>
     {
+        public AssetBundleAssetLoader() : base(AssetBundleAssetLoadParameters.Default, AssetBundleAssetUnloadParameters.Default)
+        {
+        }
+
+        public AssetBundleAssetLoader(AssetBundleAssetLoadParameters defaultLoadParameters, AssetBundleAssetUnloadParameters defaultUnloadParameters) : base(defaultLoadParameters, defaultUnloadParameters)
+        {
+        }
+
         protected override object OnLoad(AssetBundleAssetInfo info, string id, Type type, AssetBundleAssetLoadParameters parameters, IContext context)
         {
             var application = context.Get<IApplication>();

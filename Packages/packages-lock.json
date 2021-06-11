@@ -76,12 +76,12 @@
       "depth": 0,
       "source": "embedded",
       "dependencies": {
-        "com.ugf.module.assets": "4.0.0-preview.2",
+        "com.ugf.module.assets": "4.0.0-preview.3",
         "com.unity.modules.assetbundle": "1.0.0"
       }
     },
     "com.ugf.module.assets": {
-      "version": "4.0.0-preview.2",
+      "version": "4.0.0-preview.3",
       "depth": 1,
       "source": "registry",
       "dependencies": {
