@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "com.ugf.module.assets": "file:../../ugf-module-assets/Packages/UGF.Module.Assets",
     "com.unity.ide.rider": "3.0.7",
     "com.unity.test-framework": "1.1.26"
   },
