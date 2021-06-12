@@ -62,7 +62,7 @@ namespace UGF.Module.AssetBundles.Runtime
             {
                 if (AssetModule.Tracker.TryGet(pair.Key, out AssetTrack track))
                 {
-                    AssetModule.Unload(pair.Key, track.Asset, AssetBundleUnloadParameters.Default);
+                    AssetModule.Unload(pair.Key, track.Asset);
                 }
             }
 

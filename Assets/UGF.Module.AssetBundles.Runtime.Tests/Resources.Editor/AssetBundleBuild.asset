@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42690ffdbb9b4e5395d1d9df99d84850, type: 3}
   m_Name: AssetBundleBuild
   m_EditorClassIdentifier: 
-  m_outputPath: Assets/StreamingAssets/AssetBundles
+  m_outputPath: Library/AssetBundles
   m_options: 560
   m_updateCrc: 1
   m_updateDependencies: 1
