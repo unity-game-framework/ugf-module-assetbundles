@@ -50,12 +50,12 @@ namespace UGF.Module.AssetBundles.Runtime.Tests
 
             var assetModule = application.GetModule<IAssetModule>();
 
-            var asset = assetModule.Load<Material>("8465382ca3b5f744aa10a0f5054cf171", AssetBundleAssetLoadParameters.Default);
+            var asset = assetModule.Load<Material>("8465382ca3b5f744aa10a0f5054cf171");
 
             Assert.NotNull(asset);
             Assert.AreEqual("Material_2", asset.name);
 
-            assetModule.Unload("8465382ca3b5f744aa10a0f5054cf171", asset, AssetBundleAssetUnloadParameters.Default);
+            assetModule.Unload("8465382ca3b5f744aa10a0f5054cf171", asset);
 
             Assert.True(asset == null);
 
