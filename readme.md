@@ -4,7 +4,7 @@ UGF.Module.AssetBundles
 
 ## Info
 
-- **Version**: `1.0.0-preview.1`
+- **Version**: `1.0.0-preview.2`
 - **Unity**: `2021.1`
 - **API Compatibility Level**: `.NET Standard 2.0`
 

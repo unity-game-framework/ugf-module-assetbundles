@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.0-preview.2](https://github.com/unity-game-framework/ugf-module-assetbundles/releases/tag/1.0.0-preview.2) - 2021-06-12  
+
+### Release Notes
+
+- [Milestone](https://github.com/unity-game-framework/ugf-module-assetbundles/milestone/3?closed=1)  
+    
+
+### Fixed
+
+- Fix asset bundle module to unload known bundles using default parameters of loader ([#12](https://github.com/unity-game-framework/ugf-module-assetbundles/pull/12))  
+    - Fix asset bundle module to unload known bundles on uninitialization using default unload parameters from loader.
+
 ## [1.0.0-preview.1](https://github.com/unity-game-framework/ugf-module-assetbundles/releases/tag/1.0.0-preview.1) - 2021-06-11  
 
 ### Release Notes
