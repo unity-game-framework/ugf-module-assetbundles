@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 150133f14160413484e7ba0fa48f6d10, type: 3}
   m_Name: AssetBundleFileStorage
   m_EditorClassIdentifier: 
-  m_directory: 2
+  m_directory: 1
   m_directoryPath: AssetBundles
