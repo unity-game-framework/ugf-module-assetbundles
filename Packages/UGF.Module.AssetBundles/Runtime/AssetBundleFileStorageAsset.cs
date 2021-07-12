@@ -1,5 +1,4 @@
-﻿using System;
-using UGF.RuntimeTools.Runtime.Storage;
+﻿using UGF.RuntimeTools.Runtime.Storage;
 using UnityEngine;
 
 namespace UGF.Module.AssetBundles.Runtime
