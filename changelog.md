@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.0-preview.3](https://github.com/unity-game-framework/ugf-module-assetbundles/releases/tag/1.0.0-preview.3) - 2021-07-12  
+
+### Release Notes
+
+- [Milestone](https://github.com/unity-game-framework/ugf-module-assetbundles/milestone/4?closed=1)  
+    
+
+### Changed
+
+- Replace AssetBundleFileStorageDirectory with StoragePathType from runtime tools package ([#14](https://github.com/unity-game-framework/ugf-module-assetbundles/pull/14))  
+    - Update dependencies: `com.ugf.runtimetools` to `2.1.0` version.
+    - Change `AssetBundleFileStorageAsset` to use `StoragePathType` enumerable from _UGF.RuntimeTools_ package to specify directory.
+    - Remove `AssetBundleFileStorageDirectory` enumerable and `AssetBundleFileStorageUtility` class, use `StoragePathType` and `StorageUtility` class from _UGF.RuntimeTools_ package instead.
+
 ## [1.0.0-preview.2](https://github.com/unity-game-framework/ugf-module-assetbundles/releases/tag/1.0.0-preview.2) - 2021-06-12  
 
 ### Release Notes
