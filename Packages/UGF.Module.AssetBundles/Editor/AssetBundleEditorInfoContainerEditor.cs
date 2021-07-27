@@ -1,4 +1,5 @@
-﻿using UGF.EditorTools.Editor.IMGUI;
+﻿using System.IO;
+using UGF.EditorTools.Editor.IMGUI;
 using UnityEditor;
 using UnityEngine;
 
@@ -8,7 +9,6 @@ namespace UGF.Module.AssetBundles.Editor
     internal class AssetBundleEditorInfoContainerEditor : UnityEditor.Editor
     {
         private readonly EditorDrawer m_debugDrawer = new EditorDrawer();
-        private SerializedProperty m_propertyDebug;
         private SerializedProperty m_propertyPath;
         private SerializedProperty m_propertyName;
         private SerializedProperty m_propertyCrc;
@@ -19,7 +19,6 @@ namespace UGF.Module.AssetBundles.Editor
 
         private void OnEnable()
         {
-            m_propertyDebug = serializedObject.FindProperty("m_debug");
             m_propertyPath = serializedObject.FindProperty("m_path");
             m_propertyName = serializedObject.FindProperty("m_name");
             m_propertyCrc = serializedObject.FindProperty("m_crc");
@@ -52,13 +51,11 @@ namespace UGF.Module.AssetBundles.Editor
 
         public override void OnInspectorGUI()
         {
-            serializedObject.Update();
-
-            if (!string.IsNullOrEmpty(m_propertyName.stringValue))
+            using (new EditorGUI.DisabledScope(true))
             {
                 DebugDrawerCheck();
 
-                if (!m_propertyDebug.boolValue)
+                if (!AssetBundleEditorInfoContainerUtility.DebugDisplay)
                 {
                     EditorGUILayout.PropertyField(m_propertyPath);
                     EditorGUILayout.PropertyField(m_propertyName);
@@ -71,19 +68,30 @@ namespace UGF.Module.AssetBundles.Editor
                 }
                 else
                 {
-                    m_debugDrawer.DrawGUILayout();
+                    if (!EditorApplication.isPlayingOrWillChangePlaymode)
+                    {
+                        if (m_debugDrawer.HasEditor)
+                        {
+                            m_debugDrawer.DrawGUILayout();
+                        }
+                        else
+                        {
+                            EditorGUILayout.Space();
+                            EditorGUILayout.HelpBox($"Asset Bundle file not found at the specific path: {m_propertyPath.stringValue}", MessageType.Info);
+                        }
+                    }
+                    else
+                    {
+                        EditorGUILayout.Space();
+                        EditorGUILayout.HelpBox("Previewing Asset Bundle Debug information unavailable in play mode.", MessageType.Info);
+                    }
                 }
-            }
-            else
-            {
-                EditorGUILayout.Space();
-                EditorGUILayout.HelpBox("No Asset Bundle found, build required.", MessageType.Info);
             }
         }
 
         private void DebugDrawerCheck()
         {
-            if (m_propertyDebug.boolValue)
+            if (!EditorApplication.isPlayingOrWillChangePlaymode && AssetBundleEditorInfoContainerUtility.DebugDisplay)
             {
                 if (!m_debugDrawer.HasEditor)
                 {
@@ -99,9 +107,13 @@ namespace UGF.Module.AssetBundles.Editor
         private void DebugDrawerCreate()
         {
             string path = m_propertyPath.stringValue;
-            AssetBundle assetBundle = AssetBundle.LoadFromFile(path);
 
-            m_debugDrawer.Set(assetBundle);
+            if (File.Exists(path))
+            {
+                AssetBundle assetBundle = AssetBundle.LoadFromFile(path);
+
+                m_debugDrawer.Set(assetBundle);
+            }
         }
 
         private void DebugDrawerClear()

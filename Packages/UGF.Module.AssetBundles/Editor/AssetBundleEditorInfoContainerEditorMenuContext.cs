@@ -5,21 +5,17 @@ namespace UGF.Module.AssetBundles.Editor
     internal static class AssetBundleEditorInfoContainerEditorMenuContext
     {
         [MenuItem("CONTEXT/AssetBundleEditorInfoContainer/Debug", false, 2000)]
-        private static void DebugMenu(MenuCommand menuCommand)
+        private static void DebugMenu()
         {
-            var context = (AssetBundleEditorInfoContainer)menuCommand.context;
+            AssetBundleEditorInfoContainerUtility.DebugDisplay = !AssetBundleEditorInfoContainerUtility.DebugDisplay;
 
-            context.Debug = !context.Debug;
-
-            Menu.SetChecked("CONTEXT/AssetBundleEditorInfoContainer/Debug", context.Debug);
+            Menu.SetChecked("CONTEXT/AssetBundleEditorInfoContainer/Debug", AssetBundleEditorInfoContainerUtility.DebugDisplay);
         }
 
         [MenuItem("CONTEXT/AssetBundleEditorInfoContainer/Debug", true, 2000)]
-        private static bool DebugValidate(MenuCommand menuCommand)
+        private static bool DebugValidate()
         {
-            var context = (AssetBundleEditorInfoContainer)menuCommand.context;
-
-            Menu.SetChecked("CONTEXT/AssetBundleEditorInfoContainer/Debug", context.Debug);
+            Menu.SetChecked("CONTEXT/AssetBundleEditorInfoContainer/Debug", AssetBundleEditorInfoContainerUtility.DebugDisplay);
 
             return true;
         }

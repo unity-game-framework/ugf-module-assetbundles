@@ -4,9 +4,8 @@ using UnityEngine;
 
 namespace UGF.Module.AssetBundles.Editor
 {
-    internal class AssetBundleEditorInfoContainer : ScriptableObject
+    public class AssetBundleEditorInfoContainer : ScriptableObject
     {
-        [SerializeField] private bool m_debug;
         [SerializeField] private string m_path;
         [SerializeField] private string m_name;
         [SerializeField] private uint m_crc;
@@ -15,7 +14,6 @@ namespace UGF.Module.AssetBundles.Editor
         [SerializeField] private List<AssetInfo> m_assets = new List<AssetInfo>();
         [SerializeField] private List<string> m_dependencies = new List<string>();
 
-        public bool Debug { get { return m_debug; } set { m_debug = value; } }
         public string Path { get { return m_path; } set { m_path = value; } }
         public string Name { get { return m_name; } set { m_name = value; } }
         public uint Crc { get { return m_crc; } set { m_crc = value; } }

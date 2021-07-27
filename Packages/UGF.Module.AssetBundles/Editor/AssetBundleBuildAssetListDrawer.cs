@@ -7,12 +7,13 @@ using Object = UnityEngine.Object;
 
 namespace UGF.Module.AssetBundles.Editor
 {
-    internal class AssetBundleAssetListDrawer : ReorderableListDrawer
+    internal class AssetBundleBuildAssetListDrawer : ReorderableListDrawer
     {
         public SerializedProperty PropertyOutputPath { get; }
         public EditorDrawer Drawer { get; } = new EditorDrawer();
+        public bool HasSelection { get { return List.selectedIndices.Count > 0; } }
 
-        public AssetBundleAssetListDrawer(SerializedProperty serializedProperty, SerializedProperty propertyOutputPath) : base(serializedProperty)
+        public AssetBundleBuildAssetListDrawer(SerializedProperty serializedProperty, SerializedProperty propertyOutputPath) : base(serializedProperty)
         {
             PropertyOutputPath = propertyOutputPath ?? throw new ArgumentNullException(nameof(propertyOutputPath));
         }
@@ -80,35 +81,7 @@ namespace UGF.Module.AssetBundles.Editor
 
                     if (File.Exists(path))
                     {
-                        AssetBundleEditorInfo info = AssetBundleEditorUtility.LoadInfo(path);
-                        var container = ScriptableObject.CreateInstance<AssetBundleEditorInfoContainer>();
-
-                        container.Path = path;
-                        container.name = element.name;
-                        container.Name = info.Name;
-                        container.Crc = info.Crc;
-                        container.IsStreamedSceneAssetBundle = info.IsStreamedSceneAssetBundle;
-                        container.Size = info.Size;
-                        container.Dependencies.AddRange(info.Dependencies);
-
-                        for (int i = 0; i < info.Assets.Count; i++)
-                        {
-                            AssetBundleEditorInfo.AssetInfo assetInfo = info.Assets[i];
-
-                            container.Assets.Add(new AssetBundleEditorInfoContainer.AssetInfo
-                            {
-                                Name = assetInfo.Name,
-                                Type = assetInfo.Type.FullName,
-                                Address = assetInfo.Address,
-                                Size = assetInfo.Size
-                            });
-                        }
-
-                        Drawer.Set(container);
-                    }
-                    else
-                    {
-                        var container = ScriptableObject.CreateInstance<AssetBundleEditorInfoContainer>();
+                        AssetBundleEditorInfoContainer container = AssetBundleEditorInfoContainerUtility.CreateContainer(path);
 
                         container.name = element.name;
 
