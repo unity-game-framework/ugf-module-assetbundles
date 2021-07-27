@@ -116,6 +116,7 @@ namespace UGF.Module.AssetBundles.Editor
 
             AssetBundleBuildEditorUtility.Build(asset);
             AssetDatabase.SaveAssets();
+            Selection.activeObject = target;
         }
 
         private void OnClear()
