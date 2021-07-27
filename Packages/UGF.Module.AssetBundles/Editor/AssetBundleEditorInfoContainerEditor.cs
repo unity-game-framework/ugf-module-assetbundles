@@ -9,7 +9,6 @@ namespace UGF.Module.AssetBundles.Editor
     internal class AssetBundleEditorInfoContainerEditor : UnityEditor.Editor
     {
         private readonly EditorDrawer m_debugDrawer = new EditorDrawer();
-        private SerializedProperty m_propertyDebug;
         private SerializedProperty m_propertyPath;
         private SerializedProperty m_propertyName;
         private SerializedProperty m_propertyCrc;
@@ -20,7 +19,6 @@ namespace UGF.Module.AssetBundles.Editor
 
         private void OnEnable()
         {
-            m_propertyDebug = serializedObject.FindProperty("m_debug");
             m_propertyPath = serializedObject.FindProperty("m_path");
             m_propertyName = serializedObject.FindProperty("m_name");
             m_propertyCrc = serializedObject.FindProperty("m_crc");
@@ -53,38 +51,39 @@ namespace UGF.Module.AssetBundles.Editor
 
         public override void OnInspectorGUI()
         {
-            serializedObject.Update();
-
-            DebugDrawerCheck();
-
-            if (!m_propertyDebug.boolValue)
+            using (new EditorGUI.DisabledScope(true))
             {
-                EditorGUILayout.PropertyField(m_propertyPath);
-                EditorGUILayout.PropertyField(m_propertyName);
-                EditorGUILayout.PropertyField(m_propertyCrc);
-                EditorGUILayout.PropertyField(m_propertyIsStreamedSceneAssetBundle);
-                EditorGUILayout.TextField(m_propertySize.displayName, EditorUtility.FormatBytes(m_propertySize.longValue));
+                DebugDrawerCheck();
 
-                m_listAssets.DrawGUILayout();
-                m_listDependencies.DrawGUILayout();
-            }
-            else
-            {
-                if (m_debugDrawer.HasEditor)
+                if (!AssetBundleEditorInfoContainerUtility.DebugDisplay)
                 {
-                    m_debugDrawer.DrawGUILayout();
+                    EditorGUILayout.PropertyField(m_propertyPath);
+                    EditorGUILayout.PropertyField(m_propertyName);
+                    EditorGUILayout.PropertyField(m_propertyCrc);
+                    EditorGUILayout.PropertyField(m_propertyIsStreamedSceneAssetBundle);
+                    EditorGUILayout.TextField(m_propertySize.displayName, EditorUtility.FormatBytes(m_propertySize.longValue));
+
+                    m_listAssets.DrawGUILayout();
+                    m_listDependencies.DrawGUILayout();
                 }
                 else
                 {
-                    EditorGUILayout.Space();
-                    EditorGUILayout.HelpBox($"Asset Bundle file not found at the specific path: {m_propertyPath.stringValue}", MessageType.Info);
+                    if (m_debugDrawer.HasEditor)
+                    {
+                        m_debugDrawer.DrawGUILayout();
+                    }
+                    else
+                    {
+                        EditorGUILayout.Space();
+                        EditorGUILayout.HelpBox($"Asset Bundle file not found at the specific path: {m_propertyPath.stringValue}", MessageType.Info);
+                    }
                 }
             }
         }
 
         private void DebugDrawerCheck()
         {
-            if (m_propertyDebug.boolValue)
+            if (AssetBundleEditorInfoContainerUtility.DebugDisplay)
             {
                 if (!m_debugDrawer.HasEditor)
                 {

@@ -82,28 +82,11 @@ namespace UGF.Module.AssetBundles.Editor
                     if (File.Exists(path))
                     {
                         AssetBundleEditorInfo info = AssetBundleEditorUtility.LoadInfo(path);
-                        var container = ScriptableObject.CreateInstance<AssetBundleEditorInfoContainer>();
+                        AssetBundleEditorInfoContainer container = AssetBundleEditorInfoContainerUtility.CreateContainer(info);
 
                         container.Path = path;
                         container.name = element.name;
-                        container.Name = info.Name;
-                        container.Crc = info.Crc;
-                        container.IsStreamedSceneAssetBundle = info.IsStreamedSceneAssetBundle;
-                        container.Size = info.Size;
-                        container.Dependencies.AddRange(info.Dependencies);
-
-                        for (int i = 0; i < info.Assets.Count; i++)
-                        {
-                            AssetBundleEditorInfo.AssetInfo assetInfo = info.Assets[i];
-
-                            container.Assets.Add(new AssetBundleEditorInfoContainer.AssetInfo
-                            {
-                                Name = assetInfo.Name,
-                                Type = assetInfo.Type.FullName,
-                                Address = assetInfo.Address,
-                                Size = assetInfo.Size
-                            });
-                        }
+                        container.hideFlags = HideFlags.NotEditable;
 
                         Drawer.Set(container);
                     }
