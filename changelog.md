@@ -5,6 +5,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.0-preview.4](https://github.com/unity-game-framework/ugf-module-assetbundles/releases/tag/1.0.0-preview.4) - 2021-07-27  
+
+### Release Notes
+
+- [Milestone](https://github.com/unity-game-framework/ugf-module-assetbundles/milestone/5?closed=1)  
+    
+
+### Changed
+
+- Change asset bundle editor info container to be public ([#17](https://github.com/unity-game-framework/ugf-module-assetbundles/pull/17))  
+    - Add `AssetBundleEditorInfoContainerUtility.CreateContainer()` method with path as argument to create container based on asset bundle at specific path.
+    - Add `AssetBundleEditorInfoContainerUtility.CreateContainer()` method to create container based on `AssetBundleEditorInfo` information.
+    - Change `AssetBundleEditorInfoContainer` class to be public.
+
+### Removed
+
+- Remove asset bundle editor info size information ([#18](https://github.com/unity-game-framework/ugf-module-assetbundles/pull/18))  
+    - Remove size information from `AssetBundleEditorInfo` and `AssetBundleEditorInfoContainer` classes, because it provides wrong information not related to asset bundle size.
+    - Remove `AssetBundleEditorInfo.Size` and `AssetBundleEditorInfo.AssetInfo.Size` properties.
+    - Remove `AssetBundleEditorInfoContainer.Size` and `AssetBundleEditorInfoContainer.AssetInfo.Size` properties.
+
 ## [1.0.0-preview.3](https://github.com/unity-game-framework/ugf-module-assetbundles/releases/tag/1.0.0-preview.3) - 2021-07-12  
 
 ### Release Notes
