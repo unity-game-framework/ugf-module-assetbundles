@@ -68,14 +68,22 @@ namespace UGF.Module.AssetBundles.Editor
                 }
                 else
                 {
-                    if (m_debugDrawer.HasEditor)
+                    if (!EditorApplication.isPlayingOrWillChangePlaymode)
                     {
-                        m_debugDrawer.DrawGUILayout();
+                        if (m_debugDrawer.HasEditor)
+                        {
+                            m_debugDrawer.DrawGUILayout();
+                        }
+                        else
+                        {
+                            EditorGUILayout.Space();
+                            EditorGUILayout.HelpBox($"Asset Bundle file not found at the specific path: {m_propertyPath.stringValue}", MessageType.Info);
+                        }
                     }
                     else
                     {
                         EditorGUILayout.Space();
-                        EditorGUILayout.HelpBox($"Asset Bundle file not found at the specific path: {m_propertyPath.stringValue}", MessageType.Info);
+                        EditorGUILayout.HelpBox("Previewing Asset Bundle Debug information unavailable in play mode.", MessageType.Info);
                     }
                 }
             }
@@ -83,7 +91,7 @@ namespace UGF.Module.AssetBundles.Editor
 
         private void DebugDrawerCheck()
         {
-            if (AssetBundleEditorInfoContainerUtility.DebugDisplay)
+            if (!EditorApplication.isPlayingOrWillChangePlaymode && AssetBundleEditorInfoContainerUtility.DebugDisplay)
             {
                 if (!m_debugDrawer.HasEditor)
                 {
