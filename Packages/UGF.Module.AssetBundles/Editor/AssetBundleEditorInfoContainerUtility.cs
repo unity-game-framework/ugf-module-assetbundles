@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace UGF.Module.AssetBundles.Editor
 {
-    internal static class AssetBundleEditorInfoContainerUtility
+    public static class AssetBundleEditorInfoContainerUtility
     {
         public static bool DebugDisplay { get; set; }
 

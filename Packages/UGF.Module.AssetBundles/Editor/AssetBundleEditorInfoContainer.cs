@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace UGF.Module.AssetBundles.Editor
 {
-    internal class AssetBundleEditorInfoContainer : ScriptableObject
+    public class AssetBundleEditorInfoContainer : ScriptableObject
     {
         [SerializeField] private string m_path;
         [SerializeField] private string m_name;
