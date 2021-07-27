@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using UnityEngine;
 
 namespace UGF.Module.AssetBundles.Editor
@@ -6,6 +7,20 @@ namespace UGF.Module.AssetBundles.Editor
     internal static class AssetBundleEditorInfoContainerUtility
     {
         public static bool DebugDisplay { get; set; }
+
+        public static AssetBundleEditorInfoContainer CreateContainer(string path)
+        {
+            if (string.IsNullOrEmpty(path)) throw new ArgumentException("Value cannot be null or empty.", nameof(path));
+
+            AssetBundleEditorInfo info = AssetBundleEditorUtility.LoadInfo(path);
+            AssetBundleEditorInfoContainer container = CreateContainer(info);
+
+            container.Path = path;
+            container.name = Path.GetFileNameWithoutExtension(path);
+            container.hideFlags = HideFlags.NotEditable;
+
+            return container;
+        }
 
         public static AssetBundleEditorInfoContainer CreateContainer(AssetBundleEditorInfo info)
         {

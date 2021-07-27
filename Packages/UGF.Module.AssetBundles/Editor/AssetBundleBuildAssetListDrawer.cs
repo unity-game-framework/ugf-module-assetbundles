@@ -81,12 +81,9 @@ namespace UGF.Module.AssetBundles.Editor
 
                     if (File.Exists(path))
                     {
-                        AssetBundleEditorInfo info = AssetBundleEditorUtility.LoadInfo(path);
-                        AssetBundleEditorInfoContainer container = AssetBundleEditorInfoContainerUtility.CreateContainer(info);
+                        AssetBundleEditorInfoContainer container = AssetBundleEditorInfoContainerUtility.CreateContainer(path);
 
-                        container.Path = path;
                         container.name = element.name;
-                        container.hideFlags = HideFlags.NotEditable;
 
                         Drawer.Set(container);
                     }
