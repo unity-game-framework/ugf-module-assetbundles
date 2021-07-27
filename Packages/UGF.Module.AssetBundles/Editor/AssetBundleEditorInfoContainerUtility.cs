@@ -31,7 +31,6 @@ namespace UGF.Module.AssetBundles.Editor
             container.Name = info.Name;
             container.Crc = info.Crc;
             container.IsStreamedSceneAssetBundle = info.IsStreamedSceneAssetBundle;
-            container.Size = info.Size;
             container.Dependencies.AddRange(info.Dependencies);
 
             for (int i = 0; i < info.Assets.Count; i++)
@@ -42,8 +41,7 @@ namespace UGF.Module.AssetBundles.Editor
                 {
                     Name = assetInfo.Name,
                     Type = assetInfo.Type.FullName,
-                    Address = assetInfo.Address,
-                    Size = assetInfo.Size
+                    Address = assetInfo.Address
                 });
             }
 

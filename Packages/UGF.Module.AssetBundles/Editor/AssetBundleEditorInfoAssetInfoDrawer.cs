@@ -13,7 +13,6 @@ namespace UGF.Module.AssetBundles.Editor
             SerializedProperty propertyName = serializedProperty.FindPropertyRelative("m_name");
             SerializedProperty propertyType = serializedProperty.FindPropertyRelative("m_type");
             SerializedProperty propertyAddress = serializedProperty.FindPropertyRelative("m_address");
-            SerializedProperty propertySize = serializedProperty.FindPropertyRelative("m_size");
 
             float space = EditorGUIUtility.standardVerticalSpacing;
             float height = EditorGUIUtility.singleLineHeight;
@@ -22,7 +21,6 @@ namespace UGF.Module.AssetBundles.Editor
             var rectName = new Rect(position.x, rectFoldout.yMax + space, position.width, height);
             var rectType = new Rect(position.x, rectName.yMax + space, position.width, height);
             var rectAddress = new Rect(position.x, rectType.yMax + space, position.width, height);
-            var rectSize = new Rect(position.x, rectAddress.yMax + space, position.width, height);
 
             serializedProperty.isExpanded = EditorGUI.Foldout(rectFoldout, serializedProperty.isExpanded, serializedProperty.displayName, true);
 
@@ -33,7 +31,6 @@ namespace UGF.Module.AssetBundles.Editor
                     EditorGUI.PropertyField(rectName, propertyName);
                     EditorGUI.PropertyField(rectType, propertyType);
                     EditorGUI.PropertyField(rectAddress, propertyAddress);
-                    EditorGUI.TextField(rectSize, propertySize.displayName, EditorUtility.FormatBytes(propertySize.longValue));
                 }
             }
         }
@@ -43,7 +40,7 @@ namespace UGF.Module.AssetBundles.Editor
             float space = EditorGUIUtility.standardVerticalSpacing;
             float height = EditorGUIUtility.singleLineHeight;
 
-            return serializedProperty.isExpanded ? height * 5 + space * 4 : height;
+            return serializedProperty.isExpanded ? height * 4 + space * 3 : height;
         }
     }
 }

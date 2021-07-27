@@ -10,14 +10,12 @@ namespace UGF.Module.AssetBundles.Editor
         public IReadOnlyList<AssetInfo> Assets { get; }
         public IReadOnlyList<string> Dependencies { get; }
         public bool IsStreamedSceneAssetBundle { get; }
-        public long Size { get; }
 
         public class AssetInfo
         {
             public string Name { get; }
             public Type Type { get; }
             public string Address { get; }
-            public long Size { get; }
 
             public AssetInfo(string name, Type type, string address, long size)
             {
@@ -26,7 +24,6 @@ namespace UGF.Module.AssetBundles.Editor
                 Name = name;
                 Type = type ?? throw new ArgumentNullException(nameof(type));
                 Address = address ?? string.Empty;
-                Size = size;
             }
         }
 
@@ -39,7 +36,6 @@ namespace UGF.Module.AssetBundles.Editor
             Assets = assets ?? throw new ArgumentNullException(nameof(assets));
             Dependencies = dependencies ?? throw new ArgumentNullException(nameof(dependencies));
             IsStreamedSceneAssetBundle = isStreamedSceneAssetBundle;
-            Size = size;
         }
     }
 }
