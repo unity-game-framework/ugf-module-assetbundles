@@ -116,10 +116,7 @@ namespace UGF.Module.AssetBundles.Editor
             }
             finally
             {
-                if (assetBundle != null)
-                {
-                    assetBundle.Unload(true);
-                }
+                assetBundle.Unload(true);
             }
         }
     }
