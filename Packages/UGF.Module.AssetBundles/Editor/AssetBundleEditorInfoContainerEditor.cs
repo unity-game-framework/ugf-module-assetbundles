@@ -1,4 +1,5 @@
-﻿using UGF.EditorTools.Editor.IMGUI;
+﻿using System.IO;
+using UGF.EditorTools.Editor.IMGUI;
 using UnityEditor;
 using UnityEngine;
 
@@ -54,30 +55,30 @@ namespace UGF.Module.AssetBundles.Editor
         {
             serializedObject.Update();
 
-            if (!string.IsNullOrEmpty(m_propertyName.stringValue))
+            DebugDrawerCheck();
+
+            if (!m_propertyDebug.boolValue)
             {
-                DebugDrawerCheck();
+                EditorGUILayout.PropertyField(m_propertyPath);
+                EditorGUILayout.PropertyField(m_propertyName);
+                EditorGUILayout.PropertyField(m_propertyCrc);
+                EditorGUILayout.PropertyField(m_propertyIsStreamedSceneAssetBundle);
+                EditorGUILayout.TextField(m_propertySize.displayName, EditorUtility.FormatBytes(m_propertySize.longValue));
 
-                if (!m_propertyDebug.boolValue)
-                {
-                    EditorGUILayout.PropertyField(m_propertyPath);
-                    EditorGUILayout.PropertyField(m_propertyName);
-                    EditorGUILayout.PropertyField(m_propertyCrc);
-                    EditorGUILayout.PropertyField(m_propertyIsStreamedSceneAssetBundle);
-                    EditorGUILayout.TextField(m_propertySize.displayName, EditorUtility.FormatBytes(m_propertySize.longValue));
-
-                    m_listAssets.DrawGUILayout();
-                    m_listDependencies.DrawGUILayout();
-                }
-                else
-                {
-                    m_debugDrawer.DrawGUILayout();
-                }
+                m_listAssets.DrawGUILayout();
+                m_listDependencies.DrawGUILayout();
             }
             else
             {
-                EditorGUILayout.Space();
-                EditorGUILayout.HelpBox("No Asset Bundle found, build required.", MessageType.Info);
+                if (m_debugDrawer.HasEditor)
+                {
+                    m_debugDrawer.DrawGUILayout();
+                }
+                else
+                {
+                    EditorGUILayout.Space();
+                    EditorGUILayout.HelpBox($"Asset Bundle file not found at the specific path: {m_propertyPath.stringValue}", MessageType.Info);
+                }
             }
         }
 
@@ -99,9 +100,13 @@ namespace UGF.Module.AssetBundles.Editor
         private void DebugDrawerCreate()
         {
             string path = m_propertyPath.stringValue;
-            AssetBundle assetBundle = AssetBundle.LoadFromFile(path);
 
-            m_debugDrawer.Set(assetBundle);
+            if (File.Exists(path))
+            {
+                AssetBundle assetBundle = AssetBundle.LoadFromFile(path);
+
+                m_debugDrawer.Set(assetBundle);
+            }
         }
 
         private void DebugDrawerClear()

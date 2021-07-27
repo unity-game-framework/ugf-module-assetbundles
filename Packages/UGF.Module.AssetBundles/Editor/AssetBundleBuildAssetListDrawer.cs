@@ -7,12 +7,13 @@ using Object = UnityEngine.Object;
 
 namespace UGF.Module.AssetBundles.Editor
 {
-    internal class AssetBundleAssetListDrawer : ReorderableListDrawer
+    internal class AssetBundleBuildAssetListDrawer : ReorderableListDrawer
     {
         public SerializedProperty PropertyOutputPath { get; }
         public EditorDrawer Drawer { get; } = new EditorDrawer();
+        public bool HasSelection { get { return List.selectedIndices.Count > 0; } }
 
-        public AssetBundleAssetListDrawer(SerializedProperty serializedProperty, SerializedProperty propertyOutputPath) : base(serializedProperty)
+        public AssetBundleBuildAssetListDrawer(SerializedProperty serializedProperty, SerializedProperty propertyOutputPath) : base(serializedProperty)
         {
             PropertyOutputPath = propertyOutputPath ?? throw new ArgumentNullException(nameof(propertyOutputPath));
         }
@@ -103,14 +104,6 @@ namespace UGF.Module.AssetBundles.Editor
                                 Size = assetInfo.Size
                             });
                         }
-
-                        Drawer.Set(container);
-                    }
-                    else
-                    {
-                        var container = ScriptableObject.CreateInstance<AssetBundleEditorInfoContainer>();
-
-                        container.name = element.name;
 
                         Drawer.Set(container);
                     }

@@ -13,7 +13,7 @@ namespace UGF.Module.AssetBundles.Editor
         private SerializedProperty m_propertyOptions;
         private SerializedProperty m_propertyUpdateCrc;
         private SerializedProperty m_propertyUpdateDependencies;
-        private AssetBundleAssetListDrawer m_listAssetBundles;
+        private AssetBundleBuildAssetListDrawer m_listAssetBundles;
 
         private void OnEnable()
         {
@@ -22,7 +22,7 @@ namespace UGF.Module.AssetBundles.Editor
             m_propertyOptions = serializedObject.FindProperty("m_options");
             m_propertyUpdateCrc = serializedObject.FindProperty("m_updateCrc");
             m_propertyUpdateDependencies = serializedObject.FindProperty("m_updateDependencies");
-            m_listAssetBundles = new AssetBundleAssetListDrawer(serializedObject.FindProperty("m_assetBundles"), m_propertyOutputPath);
+            m_listAssetBundles = new AssetBundleBuildAssetListDrawer(serializedObject.FindProperty("m_assetBundles"), m_propertyOutputPath);
             m_listAssetBundles.Drawer.DisplayTitlebar = true;
 
             m_listAssetBundles.Enable();
@@ -35,6 +35,8 @@ namespace UGF.Module.AssetBundles.Editor
 
         public override void OnInspectorGUI()
         {
+            bool build = false;
+
             using (new SerializedObjectUpdateScope(serializedObject))
             {
                 using (new EditorGUI.DisabledScope(true))
@@ -67,7 +69,7 @@ namespace UGF.Module.AssetBundles.Editor
                     {
                         if (GUILayout.Button("Build", GUILayout.Width(75F)))
                         {
-                            OnBuild();
+                            build = true;
                         }
                     }
                 }
@@ -89,8 +91,20 @@ namespace UGF.Module.AssetBundles.Editor
                 }
                 else
                 {
-                    EditorGUILayout.HelpBox("Select any Asset Bundle to display.", MessageType.Info);
+                    if (m_listAssetBundles.HasSelection)
+                    {
+                        EditorGUILayout.HelpBox("Selected Asset Bundle file not found, build required.", MessageType.Info);
+                    }
+                    else
+                    {
+                        EditorGUILayout.HelpBox("Select any Asset Bundle to display.", MessageType.Info);
+                    }
                 }
+            }
+
+            if (build)
+            {
+                OnBuild();
             }
         }
 
@@ -110,7 +124,7 @@ namespace UGF.Module.AssetBundles.Editor
 
             var asset = (AssetBundleBuildAsset)target;
 
-            FileUtil.DeleteFileOrDirectory(asset.OutputPath);
+            AssetDatabase.DeleteAsset(asset.OutputPath);
         }
     }
 }
