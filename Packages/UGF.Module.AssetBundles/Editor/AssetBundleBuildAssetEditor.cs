@@ -79,7 +79,7 @@ namespace UGF.Module.AssetBundles.Editor
             EditorGUILayout.HelpBox("This is Editor Only asset.", MessageType.Info);
             EditorGUILayout.Space();
 
-            if (m_listAssetBundles.Drawer.HasEditor)
+            if (m_listAssetBundles.Drawer.HasData)
             {
                 m_listAssetBundles.DrawSelectedLayout();
             }

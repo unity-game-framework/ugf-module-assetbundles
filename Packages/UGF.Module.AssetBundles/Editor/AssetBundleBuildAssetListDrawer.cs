@@ -1,8 +1,8 @@
 ﻿using System;
 using System.IO;
+using UGF.AssetBundles.Editor;
 using UGF.EditorTools.Editor.IMGUI;
 using UnityEditor;
-using UnityEngine;
 using Object = UnityEngine.Object;
 
 namespace UGF.Module.AssetBundles.Editor
@@ -10,12 +10,13 @@ namespace UGF.Module.AssetBundles.Editor
     internal class AssetBundleBuildAssetListDrawer : ReorderableListDrawer
     {
         public SerializedProperty PropertyOutputPath { get; }
-        public EditorDrawer Drawer { get; } = new EditorDrawer();
+        public AssetBundleFileDrawer Drawer { get; } = new AssetBundleFileDrawer();
         public bool HasSelection { get { return List.selectedIndices.Count > 0; } }
 
         public AssetBundleBuildAssetListDrawer(SerializedProperty serializedProperty, SerializedProperty propertyOutputPath) : base(serializedProperty)
         {
             PropertyOutputPath = propertyOutputPath ?? throw new ArgumentNullException(nameof(propertyOutputPath));
+            Drawer.DisplayMenuClear = false;
         }
 
         protected override void OnEnable()
@@ -55,14 +56,7 @@ namespace UGF.Module.AssetBundles.Editor
 
         public void ClearSelection()
         {
-            if (Drawer.HasEditor)
-            {
-                Object target = Drawer.Editor.target;
-
-                Drawer.Clear();
-
-                Object.DestroyImmediate(target);
-            }
+            Drawer.Clear();
         }
 
         private void UpdateSelection()
@@ -81,11 +75,7 @@ namespace UGF.Module.AssetBundles.Editor
 
                     if (File.Exists(path))
                     {
-                        AssetBundleEditorInfoContainer container = AssetBundleEditorInfoContainerUtility.CreateContainer(path);
-
-                        container.name = element.name;
-
-                        Drawer.Set(container);
+                        Drawer.Set(path);
                     }
                 }
             }
