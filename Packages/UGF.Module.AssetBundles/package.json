@@ -1,7 +1,7 @@
 {
   "name": "com.ugf.module.assetbundles",
   "displayName": "UGF.Module.AssetBundles",
-  "version": "1.0.0-preview.4",
+  "version": "1.0.0-preview.5",
   "unity": "2021.1",
   "apiCompatibility": ".NET Standard 2.0",
   "description": "Module to manage AssetBundles loading.",
