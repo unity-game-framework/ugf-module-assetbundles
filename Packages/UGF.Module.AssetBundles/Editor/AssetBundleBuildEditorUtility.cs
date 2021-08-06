@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using UGF.AssetBundles.Editor;
 using UGF.Module.AssetBundles.Runtime;
 using UnityEditor;
 using UnityEngine;
@@ -13,15 +14,20 @@ namespace UGF.Module.AssetBundles.Editor
     {
         public static void Build(AssetBundleBuildAsset buildAsset)
         {
+            Build(buildAsset, EditorUserBuildSettings.activeBuildTarget);
+        }
+
+        public static void Build(AssetBundleBuildAsset buildAsset, BuildTarget target)
+        {
             if (buildAsset == null) throw new ArgumentNullException(nameof(buildAsset));
 
             Directory.CreateDirectory(buildAsset.OutputPath);
 
-            var groups = new Dictionary<string, IList<string>>();
+            var builds = new List<AssetBundleBuildInfo>();
 
-            GetGroupsAll(groups, buildAsset);
+            GetAssetBundleBuilds(builds, buildAsset);
 
-            AssetBundleManifest manifest = AssetBundleEditorUtility.Build(groups, buildAsset.OutputPath, buildAsset.Options);
+            AssetBundleManifest manifest = AssetBundleBuildUtility.Build(builds, buildAsset.OutputPath, target, buildAsset.Options);
 
             if (buildAsset.UpdateCrc)
             {
@@ -70,6 +76,31 @@ namespace UGF.Module.AssetBundles.Editor
                 asset.Dependencies.AddRange(dependencies);
 
                 EditorUtility.SetDirty(asset);
+            }
+        }
+
+        public static void GetAssetBundleBuilds(IList<AssetBundleBuildInfo> assetBundleBuilds, AssetBundleBuildAsset buildAsset)
+        {
+            if (assetBundleBuilds == null) throw new ArgumentNullException(nameof(assetBundleBuilds));
+            if (buildAsset == null) throw new ArgumentNullException(nameof(buildAsset));
+
+            var groups = new Dictionary<string, IList<string>>();
+
+            GetGroupsAll(groups, buildAsset);
+
+            foreach (KeyValuePair<string, IList<string>> pair in groups)
+            {
+                var build = new AssetBundleBuildInfo(pair.Key);
+
+                for (int i = 0; i < pair.Value.Count; i++)
+                {
+                    string guid = pair.Value[i];
+                    string path = AssetDatabase.GUIDToAssetPath(guid);
+
+                    build.AddAsset(guid, path);
+                }
+
+                assetBundleBuilds.Add(build);
             }
         }
 
