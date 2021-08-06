@@ -124,8 +124,18 @@ namespace UGF.Module.AssetBundles.Editor
             m_listAssetBundles.ClearSelection();
 
             var asset = (AssetBundleBuildAsset)target;
+            string outputPath = asset.OutputPath;
+            string metaPath = $"{outputPath}.meta";
 
-            AssetDatabase.DeleteAsset(asset.OutputPath);
+            if (Directory.Exists(outputPath))
+            {
+                Directory.Delete(outputPath, true);
+            }
+
+            if (File.Exists(metaPath))
+            {
+                File.Delete(metaPath);
+            }
         }
     }
 }
