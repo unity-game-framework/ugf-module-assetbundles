@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.0-preview.6](https://github.com/unity-game-framework/ugf-module-assetbundles/releases/tag/1.0.0-preview.6) - 2021-08-06  
+
+### Release Notes
+
+- [Milestone](https://github.com/unity-game-framework/ugf-module-assetbundles/milestone/7?closed=1)  
+    
+
+### Removed
+
+- Remove AssetBundleEditorUtility class ([#22](https://github.com/unity-game-framework/ugf-module-assetbundles/pull/22))  
+    - Add `AssetBundleBuildEditorUtility.GetAssetBundleBuilds()` method to get list of `AssetBundleBuildInfo` classes used to build assetbundles.
+    - Remove `AssetBundleEditorUtility` class, use `AssetBundleBuildUtility` class from _UGF.AssetBundles_ package instead.
+
 ## [1.0.0-preview.5](https://github.com/unity-game-framework/ugf-module-assetbundles/releases/tag/1.0.0-preview.5) - 2021-08-04  
 
 ### Release Notes
