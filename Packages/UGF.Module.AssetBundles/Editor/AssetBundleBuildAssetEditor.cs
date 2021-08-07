@@ -136,6 +136,8 @@ namespace UGF.Module.AssetBundles.Editor
             {
                 File.Delete(metaPath);
             }
+
+            AssetDatabase.Refresh();
         }
     }
 }

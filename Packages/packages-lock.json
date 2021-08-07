@@ -13,7 +13,7 @@
       "url": "https://unitygameframework.jfrog.io/artifactory/api/npm/default"
     },
     "com.ugf.assetbundles": {
-      "version": "1.0.0-preview",
+      "version": "1.0.0-preview.1",
       "depth": 1,
       "source": "registry",
       "dependencies": {
@@ -88,7 +88,7 @@
       "source": "embedded",
       "dependencies": {
         "com.ugf.module.assets": "4.0.0-preview.3",
-        "com.ugf.assetbundles": "1.0.0-preview"
+        "com.ugf.assetbundles": "1.0.0-preview.1"
       }
     },
     "com.ugf.module.assets": {
