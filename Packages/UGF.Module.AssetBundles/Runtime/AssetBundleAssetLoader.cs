@@ -24,9 +24,9 @@ namespace UGF.Module.AssetBundles.Runtime
             var assetModule = application.GetModule<IAssetModule>();
             var assetBundle = assetModule.Load<AssetBundle>(info.AssetBundleId, parameters.AssetBundleLoadParameters);
 
-            Object asset = assetBundle.LoadAsset(info.Address);
+            Object asset = assetBundle.LoadAsset(info.Address, type);
 
-            return asset;
+            return asset ? asset : throw new NullReferenceException($"AssetBundle load result is null by the specified arguments: id:'{id}', type:'{type}'.");
         }
 
         protected override async Task<object> OnLoadAsync(AssetBundleAssetInfo info, string id, Type type, AssetBundleAssetLoadParameters parameters, IContext context)
@@ -35,7 +35,7 @@ namespace UGF.Module.AssetBundles.Runtime
             var assetModule = application.GetModule<IAssetModule>();
             var assetBundle = await assetModule.LoadAsync<AssetBundle>(info.AssetBundleId, parameters.AssetBundleLoadParameters);
 
-            AssetBundleRequest operation = assetBundle.LoadAssetAsync(info.Address);
+            AssetBundleRequest operation = assetBundle.LoadAssetAsync(info.Address, type);
 
             while (!operation.isDone)
             {
@@ -44,7 +44,7 @@ namespace UGF.Module.AssetBundles.Runtime
 
             Object asset = operation.asset;
 
-            return asset;
+            return asset ? asset : throw new NullReferenceException($"AssetBundle load result is null by the specified arguments: id:'{id}', type:'{type}'.");
         }
 
         protected override void OnUnload(AssetBundleAssetInfo info, string id, object asset, AssetBundleAssetUnloadParameters parameters, IContext context)
