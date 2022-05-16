@@ -3,7 +3,7 @@
   "displayName": "UGF.Module.AssetBundles",
   "version": "1.0.0-preview.7",
   "unity": "2021.3",
-  "apiCompatibility": ".NET Standard 2.0",
+  "apiCompatibility": ".NET Standard 2.1",
   "description": "Module to manage AssetBundles loading.",
   "author": {
     "name": "Unity Game Framework",
