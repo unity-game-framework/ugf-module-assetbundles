@@ -25,7 +25,7 @@ namespace UGF.Module.AssetBundles.Runtime
 
             AssetBundle assetBundle = AssetBundle.LoadFromFile(address, info.Crc, info.Offset);
 
-            return assetBundle;
+            return assetBundle ? assetBundle : throw new NullReferenceException($"AssetBundle load result is null by the specified arguments: id:'{id}', address:'{address}'.");
         }
 
         protected override async Task<AssetBundle> OnLoadAssetBundleAsync(AssetBundleFileInfo info, string id, Type type, AssetBundleLoadParameters parameters, IContext context)
@@ -44,7 +44,7 @@ namespace UGF.Module.AssetBundles.Runtime
 
             AssetBundle assetBundle = operation.assetBundle;
 
-            return assetBundle;
+            return assetBundle ? assetBundle : throw new NullReferenceException($"AssetBundle load result is null by the specified arguments: id:'{id}', address:'{address}'.");
         }
     }
 }
