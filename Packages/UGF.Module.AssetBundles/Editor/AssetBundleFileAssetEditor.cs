@@ -8,7 +8,6 @@ namespace UGF.Module.AssetBundles.Editor
     [CustomEditor(typeof(AssetBundleFileAsset), true)]
     internal class AssetBundleFileAssetEditor : UnityEditor.Editor
     {
-        private SerializedProperty m_propertyScript;
         private SerializedProperty m_propertyLoader;
         private SerializedProperty m_propertyStorage;
         private SerializedProperty m_propertyCrc;
@@ -17,7 +16,6 @@ namespace UGF.Module.AssetBundles.Editor
 
         private void OnEnable()
         {
-            m_propertyScript = serializedObject.FindProperty("m_Script");
             m_propertyLoader = serializedObject.FindProperty("m_loader");
             m_propertyStorage = serializedObject.FindProperty("m_storage");
             m_propertyCrc = serializedObject.FindProperty("m_crc");
@@ -36,10 +34,7 @@ namespace UGF.Module.AssetBundles.Editor
         {
             using (new SerializedObjectUpdateScope(serializedObject))
             {
-                using (new EditorGUI.DisabledScope(true))
-                {
-                    EditorGUILayout.PropertyField(m_propertyScript);
-                }
+                EditorIMGUIUtility.DrawScriptProperty(serializedObject);
 
                 EditorGUILayout.PropertyField(m_propertyLoader);
                 EditorGUILayout.PropertyField(m_propertyStorage);
