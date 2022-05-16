@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using UGF.EditorTools.Editor.IMGUI;
 using UGF.EditorTools.Editor.IMGUI.Scopes;
 using UnityEditor;
 using UnityEngine;
@@ -8,7 +9,6 @@ namespace UGF.Module.AssetBundles.Editor
     [CustomEditor(typeof(AssetBundleBuildAsset), true)]
     internal class AssetBundleBuildAssetEditor : UnityEditor.Editor
     {
-        private SerializedProperty m_propertyScript;
         private SerializedProperty m_propertyOutputPath;
         private SerializedProperty m_propertyOptions;
         private SerializedProperty m_propertyUpdateCrc;
@@ -17,13 +17,18 @@ namespace UGF.Module.AssetBundles.Editor
 
         private void OnEnable()
         {
-            m_propertyScript = serializedObject.FindProperty("m_Script");
             m_propertyOutputPath = serializedObject.FindProperty("m_outputPath");
             m_propertyOptions = serializedObject.FindProperty("m_options");
             m_propertyUpdateCrc = serializedObject.FindProperty("m_updateCrc");
             m_propertyUpdateDependencies = serializedObject.FindProperty("m_updateDependencies");
-            m_listAssetBundles = new AssetBundleBuildAssetListDrawer(serializedObject.FindProperty("m_assetBundles"), m_propertyOutputPath);
-            m_listAssetBundles.Drawer.DisplayTitlebar = true;
+
+            m_listAssetBundles = new AssetBundleBuildAssetListDrawer(serializedObject.FindProperty("m_assetBundles"), m_propertyOutputPath)
+            {
+                Drawer =
+                {
+                    DisplayTitlebar = true
+                }
+            };
 
             m_listAssetBundles.Enable();
         }
@@ -39,10 +44,7 @@ namespace UGF.Module.AssetBundles.Editor
 
             using (new SerializedObjectUpdateScope(serializedObject))
             {
-                using (new EditorGUI.DisabledScope(true))
-                {
-                    EditorGUILayout.PropertyField(m_propertyScript);
-                }
+                EditorIMGUIUtility.DrawScriptProperty(serializedObject);
 
                 EditorGUILayout.PropertyField(m_propertyOutputPath);
                 EditorGUILayout.PropertyField(m_propertyOptions);

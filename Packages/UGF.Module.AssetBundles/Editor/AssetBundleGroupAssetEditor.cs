@@ -8,14 +8,12 @@ namespace UGF.Module.AssetBundles.Editor
     [CustomEditor(typeof(AssetBundleGroupAsset), true)]
     internal class AssetBundleGroupAssetEditor : UnityEditor.Editor
     {
-        private SerializedProperty m_propertyScript;
         private SerializedProperty m_propertyLoader;
         private SerializedProperty m_propertyAssetBundle;
         private ReorderableListDrawer m_listAssets;
 
         private void OnEnable()
         {
-            m_propertyScript = serializedObject.FindProperty("m_Script");
             m_propertyLoader = serializedObject.FindProperty("m_loader");
             m_propertyAssetBundle = serializedObject.FindProperty("m_assetBundle");
             m_listAssets = new ReorderableListDrawer(serializedObject.FindProperty("m_assets"));
@@ -32,10 +30,7 @@ namespace UGF.Module.AssetBundles.Editor
         {
             using (new SerializedObjectUpdateScope(serializedObject))
             {
-                using (new EditorGUI.DisabledScope(true))
-                {
-                    EditorGUILayout.PropertyField(m_propertyScript);
-                }
+                EditorIMGUIUtility.DrawScriptProperty(serializedObject);
 
                 EditorGUILayout.PropertyField(m_propertyLoader);
                 EditorGUILayout.PropertyField(m_propertyAssetBundle);
