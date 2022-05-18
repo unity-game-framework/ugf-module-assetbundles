@@ -120,8 +120,8 @@ namespace UGF.Module.AssetBundles.Editor
             var asset = (AssetBundleBuildAsset)target;
 
             AssetBundleBuildEditorUtility.Build(asset);
-            AssetDatabase.SaveAssets();
-            AssetDatabase.ImportAsset(asset.OutputPath);
+
+            AssetDatabase.Refresh();
             Selection.activeObject = target;
         }
 
