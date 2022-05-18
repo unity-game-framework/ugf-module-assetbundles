@@ -38,6 +38,11 @@ namespace UGF.Module.AssetBundles.Editor
             {
                 UpdateDependencies(buildAsset, manifest);
             }
+
+            if (buildAsset.ClearManifests)
+            {
+                ClearManifests(buildAsset.OutputPath);
+            }
         }
 
         public static void UpdateCrc(AssetBundleBuildAsset buildAsset)
@@ -150,6 +155,25 @@ namespace UGF.Module.AssetBundles.Editor
                     }
                 }
             }
+        }
+
+        public static bool ClearManifests(string path)
+        {
+            if (string.IsNullOrEmpty(path)) throw new ArgumentException("Value cannot be null or empty.", nameof(path));
+
+            if (AssetBundleBuildUtility.DeleteManifestFiles(path))
+            {
+                string mainManifestPath = Path.Combine(path, Path.GetFileNameWithoutExtension(path));
+
+                if (File.Exists(mainManifestPath))
+                {
+                    File.Delete(mainManifestPath);
+                }
+
+                return true;
+            }
+
+            return false;
         }
     }
 }

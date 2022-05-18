@@ -13,6 +13,7 @@ namespace UGF.Module.AssetBundles.Editor
         private SerializedProperty m_propertyOptions;
         private SerializedProperty m_propertyUpdateCrc;
         private SerializedProperty m_propertyUpdateDependencies;
+        private SerializedProperty m_propertyClearManifests;
         private AssetBundleBuildAssetListDrawer m_listAssetBundles;
 
         private void OnEnable()
@@ -21,6 +22,7 @@ namespace UGF.Module.AssetBundles.Editor
             m_propertyOptions = serializedObject.FindProperty("m_options");
             m_propertyUpdateCrc = serializedObject.FindProperty("m_updateCrc");
             m_propertyUpdateDependencies = serializedObject.FindProperty("m_updateDependencies");
+            m_propertyClearManifests = serializedObject.FindProperty("m_clearManifests");
 
             m_listAssetBundles = new AssetBundleBuildAssetListDrawer(serializedObject.FindProperty("m_assetBundles"), m_propertyOutputPath)
             {
@@ -50,6 +52,7 @@ namespace UGF.Module.AssetBundles.Editor
                 EditorGUILayout.PropertyField(m_propertyOptions);
                 EditorGUILayout.PropertyField(m_propertyUpdateCrc);
                 EditorGUILayout.PropertyField(m_propertyUpdateDependencies);
+                EditorGUILayout.PropertyField(m_propertyClearManifests);
 
                 m_listAssetBundles.DrawGUILayout();
 
@@ -118,6 +121,7 @@ namespace UGF.Module.AssetBundles.Editor
 
             AssetBundleBuildEditorUtility.Build(asset);
             AssetDatabase.SaveAssets();
+            AssetDatabase.ImportAsset(asset.OutputPath);
             Selection.activeObject = target;
         }
 
