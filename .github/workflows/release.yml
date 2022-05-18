@@ -69,6 +69,10 @@ jobs:
               input: ${{ env.packagePath }}
               path: version
               value: ${{ env.version }}
+    - name: Milestone
+      uses: unity-game-framework-actions/milestone-release@master
+      with:
+        release: ${{ env.version }}
     - name: Readme
       uses: unity-game-framework-actions/package-readme@master
       with:
