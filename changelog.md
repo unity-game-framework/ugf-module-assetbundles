@@ -5,6 +5,31 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.0](https://github.com/unity-game-framework/ugf-module-assetbundles/releases/tag/1.0.0) - 2022-05-18  
+
+### Release Notes
+
+- [Milestone](https://github.com/unity-game-framework/ugf-module-assetbundles/milestone/9?closed=1)  
+    
+
+### Added
+
+- Add option to delete manifest files after build ([#27](https://github.com/unity-game-framework/ugf-module-assetbundles/issues/27))  
+    - Update dependencies: `com.ugf.assetbundles` to `1.0.0` version.
+    - Add `AssetBundleBuildAsset.ClearManifests` property as option to clear manifest files after _AssetBundle_ build.
+
+### Fixed
+
+- Fix asset bundle asset loader does not using type ([#26](https://github.com/unity-game-framework/ugf-module-assetbundles/issues/26))  
+    - Update dependencies: `com.ugf.application` to `8.1.0`,  `com.ugf.module.assets` to `4.0.0` and `com.ugf.assetbundles` to `1.0.0-preview.2`.
+    - Update package _Unity_ version to `2021.3`.
+    - Update package _API Compatibility_ level to `.NET Standard 2.1`.
+    - Change `AssetBundleAssetLoader` class to use specified type argument to load asset.
+    - Change `AssetBundleAssetLoader` class to throw exceptions when no asset loaded.
+    - Change `AssetBundleFileLoader` class to throw exceptions when no asset bundle loaded.
+    - Change inspector editor to use latest updates, and selection preview for some collections.
+    - Remove `AssetBundleLoader` class as duplicated, use `AssetBundleFileLoader` class instead.
+
 ## [1.0.0-preview.7](https://github.com/unity-game-framework/ugf-module-assetbundles/releases/tag/1.0.0-preview.7) - 2021-08-07  
 
 ### Release Notes
