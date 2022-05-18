@@ -15,13 +15,13 @@
       "url": "https://unitygameframework.jfrog.io/artifactory/api/npm/default"
     },
     "com.ugf.assetbundles": {
-      "version": "1.0.0-preview.2",
+      "version": "1.0.0",
       "depth": 1,
       "source": "registry",
       "dependencies": {
         "com.unity.modules.assetbundle": "1.0.0",
-        "com.ugf.editortools": "1.12.0",
-        "com.ugf.runtimetools": "2.3.0"
+        "com.ugf.editortools": "2.5.0",
+        "com.ugf.runtimetools": "2.7.0"
       },
       "url": "https://unitygameframework.jfrog.io/artifactory/api/npm/default"
     },
@@ -92,7 +92,7 @@
       "dependencies": {
         "com.ugf.application": "8.1.0",
         "com.ugf.module.assets": "4.0.0",
-        "com.ugf.assetbundles": "1.0.0-preview.2"
+        "com.ugf.assetbundles": "1.0.0"
       }
     },
     "com.ugf.module.assets": {
