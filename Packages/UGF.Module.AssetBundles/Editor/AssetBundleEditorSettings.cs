@@ -11,6 +11,20 @@ namespace UGF.Module.AssetBundles.Editor
             "AssetBundleEditorSettings"
         );
 
+        public static void BuildAll()
+        {
+            AssetBundleEditorSettingsData data = Settings.GetData();
+
+            AssetBundleBuildEditorUtility.BuildAll(data.Builds);
+        }
+
+        public static void ClearAll()
+        {
+            AssetBundleEditorSettingsData data = Settings.GetData();
+
+            AssetBundleBuildEditorUtility.ClearAll(data.Builds);
+        }
+
         [SettingsProvider]
         private static SettingsProvider GetProvider()
         {
