@@ -6,12 +6,21 @@ using UGF.AssetBundles.Editor;
 using UGF.Module.AssetBundles.Runtime;
 using UnityEditor;
 using UnityEngine;
-using Directory = UnityEngine.Windows.Directory;
 
 namespace UGF.Module.AssetBundles.Editor
 {
     public static class AssetBundleBuildEditorUtility
     {
+        public static void BuildAll(IReadOnlyList<AssetBundleBuildAsset> builds)
+        {
+            if (builds == null) throw new ArgumentNullException(nameof(builds));
+
+            for (int i = 0; i < builds.Count; i++)
+            {
+                Build(builds[i]);
+            }
+        }
+
         public static void Build(AssetBundleBuildAsset buildAsset)
         {
             Build(buildAsset, EditorUserBuildSettings.activeBuildTarget);
@@ -154,6 +163,34 @@ namespace UGF.Module.AssetBundles.Editor
                         list.Add(assetGuid);
                     }
                 }
+            }
+        }
+
+        public static void ClearAll(IReadOnlyList<AssetBundleBuildAsset> builds)
+        {
+            if (builds == null) throw new ArgumentNullException(nameof(builds));
+
+            for (int i = 0; i < builds.Count; i++)
+            {
+                Clear(builds[i]);
+            }
+        }
+
+        public static void Clear(AssetBundleBuildAsset buildAsset)
+        {
+            if (buildAsset == null) throw new ArgumentNullException(nameof(buildAsset));
+
+            string outputPath = buildAsset.OutputPath;
+            string metaPath = $"{outputPath}.meta";
+
+            if (Directory.Exists(outputPath))
+            {
+                Directory.Delete(outputPath, true);
+            }
+
+            if (File.Exists(metaPath))
+            {
+                File.Delete(metaPath);
             }
         }
 
