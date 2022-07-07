@@ -55,27 +55,27 @@ namespace UGF.Module.AssetBundles.Editor
                 EditorGUILayout.PropertyField(m_propertyClearManifests);
 
                 m_listAssetBundles.DrawGUILayout();
+            }
 
-                EditorGUILayout.Space();
+            EditorGUILayout.Space();
 
-                using (new EditorGUILayout.HorizontalScope())
+            using (new EditorGUILayout.HorizontalScope())
+            {
+                GUILayout.FlexibleSpace();
+
+                using (new EditorGUI.DisabledScope(!Directory.Exists(m_propertyOutputPath.stringValue)))
                 {
-                    GUILayout.FlexibleSpace();
-
-                    using (new EditorGUI.DisabledScope(!Directory.Exists(m_propertyOutputPath.stringValue)))
+                    if (GUILayout.Button("Clear", GUILayout.Width(75F)))
                     {
-                        if (GUILayout.Button("Clear", GUILayout.Width(75F)))
-                        {
-                            OnClear();
-                        }
+                        OnClear();
                     }
+                }
 
-                    using (new EditorGUI.DisabledScope(EditorApplication.isPlayingOrWillChangePlaymode))
+                using (new EditorGUI.DisabledScope(EditorApplication.isPlayingOrWillChangePlaymode))
+                {
+                    if (GUILayout.Button("Build", GUILayout.Width(75F)))
                     {
-                        if (GUILayout.Button("Build", GUILayout.Width(75F)))
-                        {
-                            build = true;
-                        }
+                        build = true;
                     }
                 }
             }
