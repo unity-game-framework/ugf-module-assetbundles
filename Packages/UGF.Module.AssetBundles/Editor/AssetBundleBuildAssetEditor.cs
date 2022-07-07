@@ -120,7 +120,6 @@ namespace UGF.Module.AssetBundles.Editor
             var asset = (AssetBundleBuildAsset)target;
 
             AssetBundleBuildEditorUtility.Build(asset);
-
             AssetDatabase.Refresh();
             Selection.activeObject = target;
         }
@@ -130,19 +129,8 @@ namespace UGF.Module.AssetBundles.Editor
             m_listAssetBundles.ClearSelection();
 
             var asset = (AssetBundleBuildAsset)target;
-            string outputPath = asset.OutputPath;
-            string metaPath = $"{outputPath}.meta";
 
-            if (Directory.Exists(outputPath))
-            {
-                Directory.Delete(outputPath, true);
-            }
-
-            if (File.Exists(metaPath))
-            {
-                File.Delete(metaPath);
-            }
-
+            AssetBundleBuildEditorUtility.Clear(asset);
             AssetDatabase.Refresh();
         }
     }
