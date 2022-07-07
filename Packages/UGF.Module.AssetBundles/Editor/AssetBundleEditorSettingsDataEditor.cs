@@ -70,10 +70,22 @@ namespace UGF.Module.AssetBundles.Editor
 
         private void OnClear()
         {
+            m_listBuildsSelection.Drawer.Clear();
+
+            var asset = (AssetBundleEditorSettingsData)target;
+
+            AssetBundleBuildEditorUtility.ClearAll(asset.Builds);
+            AssetDatabase.Refresh();
         }
 
         private void OnBuild()
         {
+            m_listBuildsSelection.Drawer.Clear();
+
+            var asset = (AssetBundleEditorSettingsData)target;
+
+            AssetBundleBuildEditorUtility.BuildAll(asset.Builds);
+            AssetDatabase.Refresh();
         }
     }
 }
