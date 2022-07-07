@@ -5,6 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.0](https://github.com/unity-game-framework/ugf-module-assetbundles/releases/tag/1.1.0) - 2022-07-07  
+
+### Release Notes
+
+- [Milestone](https://github.com/unity-game-framework/ugf-module-assetbundles/milestone/10?closed=1)  
+    
+
+### Added
+
+- Add building all bundles from project settings ([#30](https://github.com/unity-game-framework/ugf-module-assetbundles/issues/30))  
+    - Update dependencies: `com.ugf.application` to `8.2.0` version.
+    - Add `AssetBundleEditorSettings` static class to access _Asset Bundles_ project settings.
+    - Add `AssetBundleEditorSettings.BuildAll()` and `ClearAll()` methods to build and clear list of the specified asset bundles from project settings.
+    - Add `AssetBundleBuildEditorUtility.BuildAll()` and `ClearAll()` methods to build and clear list of the specified asset bundles.
+    - Add `AssetBundleBuildEditorUtility.Clear()` method to clear specified asset bundle.
+
 ## [1.0.0](https://github.com/unity-game-framework/ugf-module-assetbundles/releases/tag/1.0.0) - 2022-05-18  
 
 ### Release Notes
@@ -29,18 +45,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - Change `AssetBundleFileLoader` class to throw exceptions when no asset bundle loaded.
     - Change inspector editor to use latest updates, and selection preview for some collections.
     - Remove `AssetBundleLoader` class as duplicated, use `AssetBundleFileLoader` class instead.
-
-## [1.0.0-preview.7](https://github.com/unity-game-framework/ugf-module-assetbundles/releases/tag/1.0.0-preview.7) - 2021-08-07  
-
-### Release Notes
-
-- [Milestone](https://github.com/unity-game-framework/ugf-module-assetbundles/milestone/8?closed=1)  
-    
-
-### Changed
-
-- Update package UGF.AssetBundles ([#24](https://github.com/unity-game-framework/ugf-module-assetbundles/pull/24))  
-    - Update dependencies: `com.ugf.assetbundles` to `1.0.0-preview.1` version.
 
 ## [1.0.0-preview.6](https://github.com/unity-game-framework/ugf-module-assetbundles/releases/tag/1.0.0-preview.6) - 2021-08-06  
 
@@ -130,23 +134,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - Add `AssetBundleLoader`, `AssetBundleAssetLoader` and `AssetBundleFileLoader` constructor with default load and unload parameters.
     - Add `AssetBundleAssetLoaderAsset` and `AssetBundleFileLoaderAsset` serializable load and unload parameters.
     - Change `AssetBundleLoadParameters`, `AssetBundleUnloadParameters`, `AssetBundleAssetLoadParameters` and `AssetBundleAssetUnloadParameters` parameter classes to be serializable.
-
-## [1.0.0-preview](https://github.com/unity-game-framework/ugf-module-assetbundles/releases/tag/1.0.0-preview) - 2021-06-07  
-
-### Release Notes
-
-- [Milestone](https://github.com/unity-game-framework/ugf-module-assetbundles/milestone/1?closed=1)  
-    
-
-### Added
-
-- Add asset bundle file viewer ([#7](https://github.com/unity-game-framework/ugf-module-assetbundles/issues/7))  
-    - Viewer to display internal asset bundle information.
-    - Tools to load and work with asset bundle file information.
-- Add editor asset bundle building tools ([#4](https://github.com/unity-game-framework/ugf-module-assetbundles/issues/4))  
-    - Add asset bundle building tools in editor.
-    - Build asset bundles with regular dependencies.
-- Create package ([#2](https://github.com/unity-game-framework/ugf-module-assetbundles/pull/2))  
-    - Create AssetBundleModue and related classes.
 
 
