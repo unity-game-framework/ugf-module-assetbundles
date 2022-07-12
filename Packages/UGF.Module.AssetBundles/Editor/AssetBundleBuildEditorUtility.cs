@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using UGF.AssetBundles.Editor;
+using UGF.EditorTools.Runtime.Ids;
 using UGF.Module.AssetBundles.Runtime;
 using UnityEditor;
 using UnityEngine;
@@ -87,7 +88,11 @@ namespace UGF.Module.AssetBundles.Editor
                 string[] dependencies = manifest.GetDirectDependencies(guid);
 
                 asset.Dependencies.Clear();
-                asset.Dependencies.AddRange(dependencies);
+
+                foreach (string dependency in dependencies)
+                {
+                    asset.Dependencies.Add(new GlobalId(dependency));
+                }
 
                 EditorUtility.SetDirty(asset);
             }
@@ -147,7 +152,7 @@ namespace UGF.Module.AssetBundles.Editor
             {
                 string path = AssetDatabase.GUIDToAssetPath(guid);
                 var asset = AssetDatabase.LoadAssetAtPath<AssetBundleGroupAsset>(path);
-                string assetBundle = asset.AssetBundle;
+                string assetBundle = asset.AssetBundle.ToString();
 
                 if (assetBundles.Contains(assetBundle))
                 {
@@ -158,9 +163,9 @@ namespace UGF.Module.AssetBundles.Editor
                         groups.Add(assetBundle, list);
                     }
 
-                    foreach (string assetGuid in asset.Assets)
+                    foreach (GlobalId assetGuid in asset.Assets)
                     {
-                        list.Add(assetGuid);
+                        list.Add(assetGuid.ToString());
                     }
                 }
             }
