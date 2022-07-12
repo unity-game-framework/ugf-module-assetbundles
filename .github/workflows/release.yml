@@ -108,14 +108,14 @@ jobs:
         git commit -m "Setup release ${{ env.version }}"
         git push
     - name: Create
-      uses: actions/create-release@v1
-      with:
-        tag_name: ${{ env.version }}
-        release_name: ${{ env.version }}
-        commitish: ${{ env.branch }}
-        prerelease: ${{ contains(env.version, '-preview') }}
-        body: |
-          ${{ steps.notes.outputs.result }}
+      run: |
+        prerelease=""
+
+        if [ "${{ contains(env.version, '-preview') }}" = "true" ]; then
+          prerelease="-p"
+        fi
+
+        gh release create ${{ env.version }} -t ${{ env.version }} -F notes.md $prerelease
     - name: Publish
       run: |
         registry=${{ steps.package.outputs.registry }}
