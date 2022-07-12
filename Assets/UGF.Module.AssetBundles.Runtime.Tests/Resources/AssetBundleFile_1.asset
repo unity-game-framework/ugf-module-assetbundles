@@ -12,8 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 836de821a38c42538dd694fe94d29aa6, type: 3}
   m_Name: AssetBundleFile_1
   m_EditorClassIdentifier: 
-  m_loader: db0646586f5396b4990c9d6033e05b38
-  m_crc: 2855205292
+  m_loader:
+    m_first: 10859427007444698712
+    m_second: 4061086000273493145
+  m_crc: 4275128367
   m_dependencies: []
-  m_storage: 33e3aee69b67a7b42b240d0f42a3f66b
+  m_storage:
+    m_first: 12084454567696379622
+    m_second: 7779584910444799019
   m_offset: 0
