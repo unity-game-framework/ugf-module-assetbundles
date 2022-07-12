@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using UGF.Application.Runtime;
+using UGF.EditorTools.Runtime.Ids;
 using UGF.Module.Assets.Runtime;
 using UGF.RuntimeTools.Runtime.Contexts;
 using UnityEngine;
@@ -18,7 +19,7 @@ namespace UGF.Module.AssetBundles.Runtime
         {
         }
 
-        protected override object OnLoad(AssetBundleAssetInfo info, string id, Type type, AssetBundleAssetLoadParameters parameters, IContext context)
+        protected override object OnLoad(AssetBundleAssetInfo info, GlobalId id, Type type, AssetBundleAssetLoadParameters parameters, IContext context)
         {
             var application = context.Get<IApplication>();
             var assetModule = application.GetModule<IAssetModule>();
@@ -29,7 +30,7 @@ namespace UGF.Module.AssetBundles.Runtime
             return asset ? asset : throw new NullReferenceException($"AssetBundle load result is null by the specified arguments: id:'{id}', type:'{type}'.");
         }
 
-        protected override async Task<object> OnLoadAsync(AssetBundleAssetInfo info, string id, Type type, AssetBundleAssetLoadParameters parameters, IContext context)
+        protected override async Task<object> OnLoadAsync(AssetBundleAssetInfo info, GlobalId id, Type type, AssetBundleAssetLoadParameters parameters, IContext context)
         {
             var application = context.Get<IApplication>();
             var assetModule = application.GetModule<IAssetModule>();
@@ -47,7 +48,7 @@ namespace UGF.Module.AssetBundles.Runtime
             return asset ? asset : throw new NullReferenceException($"AssetBundle load result is null by the specified arguments: id:'{id}', type:'{type}'.");
         }
 
-        protected override void OnUnload(AssetBundleAssetInfo info, string id, object asset, AssetBundleAssetUnloadParameters parameters, IContext context)
+        protected override void OnUnload(AssetBundleAssetInfo info, GlobalId id, object asset, AssetBundleAssetUnloadParameters parameters, IContext context)
         {
             var application = context.Get<IApplication>();
             var assetModule = application.GetModule<IAssetModule>();
@@ -57,7 +58,7 @@ namespace UGF.Module.AssetBundles.Runtime
             assetModule.Unload(info.AssetBundleId, assetBundle, parameters.AssetBundleUnloadParameters);
         }
 
-        protected override async Task OnUnloadAsync(AssetBundleAssetInfo info, string id, object asset, AssetBundleAssetUnloadParameters parameters, IContext context)
+        protected override async Task OnUnloadAsync(AssetBundleAssetInfo info, GlobalId id, object asset, AssetBundleAssetUnloadParameters parameters, IContext context)
         {
             var application = context.Get<IApplication>();
             var assetModule = application.GetModule<IAssetModule>();

@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using UGF.Application.Runtime;
 using UGF.Builder.Runtime;
+using UGF.EditorTools.Runtime.Ids;
 using UGF.Logs.Runtime;
 using UGF.Module.Assets.Runtime;
 using UGF.RuntimeTools.Runtime.Providers;
@@ -10,14 +10,14 @@ namespace UGF.Module.AssetBundles.Runtime
 {
     public class AssetBundleModule : ApplicationModule<AssetBundleModuleDescription>
     {
-        public IProvider<string, IAssetBundleStorage> Storages { get; }
+        public IProvider<GlobalId, IAssetBundleStorage> Storages { get; }
         public IAssetModule AssetModule { get; }
 
-        public AssetBundleModule(AssetBundleModuleDescription description, IApplication application, IAssetModule assetModule) : this(description, application, new Provider<string, IAssetBundleStorage>(), assetModule)
+        public AssetBundleModule(AssetBundleModuleDescription description, IApplication application, IAssetModule assetModule) : this(description, application, new Provider<GlobalId, IAssetBundleStorage>(), assetModule)
         {
         }
 
-        public AssetBundleModule(AssetBundleModuleDescription description, IApplication application, IProvider<string, IAssetBundleStorage> storages, IAssetModule assetModule) : base(description, application)
+        public AssetBundleModule(AssetBundleModuleDescription description, IApplication application, IProvider<GlobalId, IAssetBundleStorage> storages, IAssetModule assetModule) : base(description, application)
         {
             Storages = storages ?? throw new ArgumentNullException(nameof(storages));
             AssetModule = assetModule ?? throw new ArgumentNullException(nameof(assetModule));
@@ -33,18 +33,18 @@ namespace UGF.Module.AssetBundles.Runtime
                 bundles = Description.AssetBundles.Count
             });
 
-            foreach (KeyValuePair<string, IBuilder<IAssetBundleStorage>> pair in Description.Storages)
+            foreach ((GlobalId key, IBuilder<IAssetBundleStorage> value) in Description.Storages)
             {
-                IAssetBundleStorage storage = pair.Value.Build();
+                IAssetBundleStorage storage = value.Build();
 
-                Storages.Add(pair.Key, storage);
+                Storages.Add(key, storage);
             }
 
-            foreach (KeyValuePair<string, IBuilder<IAssetBundleInfo>> pair in Description.AssetBundles)
+            foreach ((GlobalId key, IBuilder<IAssetBundleInfo> value) in Description.AssetBundles)
             {
-                IAssetBundleInfo info = pair.Value.Build();
+                IAssetBundleInfo info = value.Build();
 
-                AssetModule.Assets.Add(pair.Key, info);
+                AssetModule.Assets.Add(key, info);
             }
         }
 
@@ -58,17 +58,17 @@ namespace UGF.Module.AssetBundles.Runtime
                 bundles = Description.AssetBundles.Count
             });
 
-            foreach (KeyValuePair<string, IBuilder<IAssetBundleInfo>> pair in Description.AssetBundles)
+            foreach ((GlobalId key, _) in Description.AssetBundles)
             {
-                if (AssetModule.Tracker.TryGet(pair.Key, out AssetTrack track))
+                if (AssetModule.Tracker.TryGet(key, out AssetTrack track))
                 {
-                    AssetModule.Unload(pair.Key, track.Asset);
+                    AssetModule.Unload(key, track.Asset);
                 }
             }
 
-            foreach (KeyValuePair<string, IBuilder<IAssetBundleInfo>> pair in Description.AssetBundles)
+            foreach ((GlobalId key, _) in Description.AssetBundles)
             {
-                AssetModule.Assets.Remove(pair.Key);
+                AssetModule.Assets.Remove(key);
             }
 
             Storages.Clear();

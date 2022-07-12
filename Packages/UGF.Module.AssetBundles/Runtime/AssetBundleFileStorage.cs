@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using UGF.EditorTools.Runtime.Ids;
 using UGF.Module.Assets.Runtime;
 using UGF.RuntimeTools.Runtime.Contexts;
 
@@ -16,11 +17,11 @@ namespace UGF.Module.AssetBundles.Runtime
             DirectoryPath = directoryPath;
         }
 
-        protected override string OnGetAddress(AssetBundleFileInfo info, string id, Type type, IAssetLoadParameters parameters, IContext context)
+        protected override string OnGetAddress(AssetBundleFileInfo info, GlobalId id, Type type, IAssetLoadParameters parameters, IContext context)
         {
             string path = DirectoryPath;
 
-            path = Path.Combine(path, id);
+            path = Path.Combine(path, id.ToString());
 
             return path;
         }
