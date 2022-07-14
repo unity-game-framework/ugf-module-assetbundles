@@ -1,15 +1,16 @@
 ﻿using System;
+using UGF.EditorTools.Runtime.Ids;
 using UGF.Module.Assets.Runtime;
 
 namespace UGF.Module.AssetBundles.Runtime
 {
     public class AssetBundleAssetInfo : AssetInfo
     {
-        public string AssetBundleId { get; }
+        public GlobalId AssetBundleId { get; }
 
-        public AssetBundleAssetInfo(string loaderId, string address, string assetBundleId) : base(loaderId, address)
+        public AssetBundleAssetInfo(GlobalId loaderId, string address, GlobalId assetBundleId) : base(loaderId, address)
         {
-            if (string.IsNullOrEmpty(assetBundleId)) throw new ArgumentException("Value cannot be null or empty.", nameof(assetBundleId));
+            if (!assetBundleId.IsValid()) throw new ArgumentException("Value should be valid.", nameof(assetBundleId));
 
             AssetBundleId = assetBundleId;
         }

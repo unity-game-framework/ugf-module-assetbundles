@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using UGF.Application.Runtime;
 using UGF.Builder.Runtime;
+using UGF.EditorTools.Runtime.Ids;
 
 namespace UGF.Module.AssetBundles.Runtime
 {
     public class AssetBundleModuleDescription : ApplicationModuleDescription
     {
-        public Dictionary<string, IBuilder<IAssetBundleStorage>> Storages { get; } = new Dictionary<string, IBuilder<IAssetBundleStorage>>();
-        public Dictionary<string, IBuilder<IAssetBundleInfo>> AssetBundles { get; } = new Dictionary<string, IBuilder<IAssetBundleInfo>>();
+        public Dictionary<GlobalId, IBuilder<IAssetBundleStorage>> Storages { get; } = new Dictionary<GlobalId, IBuilder<IAssetBundleStorage>>();
+        public Dictionary<GlobalId, IBuilder<IAssetBundleInfo>> AssetBundles { get; } = new Dictionary<GlobalId, IBuilder<IAssetBundleInfo>>();
     }
 }

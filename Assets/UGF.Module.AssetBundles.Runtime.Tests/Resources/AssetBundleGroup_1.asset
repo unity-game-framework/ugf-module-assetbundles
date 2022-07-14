@@ -12,8 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa61b4c7b4cc496393b06e456a5656e9, type: 3}
   m_Name: AssetBundleGroup_1
   m_EditorClassIdentifier: 
-  m_loader: 69bb1c14a5444c048af9ed48011ba3cb
-  m_assetBundle: 2dd0fbb7c34dc8f46941c1e243676f42
+  m_loader:
+    m_first: 5477684760039595028
+    m_second: 14673601703235680650
+  m_assetBundle:
+    m_first: 14480413438151556023
+    m_second: 4787158470182912361
   m_assets:
-  - cb5ab67ec562f6a45882416d2d613c27
-  - a5a26b8477c16534a9f71b4bfe969d32
+  - m_first: 7292585370210954116
+    m_second: 3647237292165953449
+  - m_first: 13494031186277462458
+    m_second: 15456526855546169145

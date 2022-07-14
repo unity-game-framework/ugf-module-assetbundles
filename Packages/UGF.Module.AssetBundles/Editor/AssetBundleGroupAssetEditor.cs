@@ -16,7 +16,11 @@ namespace UGF.Module.AssetBundles.Editor
         {
             m_propertyLoader = serializedObject.FindProperty("m_loader");
             m_propertyAssetBundle = serializedObject.FindProperty("m_assetBundle");
-            m_listAssets = new ReorderableListDrawer(serializedObject.FindProperty("m_assets"));
+
+            m_listAssets = new ReorderableListDrawer(serializedObject.FindProperty("m_assets"))
+            {
+                DisplayAsSingleLine = true
+            };
 
             m_listAssets.Enable();
         }

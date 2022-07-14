@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
+using UGF.EditorTools.Runtime.Ids;
 using UGF.Module.Assets.Runtime;
 
 namespace UGF.Module.AssetBundles.Runtime
 {
     public class AssetBundleInfo : AssetInfo, IAssetBundleInfo
     {
-        public List<string> Dependencies { get; } = new List<string>();
+        public List<GlobalId> Dependencies { get; } = new List<GlobalId>();
 
-        public AssetBundleInfo(string loaderId, string address) : base(loaderId, address)
+        public AssetBundleInfo(GlobalId loaderId, string address) : base(loaderId, address)
         {
         }
     }

@@ -2,7 +2,7 @@
   "name": "com.ugf.module.assetbundles",
   "displayName": "UGF.Module.AssetBundles",
   "version": "1.1.0",
-  "unity": "2021.3",
+  "unity": "2022.1",
   "apiCompatibility": ".NET Standard 2.1",
   "description": "Module to manage AssetBundles loading.",
   "author": {
@@ -19,8 +19,8 @@
     "registry": "https://unitygameframework.jfrog.io/artifactory/api/npm/default"
   },
   "dependencies": {
-    "com.ugf.application": "8.2.0",
-    "com.ugf.module.assets": "4.0.0",
+    "com.ugf.application": "8.3.0",
+    "com.ugf.module.assets": "5.0.0-preview",
     "com.ugf.assetbundles": "1.0.0"
   }
 }

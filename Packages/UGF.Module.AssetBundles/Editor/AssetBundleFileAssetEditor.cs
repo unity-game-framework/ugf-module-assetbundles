@@ -20,7 +20,11 @@ namespace UGF.Module.AssetBundles.Editor
             m_propertyStorage = serializedObject.FindProperty("m_storage");
             m_propertyCrc = serializedObject.FindProperty("m_crc");
             m_propertyOffset = serializedObject.FindProperty("m_offset");
-            m_listDependencies = new ReorderableListDrawer(serializedObject.FindProperty("m_dependencies"));
+
+            m_listDependencies = new ReorderableListDrawer(serializedObject.FindProperty("m_dependencies"))
+            {
+                DisplayAsSingleLine = true
+            };
 
             m_listDependencies.Enable();
         }
