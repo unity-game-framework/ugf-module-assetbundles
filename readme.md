@@ -4,14 +4,14 @@ UGF.Module.AssetBundles
 
 ## Information
 
-- **Version**: `1.1.0`
-- **Unity**: `2021.3`
+- **Version**: `2.0.0-preview`
+- **Unity**: `2022.1`
 - **API Compatibility Level**: `.NET Standard 2.1`
 
 ### Dependencies
 
-- `com.ugf.application`: `8.2.0`
-- `com.ugf.module.assets`: `4.0.0`
+- `com.ugf.application`: `8.3.0`
+- `com.ugf.module.assets`: `5.0.0-preview`
 - `com.ugf.assetbundles`: `1.0.0`
 
 
