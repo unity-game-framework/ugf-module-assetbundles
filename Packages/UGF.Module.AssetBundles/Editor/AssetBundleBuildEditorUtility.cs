@@ -103,17 +103,17 @@ namespace UGF.Module.AssetBundles.Editor
             if (assetBundleBuilds == null) throw new ArgumentNullException(nameof(assetBundleBuilds));
             if (buildAsset == null) throw new ArgumentNullException(nameof(buildAsset));
 
-            var groups = new Dictionary<string, IList<string>>();
+            var groups = new Dictionary<GlobalId, IList<GlobalId>>();
 
             GetGroupsAll(groups, buildAsset);
 
-            foreach (KeyValuePair<string, IList<string>> pair in groups)
+            foreach (KeyValuePair<GlobalId, IList<GlobalId>> pair in groups)
             {
-                var build = new AssetBundleBuildInfo(pair.Key);
+                var build = new AssetBundleBuildInfo(pair.Key.ToString());
 
                 for (int i = 0; i < pair.Value.Count; i++)
                 {
-                    string guid = pair.Value[i];
+                    string guid = pair.Value[i].ToString();
                     string path = AssetDatabase.GUIDToAssetPath(guid);
 
                     build.AddAsset(guid, path);
@@ -123,25 +123,25 @@ namespace UGF.Module.AssetBundles.Editor
             }
         }
 
-        public static void GetGroupsAll(IDictionary<string, IList<string>> groups, AssetBundleBuildAsset buildAsset)
+        public static void GetGroupsAll(IDictionary<GlobalId, IList<GlobalId>> groups, AssetBundleBuildAsset buildAsset)
         {
             if (groups == null) throw new ArgumentNullException(nameof(groups));
             if (buildAsset == null) throw new ArgumentNullException(nameof(buildAsset));
 
-            var assetBundles = new List<string>();
+            var assetBundles = new List<GlobalId>();
 
             for (int i = 0; i < buildAsset.AssetBundles.Count; i++)
             {
                 AssetBundleAsset asset = buildAsset.AssetBundles[i];
                 string guid = AssetDatabase.AssetPathToGUID(AssetDatabase.GetAssetPath(asset));
 
-                assetBundles.Add(guid);
+                assetBundles.Add(new GlobalId(guid));
             }
 
             GetGroupsAll(groups, assetBundles);
         }
 
-        public static void GetGroupsAll(IDictionary<string, IList<string>> groups, IReadOnlyList<string> assetBundles)
+        public static void GetGroupsAll(IDictionary<GlobalId, IList<GlobalId>> groups, IReadOnlyList<GlobalId> assetBundles)
         {
             if (groups == null) throw new ArgumentNullException(nameof(groups));
             if (assetBundles == null) throw new ArgumentNullException(nameof(assetBundles));
@@ -152,20 +152,20 @@ namespace UGF.Module.AssetBundles.Editor
             {
                 string path = AssetDatabase.GUIDToAssetPath(guid);
                 var asset = AssetDatabase.LoadAssetAtPath<AssetBundleGroupAsset>(path);
-                string assetBundle = asset.AssetBundle.ToString();
+                GlobalId assetBundleId = asset.AssetBundle;
 
-                if (assetBundles.Contains(assetBundle))
+                if (assetBundles.Contains(assetBundleId))
                 {
-                    if (!groups.TryGetValue(assetBundle, out IList<string> list))
+                    if (!groups.TryGetValue(assetBundleId, out IList<GlobalId> list))
                     {
-                        list = new List<string>();
+                        list = new List<GlobalId>();
 
-                        groups.Add(assetBundle, list);
+                        groups.Add(assetBundleId, list);
                     }
 
                     foreach (GlobalId assetGuid in asset.Assets)
                     {
-                        list.Add(assetGuid.ToString());
+                        list.Add(assetGuid);
                     }
                 }
             }
