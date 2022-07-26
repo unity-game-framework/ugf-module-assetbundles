@@ -30,5 +30,16 @@ namespace UGF.Module.AssetBundles.Editor
         {
             return new CustomSettingsProvider<AssetBundleEditorSettingsData>("Project/Unity Game Framework/Asset Bundles", Settings, SettingsScope.Project);
         }
+
+        [InitializeOnEnterPlayMode]
+        private static void OnEnterPlayMode()
+        {
+            AssetBundleEditorSettingsData data = Settings.GetData();
+
+            if (data.BuildBeforeEnterPlayMode)
+            {
+                BuildAll();
+            }
+        }
     }
 }
