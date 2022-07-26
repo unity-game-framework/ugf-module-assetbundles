@@ -32,7 +32,7 @@ namespace UGF.Module.AssetBundles.Editor
         }
 
         [InitializeOnEnterPlayMode]
-        private static void On()
+        private static void OnEnterPlayMode()
         {
             AssetBundleEditorSettingsData data = Settings.GetData();
 
