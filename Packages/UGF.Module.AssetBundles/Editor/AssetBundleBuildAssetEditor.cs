@@ -11,6 +11,7 @@ namespace UGF.Module.AssetBundles.Editor
     {
         private SerializedProperty m_propertyOutputPath;
         private SerializedProperty m_propertyOptions;
+        private SerializedProperty m_propertyIncludeDependencies;
         private SerializedProperty m_propertyUpdateCrc;
         private SerializedProperty m_propertyUpdateDependencies;
         private SerializedProperty m_propertyClearManifests;
@@ -20,6 +21,7 @@ namespace UGF.Module.AssetBundles.Editor
         {
             m_propertyOutputPath = serializedObject.FindProperty("m_outputPath");
             m_propertyOptions = serializedObject.FindProperty("m_options");
+            m_propertyIncludeDependencies = serializedObject.FindProperty("m_includeDependencies");
             m_propertyUpdateCrc = serializedObject.FindProperty("m_updateCrc");
             m_propertyUpdateDependencies = serializedObject.FindProperty("m_updateDependencies");
             m_propertyClearManifests = serializedObject.FindProperty("m_clearManifests");
@@ -50,6 +52,7 @@ namespace UGF.Module.AssetBundles.Editor
 
                 EditorGUILayout.PropertyField(m_propertyOutputPath);
                 EditorGUILayout.PropertyField(m_propertyOptions);
+                EditorGUILayout.PropertyField(m_propertyIncludeDependencies);
                 EditorGUILayout.PropertyField(m_propertyUpdateCrc);
                 EditorGUILayout.PropertyField(m_propertyUpdateDependencies);
                 EditorGUILayout.PropertyField(m_propertyClearManifests);
