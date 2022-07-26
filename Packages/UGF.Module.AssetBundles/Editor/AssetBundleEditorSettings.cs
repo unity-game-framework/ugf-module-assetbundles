@@ -36,7 +36,7 @@ namespace UGF.Module.AssetBundles.Editor
         {
             AssetBundleEditorSettingsData data = Settings.GetData();
 
-            if (data.BuildBeforeEnterPlaymode)
+            if (data.BuildBeforeEnterPlayMode)
             {
                 BuildAll();
             }
