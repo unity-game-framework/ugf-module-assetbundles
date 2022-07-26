@@ -8,13 +8,13 @@ namespace UGF.Module.AssetBundles.Editor
     [CustomEditor(typeof(AssetBundleEditorSettingsData), true)]
     internal class AssetBundleEditorSettingsDataEditor : UnityEditor.Editor
     {
-        private SerializedProperty m_propertyBuildBeforeEnterPlaymode;
+        private SerializedProperty m_propertyBuildBeforeEnterPlayMode;
         private ReorderableListDrawer m_listBuilds;
         private ReorderableListSelectionDrawerByElement m_listBuildsSelection;
 
         private void OnEnable()
         {
-            m_propertyBuildBeforeEnterPlaymode = serializedObject.FindProperty("m_buildBeforeEnterPlaymode");
+            m_propertyBuildBeforeEnterPlayMode = serializedObject.FindProperty("m_buildBeforeEnterPlayMode");
             m_listBuilds = new ReorderableListDrawer(serializedObject.FindProperty("m_builds"));
 
             m_listBuildsSelection = new ReorderableListSelectionDrawerByElement(m_listBuilds)
@@ -39,7 +39,7 @@ namespace UGF.Module.AssetBundles.Editor
         {
             using (new SerializedObjectUpdateScope(serializedObject))
             {
-                EditorGUILayout.PropertyField(m_propertyBuildBeforeEnterPlaymode);
+                EditorGUILayout.PropertyField(m_propertyBuildBeforeEnterPlayMode);
 
                 m_listBuilds.DrawGUILayout();
             }
