@@ -141,6 +141,14 @@ namespace UGF.Module.AssetBundles.Editor
             GetGroupsAll(groups, assetBundles);
         }
 
+        /// <summary>
+        /// Collects collection of asset ids per bundle from specified list of the asset bundle ids.
+        /// </summary>
+        /// <remarks>
+        /// The <c>GlobalId</c> value represents <c>Guid</c> of an asset or asset bundle.
+        /// </remarks>
+        /// <param name="groups">The collect to fill.</param>
+        /// <param name="assetBundles">The list of asset bundles to collect from.</param>
         public static void GetGroupsAll(IDictionary<GlobalId, IList<GlobalId>> groups, IReadOnlyList<GlobalId> assetBundles)
         {
             if (groups == null) throw new ArgumentNullException(nameof(groups));
@@ -166,6 +174,44 @@ namespace UGF.Module.AssetBundles.Editor
                     foreach (GlobalId assetGuid in asset.Assets)
                     {
                         list.Add(assetGuid);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Collects collection of asset bundle ids per asset id from specified list of the asset bundle id.
+        /// </summary>
+        /// <remarks>
+        /// The <c>GlobalId</c> value represents <c>Guid</c> of an asset or asset bundle.
+        /// </remarks>
+        /// <param name="assets">The collect to fill.</param>
+        /// <param name="assetBundles">The list of asset bundles to collect from.</param>
+        public static void GetAssetBundlesPerAsset(IDictionary<GlobalId, IList<GlobalId>> assets, IReadOnlyList<GlobalId> assetBundles)
+        {
+            if (assets == null) throw new ArgumentNullException(nameof(assets));
+            if (assetBundles == null) throw new ArgumentNullException(nameof(assetBundles));
+
+            string[] guids = AssetDatabase.FindAssets($"t:{nameof(AssetBundleGroupAsset)}");
+
+            foreach (string guid in guids)
+            {
+                string path = AssetDatabase.GUIDToAssetPath(guid);
+                var asset = AssetDatabase.LoadAssetAtPath<AssetBundleGroupAsset>(path);
+                GlobalId assetBundleId = asset.AssetBundle;
+
+                if (assetBundles.Contains(assetBundleId))
+                {
+                    foreach (GlobalId assetId in asset.Assets)
+                    {
+                        if (!assets.TryGetValue(assetId, out IList<GlobalId> list))
+                        {
+                            list = new List<GlobalId>();
+
+                            assets.Add(assetId, list);
+                        }
+
+                        list.Add(assetBundleId);
                     }
                 }
             }
