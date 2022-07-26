@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.0-preview.1](https://github.com/unity-game-framework/ugf-module-assetbundles/releases/tag/2.0.0-preview.1) - 2022-07-26  
+
+### Release Notes
+
+- [Milestone](https://github.com/unity-game-framework/ugf-module-assetbundles/milestone/12?closed=1)  
+    
+
+### Added
+
+- Add build on play enter option ([#36](https://github.com/unity-game-framework/ugf-module-assetbundles/issues/36))  
+    - Update dependencies: `com.ugf.application` to `8.3.1` and `com.ugf.assetbundles` to `1.1.0` versions.
+    - Add `BuildBeforeEnterPlaymode` option for project settings used to build bundles on play mode enter.
+- Add asset bundles building with automatic shared dependencies ([#8](https://github.com/unity-game-framework/ugf-module-assetbundles/issues/8))  
+    - Update dependencies: `com.ugf.assetbundles` to `1.2.0` version.
+    - Add `AssetBundleBuildAsset.` property used to include asset dependencies explicitly what reduces duplication.
+    - Change `AssetBundleBuildEditorUtility.GetGroupsAll()` method to work with `GlobalId` structure as asset and asset bundle ids.
+    - Fix `AssetBundleEditorSettingsData` class editor errors.
+
 ## [2.0.0-preview](https://github.com/unity-game-framework/ugf-module-assetbundles/releases/tag/2.0.0-preview) - 2022-07-14  
 
 ### Release Notes
