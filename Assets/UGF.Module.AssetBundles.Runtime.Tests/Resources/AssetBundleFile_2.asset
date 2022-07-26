@@ -15,7 +15,7 @@ MonoBehaviour:
   m_loader:
     m_first: 10859427007444698712
     m_second: 4061086000273493145
-  m_crc: 2810894234
+  m_crc: 204229324
   m_dependencies:
   - m_first: 14480413438151556023
     m_second: 4787158470182912361
