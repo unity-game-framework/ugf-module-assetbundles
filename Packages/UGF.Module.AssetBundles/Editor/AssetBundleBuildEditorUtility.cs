@@ -179,14 +179,17 @@ namespace UGF.Module.AssetBundles.Editor
                             string assetPath = AssetDatabase.GUIDToAssetPath(assetGuid.ToString());
                             string[] dependencies = AssetDatabase.GetDependencies(assetPath, true);
 
-                            foreach (string dependency in dependencies)
+                            foreach (string dependencyPath in dependencies)
                             {
-                                string dependencyGuid = AssetDatabase.AssetPathToGUID(dependency);
-                                var dependencyId = new GlobalId(dependencyGuid);
-
-                                if (!IsAnyGroupContains(groups, dependencyId))
+                                if (IsAllowedForAssetBundle(dependencyPath))
                                 {
-                                    list.Add(dependencyId);
+                                    string dependencyGuid = AssetDatabase.AssetPathToGUID(dependencyPath);
+                                    var dependencyId = new GlobalId(dependencyGuid);
+
+                                    if (!IsAnyGroupContains(groups, dependencyId))
+                                    {
+                                        list.Add(dependencyId);
+                                    }
                                 }
                             }
                         }
@@ -244,6 +247,13 @@ namespace UGF.Module.AssetBundles.Editor
             }
 
             return false;
+        }
+
+        private static bool IsAllowedForAssetBundle(string path)
+        {
+            Type type = AssetDatabase.GetMainAssetTypeAtPath(path);
+
+            return type != typeof(MonoScript);
         }
 
         private static bool IsAnyGroupContains(IDictionary<GlobalId, ISet<GlobalId>> dictionary, GlobalId id)
