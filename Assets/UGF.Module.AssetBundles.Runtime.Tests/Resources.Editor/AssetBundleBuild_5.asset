@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 42690ffdbb9b4e5395d1d9df99d84850, type: 3}
-  m_Name: AssetBundleBuild
+  m_Name: AssetBundleBuild_5
   m_EditorClassIdentifier: 
   m_outputPath: Assets/StreamingAssets/AssetBundles
   m_options: 560
@@ -18,8 +18,4 @@ MonoBehaviour:
   m_updateCrc: 1
   m_updateDependencies: 1
   m_clearManifests: 1
-  m_assetBundles:
-  - {fileID: 11400000, guid: 9759e1f6264f5a541943f241759cb7f5, type: 2}
-  - {fileID: 11400000, guid: 2dd0fbb7c34dc8f46941c1e243676f42, type: 2}
-  - {fileID: 11400000, guid: 8b70bec1c0894b74487521c7727a1b4d, type: 2}
-  - {fileID: 11400000, guid: 5792d2784a46d5d499eb5c011656bc0d, type: 2}
+  m_assetBundles: []
