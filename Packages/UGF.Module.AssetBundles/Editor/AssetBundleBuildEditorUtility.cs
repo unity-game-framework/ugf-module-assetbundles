@@ -39,19 +39,22 @@ namespace UGF.Module.AssetBundles.Editor
 
             AssetBundleManifest manifest = AssetBundleBuildUtility.Build(builds, buildAsset.OutputPath, target, buildAsset.Options);
 
-            if (buildAsset.UpdateCrc)
+            if (manifest != null)
             {
-                UpdateCrc(buildAsset);
-            }
+                if (buildAsset.UpdateCrc)
+                {
+                    UpdateCrc(buildAsset);
+                }
 
-            if (buildAsset.UpdateDependencies)
-            {
-                UpdateDependencies(buildAsset, manifest);
-            }
+                if (buildAsset.UpdateDependencies)
+                {
+                    UpdateDependencies(buildAsset, manifest);
+                }
 
-            if (buildAsset.ClearManifests)
-            {
-                ClearManifests(buildAsset.OutputPath);
+                if (buildAsset.ClearManifests)
+                {
+                    ClearManifests(buildAsset.OutputPath);
+                }
             }
         }
 
@@ -174,9 +177,10 @@ namespace UGF.Module.AssetBundles.Editor
 
                     foreach (GlobalId assetGuid in asset.Assets)
                     {
-                        if (includeDependencies)
+                        string assetPath = AssetDatabase.GUIDToAssetPath(assetGuid.ToString());
+
+                        if (includeDependencies && Path.GetExtension(assetPath) != ".unity")
                         {
-                            string assetPath = AssetDatabase.GUIDToAssetPath(assetGuid.ToString());
                             string[] dependencies = AssetDatabase.GetDependencies(assetPath, true);
 
                             foreach (string dependencyPath in dependencies)
