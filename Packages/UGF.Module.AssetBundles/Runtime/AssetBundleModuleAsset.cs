@@ -9,9 +9,11 @@ namespace UGF.Module.AssetBundles.Runtime
     [CreateAssetMenu(menuName = "Unity Game Framework/Assets/Asset Bundle Module", order = 2000)]
     public class AssetBundleModuleAsset : ApplicationModuleAsset<AssetBundleModule, AssetBundleModuleDescription>
     {
+        [SerializeField] private bool m_unloadTrackedAssetBundlesOnUninitialize = true;
         [SerializeField] private List<AssetIdReference<AssetBundleStorageAsset>> m_storages = new List<AssetIdReference<AssetBundleStorageAsset>>();
         [SerializeField] private List<AssetIdReference<AssetBundleAsset>> m_assetBundles = new List<AssetIdReference<AssetBundleAsset>>();
 
+        public bool UnloadTrackedAssetBundlesOnUninitialize { get { return m_unloadTrackedAssetBundlesOnUninitialize; } set { m_unloadTrackedAssetBundlesOnUninitialize = value; } }
         public List<AssetIdReference<AssetBundleStorageAsset>> Storages { get { return m_storages; } }
         public List<AssetIdReference<AssetBundleAsset>> AssetBundles { get { return m_assetBundles; } }
 
@@ -19,7 +21,8 @@ namespace UGF.Module.AssetBundles.Runtime
         {
             var description = new AssetBundleModuleDescription
             {
-                RegisterType = typeof(AssetBundleModule)
+                RegisterType = typeof(AssetBundleModule),
+                UnloadTrackedAssetBundlesOnUninitialize = m_unloadTrackedAssetBundlesOnUninitialize
             };
 
             for (int i = 0; i < m_storages.Count; i++)

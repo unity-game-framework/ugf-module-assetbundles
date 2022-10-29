@@ -55,20 +55,24 @@ namespace UGF.Module.AssetBundles.Runtime
             Log.Debug("Asset Bundle Module uninitialize", new
             {
                 storages = Storages.Entries.Count,
-                bundles = Description.AssetBundles.Count
+                bundles = Description.AssetBundles.Count,
+                Description.UnloadTrackedAssetBundlesOnUninitialize
             });
 
-            foreach ((GlobalId key, _) in Description.AssetBundles)
+            if (Description.UnloadTrackedAssetBundlesOnUninitialize)
             {
-                if (AssetModule.Tracker.TryGet(key, out AssetTrack track))
+                foreach ((GlobalId key, _) in Description.AssetBundles)
                 {
-                    AssetModule.Unload(key, track.Asset);
+                    if (AssetModule.Tracker.TryGet(key, out AssetTrack track))
+                    {
+                        AssetModule.Unload(key, track.Asset);
+                    }
                 }
-            }
 
-            foreach ((GlobalId key, _) in Description.AssetBundles)
-            {
-                AssetModule.Assets.Remove(key);
+                foreach ((GlobalId key, _) in Description.AssetBundles)
+                {
+                    AssetModule.Assets.Remove(key);
+                }
             }
 
             Storages.Clear();

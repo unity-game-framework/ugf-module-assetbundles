@@ -8,6 +8,7 @@ namespace UGF.Module.AssetBundles.Editor
     [CustomEditor(typeof(AssetBundleModuleAsset), true)]
     internal class AssetBundleModuleAssetEditor : UnityEditor.Editor
     {
+        private SerializedProperty m_propertyUnloadTrackedAssetBundlesOnUninitialize;
         private ReorderableListDrawer m_listStorages;
         private ReorderableListSelectionDrawerByPath m_listStoragesSelection;
         private ReorderableListDrawer m_listAssetBundles;
@@ -15,6 +16,8 @@ namespace UGF.Module.AssetBundles.Editor
 
         private void OnEnable()
         {
+            m_propertyUnloadTrackedAssetBundlesOnUninitialize = serializedObject.FindProperty("m_unloadTrackedAssetBundlesOnUninitialize");
+
             m_listStorages = new ReorderableListDrawer(serializedObject.FindProperty("m_storages"))
             {
                 DisplayAsSingleLine = true
@@ -60,6 +63,8 @@ namespace UGF.Module.AssetBundles.Editor
             using (new SerializedObjectUpdateScope(serializedObject))
             {
                 EditorIMGUIUtility.DrawScriptProperty(serializedObject);
+
+                EditorGUILayout.PropertyField(m_propertyUnloadTrackedAssetBundlesOnUninitialize);
 
                 m_listStorages.DrawGUILayout();
                 m_listAssetBundles.DrawGUILayout();
