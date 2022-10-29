@@ -110,11 +110,11 @@ namespace UGF.Module.AssetBundles.Editor
 
             GetGroupsAll(groups, buildAsset);
 
-            foreach (KeyValuePair<GlobalId, ISet<GlobalId>> pair in groups)
+            foreach ((GlobalId key, ISet<GlobalId> value) in groups)
             {
-                var build = new AssetBundleBuildInfo(pair.Key.ToString());
+                var build = new AssetBundleBuildInfo(key.ToString());
 
-                foreach (GlobalId id in pair.Value)
+                foreach (GlobalId id in value)
                 {
                     string guid = id.ToString();
                     string path = AssetDatabase.GUIDToAssetPath(guid);
@@ -162,45 +162,80 @@ namespace UGF.Module.AssetBundles.Editor
 
             foreach (string guid in guids)
             {
-                string path = AssetDatabase.GUIDToAssetPath(guid);
-                var asset = AssetDatabase.LoadAssetAtPath<AssetBundleGroupAsset>(path);
-                GlobalId assetBundleId = asset.AssetBundle;
+                var asset = AssetDatabase.LoadAssetAtPath<AssetBundleGroupAsset>(AssetDatabase.GUIDToAssetPath(guid));
 
-                if (assetBundles.Contains(assetBundleId))
+                if (assetBundles.Contains(asset.AssetBundle))
                 {
-                    if (!groups.TryGetValue(assetBundleId, out ISet<GlobalId> list))
+                    GetGroupAssets(groups, asset, includeDependencies);
+                }
+            }
+        }
+
+        public static void GetGroupAssets(IDictionary<GlobalId, ISet<GlobalId>> groups, IEnumerable<AssetBundleGroupAsset> groupAssets, bool includeDependencies = false)
+        {
+            if (groupAssets == null) throw new ArgumentNullException(nameof(groupAssets));
+
+            foreach (AssetBundleGroupAsset asset in groupAssets)
+            {
+                GetGroupAssets(groups, asset, includeDependencies);
+            }
+        }
+
+        public static void GetGroupAssets(IDictionary<GlobalId, ISet<GlobalId>> groups, AssetBundleGroupAsset asset, bool includeDependencies = false)
+        {
+            if (groups == null) throw new ArgumentNullException(nameof(groups));
+            if (asset == null) throw new ArgumentNullException(nameof(asset));
+
+            GlobalId assetBundleId = asset.AssetBundle;
+
+            if (!groups.TryGetValue(assetBundleId, out ISet<GlobalId> list))
+            {
+                list = new HashSet<GlobalId>();
+
+                groups.Add(assetBundleId, list);
+            }
+
+            foreach (GlobalId assetGuid in asset.Assets)
+            {
+                string assetPath = AssetDatabase.GUIDToAssetPath(assetGuid.ToString());
+
+                if (includeDependencies && Path.GetExtension(assetPath) != ".unity")
+                {
+                    string[] dependencies = AssetDatabase.GetDependencies(assetPath, true);
+
+                    foreach (string dependencyPath in dependencies)
                     {
-                        list = new HashSet<GlobalId>();
-
-                        groups.Add(assetBundleId, list);
-                    }
-
-                    foreach (GlobalId assetGuid in asset.Assets)
-                    {
-                        string assetPath = AssetDatabase.GUIDToAssetPath(assetGuid.ToString());
-
-                        if (includeDependencies && Path.GetExtension(assetPath) != ".unity")
+                        if (IsAllowedForAssetBundle(dependencyPath))
                         {
-                            string[] dependencies = AssetDatabase.GetDependencies(assetPath, true);
+                            string dependencyGuid = AssetDatabase.AssetPathToGUID(dependencyPath);
+                            var dependencyId = new GlobalId(dependencyGuid);
 
-                            foreach (string dependencyPath in dependencies)
+                            if (!IsAnyGroupContains(groups, dependencyId))
                             {
-                                if (IsAllowedForAssetBundle(dependencyPath))
-                                {
-                                    string dependencyGuid = AssetDatabase.AssetPathToGUID(dependencyPath);
-                                    var dependencyId = new GlobalId(dependencyGuid);
-
-                                    if (!IsAnyGroupContains(groups, dependencyId))
-                                    {
-                                        list.Add(dependencyId);
-                                    }
-                                }
+                                list.Add(dependencyId);
                             }
                         }
-                        else
-                        {
-                            list.Add(assetGuid);
-                        }
+                    }
+                }
+                else
+                {
+                    list.Add(assetGuid);
+                }
+            }
+        }
+
+        public static void GetSharedAssets(ICollection<GlobalId> assets, IDictionary<GlobalId, ISet<GlobalId>> groups)
+        {
+            if (assets == null) throw new ArgumentNullException(nameof(assets));
+            if (groups == null) throw new ArgumentNullException(nameof(groups));
+
+            foreach ((_, ISet<GlobalId> value) in groups)
+            {
+                foreach (GlobalId id in value)
+                {
+                    if (IsAllGroupContains(groups, id))
+                    {
+                        assets.Add(id);
                     }
                 }
             }
@@ -260,11 +295,24 @@ namespace UGF.Module.AssetBundles.Editor
             return type != typeof(MonoScript);
         }
 
-        private static bool IsAnyGroupContains(IDictionary<GlobalId, ISet<GlobalId>> dictionary, GlobalId id)
+        private static bool IsAnyGroupContains(IDictionary<GlobalId, ISet<GlobalId>> groups, GlobalId id)
         {
-            foreach (KeyValuePair<GlobalId, ISet<GlobalId>> pair in dictionary)
+            foreach ((_, ISet<GlobalId> value) in groups)
             {
-                if (pair.Value.Contains(id))
+                if (value.Contains(id))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private static bool IsAllGroupContains(IDictionary<GlobalId, ISet<GlobalId>> groups, GlobalId id)
+        {
+            foreach ((_, ISet<GlobalId> value) in groups)
+            {
+                if (value.Contains(id))
                 {
                     return true;
                 }
