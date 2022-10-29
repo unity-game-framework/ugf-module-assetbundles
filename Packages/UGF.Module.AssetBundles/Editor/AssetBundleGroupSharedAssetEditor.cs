@@ -97,14 +97,6 @@ namespace UGF.Module.AssetBundles.Editor
                 if (group != null)
                 {
                     AssetBundleBuildEditorUtility.GetGroupAssets(groups, group, true);
-
-                    if (groups.TryGetValue(group.AssetBundle, out ISet<GlobalId> assets))
-                    {
-                        foreach (GlobalId id in group.Assets)
-                        {
-                            assets.Remove(id);
-                        }
-                    }
                 }
             }
 

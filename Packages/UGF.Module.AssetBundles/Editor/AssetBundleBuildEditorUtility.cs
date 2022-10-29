@@ -312,13 +312,13 @@ namespace UGF.Module.AssetBundles.Editor
         {
             foreach ((_, ISet<GlobalId> value) in groups)
             {
-                if (value.Contains(id))
+                if (!value.Contains(id))
                 {
-                    return true;
+                    return false;
                 }
             }
 
-            return false;
+            return true;
         }
     }
 }
