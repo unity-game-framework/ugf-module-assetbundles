@@ -9,5 +9,6 @@ namespace UGF.Module.AssetBundles.Runtime
     {
         public Dictionary<GlobalId, IBuilder<IAssetBundleStorage>> Storages { get; } = new Dictionary<GlobalId, IBuilder<IAssetBundleStorage>>();
         public Dictionary<GlobalId, IBuilder<IAssetBundleInfo>> AssetBundles { get; } = new Dictionary<GlobalId, IBuilder<IAssetBundleInfo>>();
+        public bool UnloadTrackedAssetBundlesOnUninitialize { get; set; }
     }
 }
