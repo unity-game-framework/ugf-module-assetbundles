@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 605fe67302464dc88a54874fe7d24039, type: 3}
   m_Name: AssetBundleModule
   m_EditorClassIdentifier: 
+  m_unloadTrackedAssetBundlesOnUninitialize: 1
   m_storages:
   - m_guid:
       m_first: 12084454567696379622
