@@ -13,11 +13,14 @@ namespace UGF.Module.AssetBundles.Runtime
         [SerializeField] private GlobalId m_loader;
         [AssetId(typeof(AssetBundleAsset))]
         [SerializeField] private GlobalId m_assetBundle;
+        [AssetId(typeof(AssetBundleGroupAsset))]
+        [SerializeField] private List<GlobalId> m_groups = new List<GlobalId>();
         [AssetId]
         [SerializeField] private List<GlobalId> m_assets = new List<GlobalId>();
 
         public GlobalId Loader { get { return m_loader; } set { m_loader = value; } }
         public GlobalId AssetBundle { get { return m_assetBundle; } set { m_assetBundle = value; } }
+        public List<GlobalId> Groups { get { return m_groups; } }
         public List<GlobalId> Assets { get { return m_assets; } }
 
         protected override void OnGetAssets(IDictionary<GlobalId, IAssetInfo> assets)

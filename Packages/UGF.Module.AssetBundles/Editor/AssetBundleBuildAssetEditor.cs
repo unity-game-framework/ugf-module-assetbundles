@@ -16,6 +16,22 @@ namespace UGF.Module.AssetBundles.Editor
         private SerializedProperty m_propertyUpdateDependencies;
         private SerializedProperty m_propertyClearManifests;
         private AssetBundleBuildAssetListDrawer m_listAssetBundles;
+        private Styles m_styles;
+
+        private class Styles
+        {
+            public GUIContent IncludeDependenciesContent { get; }
+            public GUIContent UpdateCrc { get; } = new GUIContent("Update Crc", "Determines whether to update 'Crc' property value of the AssetBundleAsset assets.");
+            public GUIContent UpdateDependencies { get; } = new GUIContent("Update Dependencies", "Determines whether to update 'Dependencies' list of the AssetBundleAsset assets.");
+
+            public Styles()
+            {
+                IncludeDependenciesContent = new GUIContent("Include Dependencies", "Enabling this parameter will collect dependencies for each asset in asset bundle " +
+                                                                                    "and make them to be explicitly included with asset guid as address. " +
+                                                                                    "If the next asset bundle would have any asset with dependencies already included in previous asset bundle, " +
+                                                                                    "they will be ignored and asset bundle will have previous one as dependency.");
+            }
+        }
 
         private void OnEnable()
         {
@@ -44,6 +60,8 @@ namespace UGF.Module.AssetBundles.Editor
 
         public override void OnInspectorGUI()
         {
+            m_styles ??= new Styles();
+
             bool build = false;
 
             using (new SerializedObjectUpdateScope(serializedObject))
@@ -52,9 +70,9 @@ namespace UGF.Module.AssetBundles.Editor
 
                 EditorGUILayout.PropertyField(m_propertyOutputPath);
                 EditorGUILayout.PropertyField(m_propertyOptions);
-                EditorGUILayout.PropertyField(m_propertyIncludeDependencies);
-                EditorGUILayout.PropertyField(m_propertyUpdateCrc);
-                EditorGUILayout.PropertyField(m_propertyUpdateDependencies);
+                EditorGUILayout.PropertyField(m_propertyIncludeDependencies, m_styles.IncludeDependenciesContent);
+                EditorGUILayout.PropertyField(m_propertyUpdateCrc, m_styles.UpdateCrc);
+                EditorGUILayout.PropertyField(m_propertyUpdateDependencies, m_styles.UpdateDependencies);
                 EditorGUILayout.PropertyField(m_propertyClearManifests);
 
                 m_listAssetBundles.DrawGUILayout();
