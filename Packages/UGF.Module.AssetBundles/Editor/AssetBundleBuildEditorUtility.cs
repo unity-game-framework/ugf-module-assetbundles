@@ -353,18 +353,5 @@ namespace UGF.Module.AssetBundles.Editor
 
             return false;
         }
-
-        private static bool IsAllGroupContains(IDictionary<GlobalId, ISet<GlobalId>> groups, GlobalId id)
-        {
-            foreach ((_, ISet<GlobalId> value) in groups)
-            {
-                if (!value.Contains(id))
-                {
-                    return false;
-                }
-            }
-
-            return true;
-        }
     }
 }
