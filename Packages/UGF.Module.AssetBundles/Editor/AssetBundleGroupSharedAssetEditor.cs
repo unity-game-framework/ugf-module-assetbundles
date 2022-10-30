@@ -85,7 +85,7 @@ namespace UGF.Module.AssetBundles.Editor
         {
             m_listAssets.SerializedProperty.ClearArray();
 
-            var groups = new Dictionary<GlobalId, ISet<GlobalId>>();
+            var groups = new List<AssetBundleGroupAsset>();
             var ids = new List<GlobalId>();
 
             for (int i = 0; i < m_listGroups.SerializedProperty.arraySize; i++)
@@ -96,11 +96,11 @@ namespace UGF.Module.AssetBundles.Editor
 
                 if (group != null)
                 {
-                    AssetBundleBuildEditorUtility.GetGroupAssets(groups, group, true);
+                    groups.Add(group);
                 }
             }
 
-            AssetBundleBuildEditorUtility.GetSharedAssets(ids, groups);
+            AssetBundleBuildEditorUtility.GetDependencies(ids, groups);
 
             for (int i = 0; i < ids.Count; i++)
             {

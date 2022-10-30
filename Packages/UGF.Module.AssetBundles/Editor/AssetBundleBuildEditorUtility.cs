@@ -167,6 +167,7 @@ namespace UGF.Module.AssetBundles.Editor
             if (assetBundles == null) throw new ArgumentNullException(nameof(assetBundles));
 
             string[] guids = AssetDatabase.FindAssets($"t:{nameof(AssetBundleGroupAsset)}");
+            var assets = new Dictionary<GlobalId, List<AssetBundleGroupAsset>>();
 
             foreach (string guid in guids)
             {
@@ -174,18 +175,28 @@ namespace UGF.Module.AssetBundles.Editor
 
                 if (assetBundles.Contains(asset.AssetBundle))
                 {
-                    GetGroupAssets(groups, asset, includeDependencies);
+                    if (!assets.TryGetValue(asset.AssetBundle, out List<AssetBundleGroupAsset> list))
+                    {
+                        list = new List<AssetBundleGroupAsset>();
+
+                        assets.Add(asset.AssetBundle, list);
+                    }
+
+                    list.Add(asset);
                 }
             }
-        }
 
-        public static void GetGroupAssets(IDictionary<GlobalId, ISet<GlobalId>> groups, IEnumerable<AssetBundleGroupAsset> groupAssets, bool includeDependencies = false)
-        {
-            if (groupAssets == null) throw new ArgumentNullException(nameof(groupAssets));
-
-            foreach (AssetBundleGroupAsset asset in groupAssets)
+            for (int i = 0; i < assetBundles.Count; i++)
             {
-                GetGroupAssets(groups, asset, includeDependencies);
+                GlobalId id = assetBundles[i];
+
+                if (assets.TryGetValue(id, out List<AssetBundleGroupAsset> list))
+                {
+                    foreach (AssetBundleGroupAsset asset in list)
+                    {
+                        GetGroupAssets(groups, asset, includeDependencies);
+                    }
+                }
             }
         }
 
@@ -232,18 +243,45 @@ namespace UGF.Module.AssetBundles.Editor
             }
         }
 
-        public static void GetSharedAssets(ICollection<GlobalId> assets, IDictionary<GlobalId, ISet<GlobalId>> groups)
+        public static void GetDependencies(ICollection<GlobalId> dependencies, IReadOnlyList<AssetBundleGroupAsset> groups)
         {
-            if (assets == null) throw new ArgumentNullException(nameof(assets));
+            if (dependencies == null) throw new ArgumentNullException(nameof(dependencies));
             if (groups == null) throw new ArgumentNullException(nameof(groups));
 
-            foreach ((_, ISet<GlobalId> value) in groups)
+            var assets = new List<GlobalId>();
+
+            for (int i = 0; i < groups.Count; i++)
             {
-                foreach (GlobalId id in value)
+                AssetBundleGroupAsset group = groups[i];
+
+                assets.AddRange(group.Assets);
+            }
+
+            GetDependencies(dependencies, assets);
+        }
+
+        public static void GetDependencies(ICollection<GlobalId> dependencies, IReadOnlyList<GlobalId> assets)
+        {
+            if (dependencies == null) throw new ArgumentNullException(nameof(dependencies));
+            if (assets == null) throw new ArgumentNullException(nameof(assets));
+
+            for (int i = 0; i < assets.Count; i++)
+            {
+                GlobalId assetId = assets[i];
+                string assetPath = AssetDatabase.GUIDToAssetPath(assetId.ToString());
+                string[] paths = AssetDatabase.GetDependencies(assetPath, true);
+
+                foreach (string path in paths)
                 {
-                    if (IsAllGroupContains(groups, id))
+                    if (IsAllowedForAssetBundle(path))
                     {
-                        assets.Add(id);
+                        string guid = AssetDatabase.AssetPathToGUID(path);
+                        var id = new GlobalId(guid);
+
+                        if (!assets.Contains(id) && !dependencies.Contains(id))
+                        {
+                            dependencies.Add(id);
+                        }
                     }
                 }
             }
