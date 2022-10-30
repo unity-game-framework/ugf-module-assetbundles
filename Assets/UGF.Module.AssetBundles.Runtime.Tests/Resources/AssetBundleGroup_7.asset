@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83ab82ecb70040e2a7acd28f93ae0a94, type: 3}
+  m_Script: {fileID: 11500000, guid: fa61b4c7b4cc496393b06e456a5656e9, type: 3}
   m_Name: AssetBundleGroup_7
   m_EditorClassIdentifier: 
   m_loader:
@@ -18,11 +18,6 @@ MonoBehaviour:
   m_assetBundle:
     m_first: 6508869484740731382
     m_second: 17705792487461896985
-  m_assets:
-  - m_first: 10030699287959972353
-    m_second: 13256193304506419401
-  - m_first: 16687026080524613398
-    m_second: 4750322200724858331
   m_groups:
   - m_first: 11507853748385168883
     m_second: 3808278517449828555
@@ -30,5 +25,10 @@ MonoBehaviour:
     m_second: 17541323798215185755
   - m_first: 5482205988348077950
     m_second: 9493914730020462282
-  - m_first: 5572152134017240896
-    m_second: 13261258305210991675
+  - m_first: 6729660475179201991
+    m_second: 17433182843474628377
+  m_assets:
+  - m_first: 10030699287959972353
+    m_second: 13256193304506419401
+  - m_first: 16687026080524613398
+    m_second: 4750322200724858331
