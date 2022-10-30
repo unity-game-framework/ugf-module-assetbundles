@@ -148,7 +148,15 @@ namespace UGF.Module.AssetBundles.Editor
         /// Collects collection of asset ids per bundle from specified list of the asset bundle ids.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// The <c>GlobalId</c> value represents <c>Guid</c> of an asset or asset bundle.
+        /// </para>
+        /// <para>
+        /// Enabling <see cref="includeDependencies"/> parameter will collect dependencies for each asset in asset bundle
+        /// and make them to be explicitly included with asset guid as address.
+        /// If the next asset bundle would have any asset with dependencies already included in previous asset bundle,
+        /// they will be ignored and asset bundle will have previous one as dependency.
+        /// </para>
         /// </remarks>
         /// <param name="groups">The collect to fill.</param>
         /// <param name="assetBundles">The list of asset bundles to collect from.</param>
