@@ -12,6 +12,8 @@ namespace UGF.Module.AssetBundles.Editor
         private ReorderableListDrawer m_listBuilds;
         private ReorderableListSelectionDrawerByElement m_listBuildsSelection;
 
+        private const string PROJECT_SETTINGS_PATH = "Project/Unity Game Framework/Asset Bundles";
+
         private void OnEnable()
         {
             m_propertyBuildBeforeEnterPlayMode = serializedObject.FindProperty("m_buildBeforeEnterPlayMode");
@@ -88,8 +90,13 @@ namespace UGF.Module.AssetBundles.Editor
 
             var asset = (AssetBundleEditorSettingsData)target;
 
+            SettingsService.OpenProjectSettings(PROJECT_SETTINGS_PATH).Close();
+
             AssetBundleBuildEditorUtility.BuildAll(asset.Builds);
             AssetDatabase.Refresh();
+
+            SettingsService.OpenProjectSettings(PROJECT_SETTINGS_PATH);
+            GUIUtility.ExitGUI();
         }
     }
 }
