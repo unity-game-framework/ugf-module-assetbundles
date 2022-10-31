@@ -3,6 +3,7 @@ using UnityEditor;
 
 namespace UGF.Module.AssetBundles.Editor
 {
+    [InitializeOnLoad]
     public static class AssetBundleEditorSettings
     {
         public static CustomSettingsEditorPackage<AssetBundleEditorSettingsData> Settings { get; } = new CustomSettingsEditorPackage<AssetBundleEditorSettingsData>
@@ -10,6 +11,11 @@ namespace UGF.Module.AssetBundles.Editor
             "UGF.Module.AssetBundles",
             "AssetBundleEditorSettings"
         );
+
+        static AssetBundleEditorSettings()
+        {
+            EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
+        }
 
         public static void BuildAll()
         {
@@ -31,14 +37,16 @@ namespace UGF.Module.AssetBundles.Editor
             return new CustomSettingsProvider<AssetBundleEditorSettingsData>("Project/Unity Game Framework/Asset Bundles", Settings, SettingsScope.Project);
         }
 
-        [InitializeOnEnterPlayMode]
-        private static void OnEnterPlayMode()
+        private static void OnPlayModeStateChanged(PlayModeStateChange change)
         {
-            AssetBundleEditorSettingsData data = Settings.GetData();
-
-            if (data.BuildBeforeEnterPlayMode)
+            if (change == PlayModeStateChange.ExitingEditMode)
             {
-                BuildAll();
+                AssetBundleEditorSettingsData data = Settings.GetData();
+
+                if (data.BuildBeforeEnterPlayMode)
+                {
+                    BuildAll();
+                }
             }
         }
     }
