@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.0-preview.6](https://github.com/unity-game-framework/ugf-module-assetbundles/releases/tag/2.0.0-preview.6) - 2022-11-19  
+
+### Release Notes
+
+- [Milestone](https://github.com/unity-game-framework/ugf-module-assetbundles/milestone/17?closed=1)  
+    
+
+### Added
+
+- Add build bundles build step ([#50](https://github.com/unity-game-framework/ugf-module-assetbundles/issues/50))  
+    - Update dependencies: `com.ugf.application` to `8.4.0` version.
+    - Add `AssetBundleStep` class as build step to build asset bundles.
+
 ## [2.0.0-preview.5](https://github.com/unity-game-framework/ugf-module-assetbundles/releases/tag/2.0.0-preview.5) - 2022-10-31  
 
 ### Release Notes
