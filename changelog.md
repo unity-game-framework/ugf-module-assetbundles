@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.0-preview.7](https://github.com/unity-game-framework/ugf-module-assetbundles/releases/tag/2.0.0-preview.7) - 2022-11-24  
+
+### Release Notes
+
+- [Milestone](https://github.com/unity-game-framework/ugf-module-assetbundles/milestone/18?closed=1)  
+    
+
+### Added
+
+- Add force assets save after build ([#52](https://github.com/unity-game-framework/ugf-module-assetbundles/issues/52))  
+    - Add _AssetDatabase_ saving and refresh for all build methods.
+    - Fix `AssetBundleBuildEditorUtility.ClearManifests()` method to delete manifest assets using _AssetDatabase_ when their located inside the project folder.
+
 ## [2.0.0-preview.6](https://github.com/unity-game-framework/ugf-module-assetbundles/releases/tag/2.0.0-preview.6) - 2022-11-19  
 
 ### Release Notes
