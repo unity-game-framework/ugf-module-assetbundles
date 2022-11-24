@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UGF.Build.Editor;
 using UGF.Logs.Runtime;
 using UGF.RuntimeTools.Runtime.Contexts;
+using UnityEditor;
 
 namespace UGF.Module.AssetBundles.Editor.Build
 {
@@ -18,6 +19,8 @@ namespace UGF.Module.AssetBundles.Editor.Build
         protected override void OnExecute(IBuildSetup setup, IContext context)
         {
             AssetBundleBuildEditorUtility.BuildAll(Builds);
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
 
             Log.Info("Asset bundles built", new { Builds.Count });
         }

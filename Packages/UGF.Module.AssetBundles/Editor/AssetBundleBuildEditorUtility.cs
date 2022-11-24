@@ -319,19 +319,38 @@ namespace UGF.Module.AssetBundles.Editor
         {
             if (string.IsNullOrEmpty(path)) throw new ArgumentException("Value cannot be null or empty.", nameof(path));
 
-            if (AssetBundleBuildUtility.DeleteManifestFiles(path))
-            {
-                string mainManifestPath = Path.Combine(path, Path.GetFileNameWithoutExtension(path));
+            string projectPath = Environment.CurrentDirectory;
+            string[] paths = Directory.GetFiles(path, "*.manifest", SearchOption.AllDirectories);
 
-                if (File.Exists(mainManifestPath))
+            for (int i = 0; i < paths.Length; i++)
+            {
+                string manifestPath = paths[i].Replace('\\', '/');
+
+                if (Path.GetFullPath(manifestPath).StartsWith(projectPath, StringComparison.OrdinalIgnoreCase))
+                {
+                    AssetDatabase.DeleteAsset(manifestPath);
+                }
+                else
+                {
+                    File.Delete(manifestPath);
+                }
+            }
+
+            string mainManifestPath = Path.Combine(path, Path.GetFileNameWithoutExtension(path));
+
+            if (File.Exists(mainManifestPath))
+            {
+                if (Path.GetFullPath(mainManifestPath).StartsWith(projectPath))
+                {
+                    AssetDatabase.DeleteAsset(mainManifestPath);
+                }
+                else
                 {
                     File.Delete(mainManifestPath);
                 }
-
-                return true;
             }
 
-            return false;
+            return paths.Length > 0;
         }
 
         private static bool IsAllowedForAssetBundle(string path)
