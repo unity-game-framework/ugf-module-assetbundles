@@ -22,6 +22,8 @@ namespace UGF.Module.AssetBundles.Editor
             AssetBundleEditorSettingsData data = Settings.GetData();
 
             AssetBundleBuildEditorUtility.BuildAll(data.Builds);
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
         }
 
         public static void ClearAll()
@@ -29,6 +31,8 @@ namespace UGF.Module.AssetBundles.Editor
             AssetBundleEditorSettingsData data = Settings.GetData();
 
             AssetBundleBuildEditorUtility.ClearAll(data.Builds);
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
         }
 
         [SettingsProvider]

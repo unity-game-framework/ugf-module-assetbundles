@@ -62,8 +62,6 @@ namespace UGF.Module.AssetBundles.Editor
         {
             m_styles ??= new Styles();
 
-            bool build = false;
-
             using (new SerializedObjectUpdateScope(serializedObject))
             {
                 EditorIMGUIUtility.DrawScriptProperty(serializedObject);
@@ -96,7 +94,7 @@ namespace UGF.Module.AssetBundles.Editor
                 {
                     if (GUILayout.Button("Build", GUILayout.Width(75F)))
                     {
-                        build = true;
+                        OnBuild();
                     }
                 }
             }
@@ -117,20 +115,8 @@ namespace UGF.Module.AssetBundles.Editor
                 }
                 else
                 {
-                    if (m_listAssetBundles.HasSelection)
-                    {
-                        EditorGUILayout.HelpBox("Selected Asset Bundle file not found, build required.", MessageType.Info);
-                    }
-                    else
-                    {
-                        EditorGUILayout.HelpBox("Select any Asset Bundle to display.", MessageType.Info);
-                    }
+                    EditorGUILayout.HelpBox(m_listAssetBundles.HasSelection ? "Selected Asset Bundle file not found, build required." : "Select any Asset Bundle to display.", MessageType.Info);
                 }
-            }
-
-            if (build)
-            {
-                OnBuild();
             }
         }
 
@@ -141,8 +127,10 @@ namespace UGF.Module.AssetBundles.Editor
             var asset = (AssetBundleBuildAsset)target;
 
             AssetBundleBuildEditorUtility.Build(asset);
+            AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
             Selection.activeObject = target;
+            GUIUtility.ExitGUI();
         }
 
         private void OnClear()
@@ -152,6 +140,7 @@ namespace UGF.Module.AssetBundles.Editor
             var asset = (AssetBundleBuildAsset)target;
 
             AssetBundleBuildEditorUtility.Clear(asset);
+            AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
         }
     }

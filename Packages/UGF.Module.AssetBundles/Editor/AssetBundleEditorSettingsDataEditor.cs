@@ -74,16 +74,6 @@ namespace UGF.Module.AssetBundles.Editor
             m_listBuildsSelection.DrawGUILayout();
         }
 
-        private void OnClear()
-        {
-            m_listBuildsSelection.Drawer.Clear();
-
-            var asset = (AssetBundleEditorSettingsData)target;
-
-            AssetBundleBuildEditorUtility.ClearAll(asset.Builds);
-            AssetDatabase.Refresh();
-        }
-
         private void OnBuild()
         {
             m_listBuildsSelection.Drawer.Clear();
@@ -93,10 +83,22 @@ namespace UGF.Module.AssetBundles.Editor
             SettingsService.OpenProjectSettings(PROJECT_SETTINGS_PATH).Close();
 
             AssetBundleBuildEditorUtility.BuildAll(asset.Builds);
+            AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
 
             SettingsService.OpenProjectSettings(PROJECT_SETTINGS_PATH);
             GUIUtility.ExitGUI();
+        }
+
+        private void OnClear()
+        {
+            m_listBuildsSelection.Drawer.Clear();
+
+            var asset = (AssetBundleEditorSettingsData)target;
+
+            AssetBundleBuildEditorUtility.ClearAll(asset.Builds);
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
         }
     }
 }
