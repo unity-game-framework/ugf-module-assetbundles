@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.0-preview.8](https://github.com/unity-game-framework/ugf-module-assetbundles/releases/tag/2.0.0-preview.8) - 2022-12-19  
+
+### Release Notes
+
+- [Milestone](https://github.com/unity-game-framework/ugf-module-assetbundles/milestone/19?closed=1)  
+    
+
+### Added
+
+- Add scene from bundle loader ([#54](https://github.com/unity-game-framework/ugf-module-assetbundles/issues/54))  
+    - Update dependencies: add `com.ugf.module.scenes` of `4.0.0-preview.3` version.
+    - Update package _Unity_ version to `2022.2`.
+    - Add `AssetBundleSceneGroupAsset` class used to define group of scenes loaded from the asset bundle.
+    - Add `AssetBundleSceneLoader` and related classes used to load scenes from the asset bundle.
+
 ## [2.0.0-preview.7](https://github.com/unity-game-framework/ugf-module-assetbundles/releases/tag/2.0.0-preview.7) - 2022-11-24  
 
 ### Release Notes
