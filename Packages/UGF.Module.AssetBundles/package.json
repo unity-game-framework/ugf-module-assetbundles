@@ -21,6 +21,7 @@
   "dependencies": {
     "com.ugf.application": "8.4.0",
     "com.ugf.module.assets": "5.0.0-preview.2",
+    "com.ugf.module.scenes": "4.0.0-preview.3",
     "com.ugf.assetbundles": "1.2.0"
   }
 }
