@@ -15,6 +15,7 @@ namespace UGF.Module.AssetBundles.Editor
         private SerializedProperty m_propertyLoader;
         private SerializedProperty m_propertyAssetBundle;
         private ReorderableListDrawer m_listGroups;
+        private ReorderableListSelectionDrawerByElementGlobalId m_listGroupsSelection;
         private ReorderableListDrawer m_listAssets;
 
         private void OnEnable()
@@ -27,18 +28,25 @@ namespace UGF.Module.AssetBundles.Editor
                 DisplayAsSingleLine = true
             };
 
+            m_listGroupsSelection = new ReorderableListSelectionDrawerByElementGlobalId(m_listGroups)
+            {
+                Drawer = { DisplayTitlebar = true }
+            };
+
             m_listAssets = new ReorderableListDrawer(serializedObject.FindProperty("m_assets"))
             {
                 DisplayAsSingleLine = true
             };
 
             m_listGroups.Enable();
+            m_listGroupsSelection.Enable();
             m_listAssets.Enable();
         }
 
         private void OnDisable()
         {
             m_listGroups.Disable();
+            m_listGroupsSelection.Disable();
             m_listAssets.Disable();
         }
 
@@ -79,6 +87,8 @@ namespace UGF.Module.AssetBundles.Editor
             }
 
             EditorGUILayout.Space();
+
+            m_listGroupsSelection.DrawGUILayout();
         }
 
         private void OnCollect()

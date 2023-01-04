@@ -26,10 +26,7 @@ namespace UGF.Module.AssetBundles.Editor
 
             m_listStoragesSelection = new ReorderableListSelectionDrawerByPath(m_listStorages, "m_asset")
             {
-                Drawer =
-                {
-                    DisplayTitlebar = true
-                }
+                Drawer = { DisplayTitlebar = true }
             };
 
             m_listAssetBundles = new AssetIdReferenceListDrawer(serializedObject.FindProperty("m_assetBundles"))
@@ -39,10 +36,7 @@ namespace UGF.Module.AssetBundles.Editor
 
             m_listAssetBundlesSelection = new ReorderableListSelectionDrawerByPath(m_listAssetBundles, "m_asset")
             {
-                Drawer =
-                {
-                    DisplayTitlebar = true
-                }
+                Drawer = { DisplayTitlebar = true }
             };
 
             m_listStorages.Enable();

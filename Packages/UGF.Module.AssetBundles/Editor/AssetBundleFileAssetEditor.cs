@@ -13,6 +13,7 @@ namespace UGF.Module.AssetBundles.Editor
         private SerializedProperty m_propertyCrc;
         private SerializedProperty m_propertyOffset;
         private ReorderableListDrawer m_listDependencies;
+        private ReorderableListSelectionDrawerByElementGlobalId m_listDependenciesSelection;
 
         private void OnEnable()
         {
@@ -26,12 +27,19 @@ namespace UGF.Module.AssetBundles.Editor
                 DisplayAsSingleLine = true
             };
 
+            m_listDependenciesSelection = new ReorderableListSelectionDrawerByElementGlobalId(m_listDependencies)
+            {
+                Drawer = { DisplayTitlebar = true }
+            };
+
             m_listDependencies.Enable();
+            m_listDependenciesSelection.Enable();
         }
 
         private void OnDisable()
         {
             m_listDependencies.Disable();
+            m_listDependenciesSelection.Disable();
         }
 
         public override void OnInspectorGUI()
@@ -46,6 +54,7 @@ namespace UGF.Module.AssetBundles.Editor
                 EditorGUILayout.PropertyField(m_propertyOffset);
 
                 m_listDependencies.DrawGUILayout();
+                m_listDependenciesSelection.DrawGUILayout();
             }
         }
     }
