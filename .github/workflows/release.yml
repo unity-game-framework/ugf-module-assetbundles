@@ -27,7 +27,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         token: ${{ secrets.userToken }}
         ref: ${{ env.branch }}
@@ -41,7 +41,7 @@ jobs:
         echo "packageFolder=$packageFolder" >> $GITHUB_ENV
         echo "date=$date" >> $GITHUB_ENV
     - name: Config
-      uses: unity-game-framework-actions/file-access@master
+      uses: unity-game-framework-actions/file-access@main
       id: config
       with:
         input: |
@@ -56,7 +56,7 @@ jobs:
               input: ${{ env.configPath }}
               path: notes
     - name: Package
-      uses: unity-game-framework-actions/file-access@master
+      uses: unity-game-framework-actions/file-access@main
       id: package
       with:
         input: |
@@ -70,24 +70,24 @@ jobs:
               path: version
               value: ${{ env.version }}
     - name: Milestone
-      uses: unity-game-framework-actions/milestone-release@master
+      uses: unity-game-framework-actions/milestone-release@main
       with:
         release: ${{ env.version }}
     - name: Readme
-      uses: unity-game-framework-actions/package-readme@master
+      uses: unity-game-framework-actions/package-readme@main
       with:
         input: ${{ env.packagePath }}
         config: ${{ steps.config.outputs.readme }}
         output: readme.md
     - name: Notes
-      uses: unity-game-framework-actions/milestone-changelog@master
+      uses: unity-game-framework-actions/milestone-changelog@main
       id: notes
       with:
         milestone: ${{ env.version }}
         config: ${{ steps.config.outputs.notes }}
         output: notes.md
     - name: Changelog
-      uses: unity-game-framework-actions/releases-changelog@master
+      uses: unity-game-framework-actions/releases-changelog@main
       with:
         branch: ${{ env.branch }}
         config: ${{ steps.config.outputs.changelog }}

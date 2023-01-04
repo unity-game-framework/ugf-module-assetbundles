@@ -31,14 +31,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout Source
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         token: ${{ secrets.userToken }}
         repository: ${{ env.repo }}
         ref: ${{ env.branch }}
         path: ${{ env.sourceFolder }}
     - name: Checkout Destination
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         token: ${{ secrets.userToken }}
         ref: ${{ env.branch }}
