@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.0](https://github.com/unity-game-framework/ugf-module-assetbundles/releases/tag/2.0.0) - 2023-01-04  
+
+### Release Notes
+
+- [Milestone](https://github.com/unity-game-framework/ugf-module-assetbundles/milestone/20?closed=1)  
+    
+
+### Changed
+
+- Update project ([#56](https://github.com/unity-game-framework/ugf-module-assetbundles/issues/56))  
+    - Update dependencies: `com.ugf.module.assets` to `5.0.0` and `com.ugf.module.scenes` to `4.0.0` versions.
+    - Add `AssetBundleAsset` class default inspector implementation.
+    - Add `AssetBundleFileAsset` class inspector selection preview support for `Dependencies` property.
+    - Add `AssetBundleGroupAsset` class inspector selection preview support for `Groups` property.
+
 ## [2.0.0-preview.8](https://github.com/unity-game-framework/ugf-module-assetbundles/releases/tag/2.0.0-preview.8) - 2022-12-19  
 
 ### Release Notes
