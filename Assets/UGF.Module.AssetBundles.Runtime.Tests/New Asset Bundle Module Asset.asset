@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 605fe67302464dc88a54874fe7d24039, type: 3}
   m_Name: New Asset Bundle Module Asset
   m_EditorClassIdentifier: 
+  m_unloadTrackedAssetBundlesOnUninitialize: 1
   m_storages:
   - m_guid:
       m_first: 15011744750680133137
@@ -22,3 +23,5 @@ MonoBehaviour:
       m_first: 59808304902331724
       m_second: 14218323375582817288
     m_asset: {fileID: 11400000, guid: 20525d4c7b5600d4082c3f37c7a151c5, type: 2}
+  m_collections:
+  - {fileID: 11400000, guid: 7410c0d7d544ff1488094bb97e853e3d, type: 2}
