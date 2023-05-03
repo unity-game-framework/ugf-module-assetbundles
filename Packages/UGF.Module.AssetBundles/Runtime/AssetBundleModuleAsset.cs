@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using UGF.Application.Runtime;
+using UGF.Builder.Runtime;
 using UGF.EditorTools.Runtime.Assets;
+using UGF.EditorTools.Runtime.Ids;
 using UGF.Module.Assets.Runtime;
 using UnityEngine;
 
@@ -19,27 +21,29 @@ namespace UGF.Module.AssetBundles.Runtime
 
         protected override IApplicationModuleDescription OnBuildDescription()
         {
-            var description = new AssetBundleModuleDescription
-            {
-                RegisterType = typeof(AssetBundleModule),
-                UnloadTrackedAssetBundlesOnUninitialize = m_unloadTrackedAssetBundlesOnUninitialize
-            };
+            var storages = new Dictionary<GlobalId, IBuilder<IAssetBundleStorage>>();
+            var assetBundles = new Dictionary<GlobalId, IBuilder<IAssetBundleInfo>>();
 
             for (int i = 0; i < m_storages.Count; i++)
             {
                 AssetIdReference<AssetBundleStorageAsset> reference = m_storages[i];
 
-                description.Storages.Add(reference.Guid, reference.Asset);
+                storages.Add(reference.Guid, reference.Asset);
             }
 
             for (int i = 0; i < m_assetBundles.Count; i++)
             {
                 AssetIdReference<AssetBundleAsset> reference = m_assetBundles[i];
 
-                description.AssetBundles.Add(reference.Guid, reference.Asset);
+                assetBundles.Add(reference.Guid, reference.Asset);
             }
 
-            return description;
+            return new AssetBundleModuleDescription(
+                typeof(AssetBundleModule),
+                storages,
+                assetBundles,
+                m_unloadTrackedAssetBundlesOnUninitialize
+            );
         }
 
         protected override AssetBundleModule OnBuild(AssetBundleModuleDescription description, IApplication application)
