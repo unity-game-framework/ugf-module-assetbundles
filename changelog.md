@@ -5,6 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.0](https://github.com/unity-game-framework/ugf-module-assetbundles/releases/tag/2.1.0) - 2023-05-03  
+
+### Release Notes
+
+- [Milestone](https://github.com/unity-game-framework/ugf-module-assetbundles/milestone/21?closed=1)  
+    
+
+### Added
+
+- Add asset bundle collection asset ([#58](https://github.com/unity-game-framework/ugf-module-assetbundles/issues/58))  
+    - Update dependencies: `com.ugf.module.assets` to `5.1.0` version.
+    - Add `AssetBundleCollectionAsset` abstract class as collection of `IAssetBundleInfo` assets.
+    - Add `AssetBundleCollectionListAsset` class as default implementation of the collection to store `AssetBundleAsset` assets.
+    - Add `AssetBundleModuleAsset.Collections` property used to define collections of the `AssetBundleCollectionAsset` assets.
+    - Change `AssetBundleModuleDescription` class properties to read-only.
+
 ## [2.0.0](https://github.com/unity-game-framework/ugf-module-assetbundles/releases/tag/2.0.0) - 2023-01-04  
 
 ### Release Notes
