@@ -14,6 +14,8 @@ namespace UGF.Module.AssetBundles.Editor
         private ReorderableListSelectionDrawerByPath m_listStoragesSelection;
         private AssetIdReferenceListDrawer m_listAssetBundles;
         private ReorderableListSelectionDrawerByPath m_listAssetBundlesSelection;
+        private ReorderableListDrawer m_listCollections;
+        private ReorderableListSelectionDrawerByElement m_listCollectionsSelection;
 
         private void OnEnable()
         {
@@ -39,10 +41,19 @@ namespace UGF.Module.AssetBundles.Editor
                 Drawer = { DisplayTitlebar = true }
             };
 
+            m_listCollections = new ReorderableListDrawer(serializedObject.FindProperty("m_collections"));
+
+            m_listCollectionsSelection = new ReorderableListSelectionDrawerByElement(m_listCollections)
+            {
+                Drawer = { DisplayTitlebar = true }
+            };
+
             m_listStorages.Enable();
             m_listStoragesSelection.Enable();
             m_listAssetBundles.Enable();
             m_listAssetBundlesSelection.Enable();
+            m_listCollections.Enable();
+            m_listCollectionsSelection.Enable();
         }
 
         private void OnDisable()
@@ -51,6 +62,8 @@ namespace UGF.Module.AssetBundles.Editor
             m_listStoragesSelection.Disable();
             m_listAssetBundles.Disable();
             m_listAssetBundlesSelection.Disable();
+            m_listCollections.Disable();
+            m_listCollectionsSelection.Disable();
         }
 
         public override void OnInspectorGUI()
@@ -63,9 +76,11 @@ namespace UGF.Module.AssetBundles.Editor
 
                 m_listStorages.DrawGUILayout();
                 m_listAssetBundles.DrawGUILayout();
+                m_listCollections.DrawGUILayout();
 
                 m_listStoragesSelection.DrawGUILayout();
                 m_listAssetBundlesSelection.DrawGUILayout();
+                m_listCollectionsSelection.DrawGUILayout();
             }
         }
     }

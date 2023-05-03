@@ -14,10 +14,12 @@ namespace UGF.Module.AssetBundles.Runtime
         [SerializeField] private bool m_unloadTrackedAssetBundlesOnUninitialize = true;
         [SerializeField] private List<AssetIdReference<AssetBundleStorageAsset>> m_storages = new List<AssetIdReference<AssetBundleStorageAsset>>();
         [SerializeField] private List<AssetIdReference<AssetBundleAsset>> m_assetBundles = new List<AssetIdReference<AssetBundleAsset>>();
+        [SerializeField] private List<AssetBundleCollectionAsset> m_collections = new List<AssetBundleCollectionAsset>();
 
         public bool UnloadTrackedAssetBundlesOnUninitialize { get { return m_unloadTrackedAssetBundlesOnUninitialize; } set { m_unloadTrackedAssetBundlesOnUninitialize = value; } }
         public List<AssetIdReference<AssetBundleStorageAsset>> Storages { get { return m_storages; } }
         public List<AssetIdReference<AssetBundleAsset>> AssetBundles { get { return m_assetBundles; } }
+        public List<AssetBundleCollectionAsset> Collections { get { return m_collections; } }
 
         protected override IApplicationModuleDescription OnBuildDescription()
         {
@@ -36,6 +38,13 @@ namespace UGF.Module.AssetBundles.Runtime
                 AssetIdReference<AssetBundleAsset> reference = m_assetBundles[i];
 
                 assetBundles.Add(reference.Guid, reference.Asset);
+            }
+
+            for (int i = 0; i < m_collections.Count; i++)
+            {
+                AssetBundleCollectionAsset collection = m_collections[i];
+
+                collection.GetAssetBundles(assetBundles);
             }
 
             return new AssetBundleModuleDescription(
