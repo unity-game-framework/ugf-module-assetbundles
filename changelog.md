@@ -5,6 +5,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.0-preview](https://github.com/unity-game-framework/ugf-module-assetbundles/releases/tag/3.0.0-preview) - 2023-11-17  
+
+### Release Notes
+
+- [Milestone](https://github.com/unity-game-framework/ugf-module-assetbundles/milestone/22?closed=1)  
+    
+
+### Added
+
+- Add asset bundle group from folders ([#60](https://github.com/unity-game-framework/ugf-module-assetbundles/issues/60))  
+    - Update package registry to _UPM Hub_.
+    - Update package _Unity_ version to `2023.2`.
+    - Add `AssetBundleSceneGroupFolderAsset` class as editor-only asset folder implementation for assetbundles scenes.
+    - Add `AssetBundleGroupFolderAsset` class as editor-only asset folder implementation for assetbundles assets.
+
+### Removed
+
+- Remove group collect ([#61](https://github.com/unity-game-framework/ugf-module-assetbundles/issues/61))  
+    - Remove `AssetBundleGroupAsset.Groups` property of groups collections, which was unused.
+
 ## [2.1.0](https://github.com/unity-game-framework/ugf-module-assetbundles/releases/tag/2.1.0) - 2023-05-03  
 
 ### Release Notes
