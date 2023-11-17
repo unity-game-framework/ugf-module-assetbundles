@@ -19,7 +19,7 @@
     "registry": "https://api.upmhub.org/registries/unity-game-framework"
   },
   "dependencies": {
-    "com.ugf.module.assets": "5.1.0",
+    "com.ugf.module.assets": "6.0.0-preview",
     "com.ugf.module.scenes": "4.0.0",
     "com.ugf.assetbundles": "1.2.0"
   }
