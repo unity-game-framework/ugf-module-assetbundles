@@ -15,7 +15,11 @@ MonoBehaviour:
   m_loader:
     m_first: 0
     m_second: 0
-  m_scenes: []
+  m_scenes:
+  - m_guid:
+      m_first: 3667213098806219131
+      m_second: 11462891096313073034
+    m_path: Assets/UGF.Module.AssetBundles.Runtime.Tests/ScenesFolder/New Scene.unity
   m_assetBundle:
     m_first: 0
     m_second: 0

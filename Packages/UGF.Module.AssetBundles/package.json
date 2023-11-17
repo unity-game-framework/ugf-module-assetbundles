@@ -2,7 +2,7 @@
   "name": "com.ugf.module.assetbundles",
   "displayName": "UGF.Module.AssetBundles",
   "version": "2.1.0",
-  "unity": "2022.2",
+  "unity": "2023.2",
   "apiCompatibility": ".NET Standard 2.1",
   "description": "Module to manage AssetBundles loading.",
   "author": {
@@ -16,10 +16,10 @@
   "changelogUrl": "https://github.com/unity-game-framework/ugf-module-assetbundles/blob/main/changelog.md",
   "licensesUrl": "https://github.com/unity-game-framework/ugf-module-assetbundles/blob/main/license",
   "publishConfig": {
-    "registry": "https://unitygameframework.jfrog.io/artifactory/api/npm/default"
+    "registry": "https://api.upmhub.org/registries/unity-game-framework"
   },
   "dependencies": {
-    "com.ugf.module.assets": "5.1.0",
+    "com.ugf.module.assets": "6.0.0-preview",
     "com.ugf.module.scenes": "4.0.0",
     "com.ugf.assetbundles": "1.2.0"
   }
