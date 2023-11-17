@@ -16,3 +16,4 @@ MonoBehaviour:
   m_foldersUpdateOnBuild: 1
   m_folders:
   - {fileID: 11400000, guid: 7c3339763aaf28c449da504c93459ba0, type: 2}
+  - {fileID: 11400000, guid: fd8552c9df9ea4143badfa0449ef100d, type: 2}
