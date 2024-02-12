@@ -1,6 +1,6 @@
-﻿using UGF.EditorTools.Editor.IMGUI;
+﻿using UGF.Assets.Editor;
+using UGF.EditorTools.Editor.IMGUI;
 using UGF.EditorTools.Editor.IMGUI.Scopes;
-using UGF.Module.Assets.Editor;
 using UnityEditor;
 
 namespace UGF.Module.AssetBundles.Editor.Scenes
