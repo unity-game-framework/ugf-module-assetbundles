@@ -1,6 +1,6 @@
-﻿using UGF.EditorTools.Runtime.Ids;
+﻿using UGF.Assets.Editor;
+using UGF.EditorTools.Runtime.Ids;
 using UGF.Module.AssetBundles.Runtime;
-using UGF.Module.Assets.Editor;
 using UnityEditor;
 using UnityEngine;
 
