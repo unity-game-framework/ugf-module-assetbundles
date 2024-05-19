@@ -10,20 +10,23 @@ namespace UGF.Module.AssetBundles.Editor
     internal class AssetBundleBuildAssetListDrawer : ReorderableListDrawer
     {
         public SerializedProperty PropertyOutputPath { get; }
-        public AssetBundleFileDrawer Drawer { get; } = new AssetBundleFileDrawer();
+        public AssetBundleFileDrawer FileDrawer { get; } = new AssetBundleFileDrawer();
+        public EditorDrawer AssetDrawer { get; } = new EditorDrawer();
         public bool HasSelection { get { return List.selectedIndices.Count > 0; } }
 
         public AssetBundleBuildAssetListDrawer(SerializedProperty serializedProperty, SerializedProperty propertyOutputPath) : base(serializedProperty)
         {
             PropertyOutputPath = propertyOutputPath ?? throw new ArgumentNullException(nameof(propertyOutputPath));
-            Drawer.DisplayMenuClear = false;
+            FileDrawer.DisplayMenuClear = false;
+            AssetDrawer.DisplayTitlebar = true;
         }
 
         protected override void OnEnable()
         {
             base.OnEnable();
 
-            Drawer.Enable();
+            FileDrawer.Enable();
+            AssetDrawer.Enable();
         }
 
         protected override void OnDisable()
@@ -32,7 +35,8 @@ namespace UGF.Module.AssetBundles.Editor
 
             ClearSelection();
 
-            Drawer.Disable();
+            FileDrawer.Disable();
+            AssetDrawer.Disable();
         }
 
         protected override void OnRemove()
@@ -51,12 +55,21 @@ namespace UGF.Module.AssetBundles.Editor
 
         public void DrawSelectedLayout()
         {
-            Drawer.DrawGUILayout();
+            if (AssetDrawer.HasEditor)
+            {
+                AssetDrawer.DrawGUILayout();
+            }
+
+            if (FileDrawer.HasData)
+            {
+                FileDrawer.DrawGUILayout();
+            }
         }
 
         public void ClearSelection()
         {
-            Drawer.Clear();
+            FileDrawer.Clear();
+            AssetDrawer.Clear();
         }
 
         private void UpdateSelection()
@@ -70,12 +83,14 @@ namespace UGF.Module.AssetBundles.Editor
 
                 if (element != null)
                 {
+                    AssetDrawer.Set(element);
+
                     string guid = AssetDatabase.AssetPathToGUID(AssetDatabase.GetAssetPath(element));
                     string path = Path.Combine(PropertyOutputPath.stringValue, guid);
 
                     if (File.Exists(path))
                     {
-                        Drawer.Set(path);
+                        FileDrawer.Set(path);
                     }
                 }
             }
