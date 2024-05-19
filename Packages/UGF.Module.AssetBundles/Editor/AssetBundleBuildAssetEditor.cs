@@ -20,17 +20,13 @@ namespace UGF.Module.AssetBundles.Editor
 
         private class Styles
         {
-            public GUIContent IncludeDependenciesContent { get; }
+            public GUIContent IncludeDependenciesContent { get; } = new GUIContent("Include Dependencies", "Enabling this parameter will collect dependencies for each asset in asset bundle " +
+                                                                                                           "and make them to be explicitly included with asset guid as address. " +
+                                                                                                           "If the next asset bundle would have any asset with dependencies already included in previous asset bundle, " +
+                                                                                                           "they will be ignored and asset bundle will have previous one as dependency.");
+
             public GUIContent UpdateCrc { get; } = new GUIContent("Update Crc", "Determines whether to update 'Crc' property value of the AssetBundleAsset assets.");
             public GUIContent UpdateDependencies { get; } = new GUIContent("Update Dependencies", "Determines whether to update 'Dependencies' list of the AssetBundleAsset assets.");
-
-            public Styles()
-            {
-                IncludeDependenciesContent = new GUIContent("Include Dependencies", "Enabling this parameter will collect dependencies for each asset in asset bundle " +
-                                                                                    "and make them to be explicitly included with asset guid as address. " +
-                                                                                    "If the next asset bundle would have any asset with dependencies already included in previous asset bundle, " +
-                                                                                    "they will be ignored and asset bundle will have previous one as dependency.");
-            }
         }
 
         private void OnEnable()
@@ -44,10 +40,7 @@ namespace UGF.Module.AssetBundles.Editor
 
             m_listAssetBundles = new AssetBundleBuildAssetListDrawer(serializedObject.FindProperty("m_assetBundles"), m_propertyOutputPath)
             {
-                Drawer =
-                {
-                    DisplayTitlebar = true
-                }
+                FileDrawer = { DisplayTitlebar = true }
             };
 
             m_listAssetBundles.Enable();
@@ -103,11 +96,9 @@ namespace UGF.Module.AssetBundles.Editor
             EditorGUILayout.HelpBox("This is Editor Only asset.", MessageType.Info);
             EditorGUILayout.Space();
 
-            if (m_listAssetBundles.Drawer.HasData)
-            {
-                m_listAssetBundles.DrawSelectedLayout();
-            }
-            else
+            m_listAssetBundles.DrawSelectedLayout();
+
+            if (!m_listAssetBundles.FileDrawer.HasData)
             {
                 if (EditorApplication.isPlayingOrWillChangePlaymode)
                 {
