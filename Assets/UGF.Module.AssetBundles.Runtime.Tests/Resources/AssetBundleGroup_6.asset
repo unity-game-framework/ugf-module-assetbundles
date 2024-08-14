@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: AssetBundleGroup_6
   m_EditorClassIdentifier: 
   m_loader:
-    m_first: 5477684760039595028
-    m_second: 14673601703235680650
+    serializedVersion: 2
+    Hash: 69bb1c14a5444c048af9ed48011ba3cb
   m_assetBundle:
-    m_first: 7125919412368240080
-    m_second: 5032688020191173691
+    serializedVersion: 2
+    Hash: 6844edd059f362e43bdcdb0c17b3d745
   m_assets:
-  - m_first: 17614810602027555378
-    m_second: 7343985500246865643
+  - serializedVersion: 2
+    Hash: 00000000000000000000000000000000
