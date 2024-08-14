@@ -13,6 +13,8 @@ namespace UGF.Module.AssetBundles.Runtime
         public IProvider<GlobalId, IAssetBundleStorage> Storages { get; }
         public IAssetModule AssetModule { get; }
 
+        private readonly ILog m_logger;
+
         public AssetBundleModule(AssetBundleModuleDescription description, IApplication application, IAssetModule assetModule) : this(description, application, new Provider<GlobalId, IAssetBundleStorage>(), assetModule)
         {
         }
@@ -21,13 +23,15 @@ namespace UGF.Module.AssetBundles.Runtime
         {
             Storages = storages ?? throw new ArgumentNullException(nameof(storages));
             AssetModule = assetModule ?? throw new ArgumentNullException(nameof(assetModule));
+
+            m_logger = Log.CreateWithLabel<AssetBundleModule>();
         }
 
         protected override void OnInitialize()
         {
             base.OnInitialize();
 
-            Log.Debug("Asset Bundle Module initialize", new
+            m_logger.Debug("Initialize", new
             {
                 storages = Description.Storages.Count,
                 bundles = Description.AssetBundles.Count
@@ -52,7 +56,7 @@ namespace UGF.Module.AssetBundles.Runtime
         {
             base.OnUninitialize();
 
-            Log.Debug("Asset Bundle Module uninitialize", new
+            m_logger.Debug("Uninitialize", new
             {
                 storages = Storages.Entries.Count,
                 bundles = Description.AssetBundles.Count,

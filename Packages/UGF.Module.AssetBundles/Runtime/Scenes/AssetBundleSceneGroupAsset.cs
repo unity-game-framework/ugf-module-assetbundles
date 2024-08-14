@@ -11,7 +11,7 @@ namespace UGF.Module.AssetBundles.Runtime.Scenes
     public class AssetBundleSceneGroupAsset : ManagerSceneGroupAsset
     {
         [AssetId(typeof(AssetBundleAsset))]
-        [SerializeField] private GlobalId m_assetBundle;
+        [SerializeField] private Hash128 m_assetBundle;
 
         public GlobalId AssetBundle { get { return m_assetBundle; } set { m_assetBundle = value; } }
 

@@ -21,7 +21,7 @@ namespace UGF.Module.AssetBundles.Runtime
         public List<AssetIdReference<AssetBundleAsset>> AssetBundles { get { return m_assetBundles; } }
         public List<AssetBundleCollectionAsset> Collections { get { return m_collections; } }
 
-        protected override IApplicationModuleDescription OnBuildDescription()
+        protected override AssetBundleModuleDescription OnBuildDescription()
         {
             var storages = new Dictionary<GlobalId, IBuilder<IAssetBundleStorage>>();
             var assetBundles = new Dictionary<GlobalId, IBuilder<IAssetBundleInfo>>();
@@ -47,9 +47,7 @@ namespace UGF.Module.AssetBundles.Runtime
                 collection.GetAssetBundles(assetBundles);
             }
 
-            return new AssetBundleModuleDescription(
-                typeof(AssetBundleModule),
-                storages,
+            return new AssetBundleModuleDescription(storages,
                 assetBundles,
                 m_unloadTrackedAssetBundlesOnUninitialize
             );

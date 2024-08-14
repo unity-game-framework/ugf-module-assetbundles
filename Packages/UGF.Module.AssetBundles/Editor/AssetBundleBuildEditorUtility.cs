@@ -254,7 +254,10 @@ namespace UGF.Module.AssetBundles.Editor
             {
                 AssetBundleGroupAsset group = groups[i];
 
-                assets.AddRange(group.Assets);
+                foreach (Hash128 guid in group.Assets)
+                {
+                    assets.Add(guid);
+                }
             }
 
             GetDependencies(dependencies, assets);

@@ -13,10 +13,9 @@ namespace UGF.Module.AssetBundles.Runtime
         public bool UnloadTrackedAssetBundlesOnUninitialize { get; set; }
 
         public AssetBundleModuleDescription(
-            Type registerType,
             IReadOnlyDictionary<GlobalId, IBuilder<IAssetBundleStorage>> storages,
             IReadOnlyDictionary<GlobalId, IBuilder<IAssetBundleInfo>> assetBundles,
-            bool unloadTrackedAssetBundlesOnUninitialize) : base(registerType)
+            bool unloadTrackedAssetBundlesOnUninitialize)
         {
             Storages = storages ?? throw new ArgumentNullException(nameof(storages));
             AssetBundles = assetBundles ?? throw new ArgumentNullException(nameof(assetBundles));
