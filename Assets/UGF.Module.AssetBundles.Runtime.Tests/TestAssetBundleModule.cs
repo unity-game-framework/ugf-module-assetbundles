@@ -1,5 +1,7 @@
-﻿using NUnit.Framework;
+﻿using System.Collections.Generic;
+using NUnit.Framework;
 using UGF.Application.Runtime;
+using UGF.Builder.Runtime;
 using UGF.EditorTools.Runtime.Ids;
 using UGF.Module.Assets.Runtime;
 using UnityEngine;
@@ -11,17 +13,11 @@ namespace UGF.Module.AssetBundles.Runtime.Tests
         [Test]
         public void InitializeAndUninitialize()
         {
-            var application = new ApplicationConfigured(new ApplicationResources
+            var application = new Application.Runtime.Application(new ApplicationDescription(false, new Dictionary<GlobalId, IBuilder<IApplication, IApplicationModule>>
             {
-                new ApplicationConfig
-                {
-                    Modules =
-                    {
-                        (IApplicationModuleBuilder)Resources.Load("AssetModule", typeof(IApplicationModuleBuilder)),
-                        (IApplicationModuleBuilder)Resources.Load("AssetBundleModule", typeof(IApplicationModuleBuilder))
-                    }
-                }
-            });
+                { new GlobalId("4614ceca8914e5b4d8326f86aded3229"), Resources.Load<ApplicationModuleAsset>("AssetModule") },
+                { new GlobalId("62bfbda34f5140deae6b6007d172c728"), Resources.Load<ApplicationModuleAsset>("AssetBundleModule") },
+            }));
 
             application.Initialize();
 
@@ -35,17 +31,11 @@ namespace UGF.Module.AssetBundles.Runtime.Tests
         [Test]
         public void LoadAndUnloadAsset()
         {
-            var application = new ApplicationConfigured(new ApplicationResources
+            var application = new Application.Runtime.Application(new ApplicationDescription(false, new Dictionary<GlobalId, IBuilder<IApplication, IApplicationModule>>
             {
-                new ApplicationConfig
-                {
-                    Modules =
-                    {
-                        (IApplicationModuleBuilder)Resources.Load("AssetModule", typeof(IApplicationModuleBuilder)),
-                        (IApplicationModuleBuilder)Resources.Load("AssetBundleModule", typeof(IApplicationModuleBuilder))
-                    }
-                }
-            });
+                { new GlobalId("4614ceca8914e5b4d8326f86aded3229"), Resources.Load<ApplicationModuleAsset>("AssetModule") },
+                { new GlobalId("62bfbda34f5140deae6b6007d172c728"), Resources.Load<ApplicationModuleAsset>("AssetBundleModule") },
+            }));
 
             application.Initialize();
 
