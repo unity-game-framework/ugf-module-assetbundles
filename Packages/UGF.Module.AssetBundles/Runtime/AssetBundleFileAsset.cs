@@ -8,7 +8,7 @@ namespace UGF.Module.AssetBundles.Runtime
     public class AssetBundleFileAsset : AssetBundleAsset
     {
         [AssetId(typeof(AssetBundleStorageAsset))]
-        [SerializeField] private GlobalId m_storage;
+        [SerializeField] private Hash128 m_storage;
         [SerializeField] private ulong m_offset;
 
         public GlobalId Storage { get { return m_storage; } set { m_storage = value; } }

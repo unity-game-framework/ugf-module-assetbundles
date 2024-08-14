@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: New Asset Bundle Scene Group Asset
   m_EditorClassIdentifier: 
   m_loader:
-    m_first: 0
-    m_second: 0
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
   m_scenes:
   - m_guid:
-      m_first: 3667213098806219131
-      m_second: 11462891096313073034
-    m_path: Assets/UGF.Module.AssetBundles.Runtime.Tests/ScenesFolder/New Scene.unity
+      serializedVersion: 2
+      Hash: 00000000000000000000000000000000
+    m_path: 
   m_assetBundle:
-    m_first: 0
-    m_second: 0
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000

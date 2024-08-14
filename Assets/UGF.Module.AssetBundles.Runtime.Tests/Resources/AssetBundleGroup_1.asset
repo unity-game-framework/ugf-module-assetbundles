@@ -13,15 +13,33 @@ MonoBehaviour:
   m_Name: AssetBundleGroup_1
   m_EditorClassIdentifier: 
   m_loader:
-    m_first: 5477684760039595028
-    m_second: 14673601703235680650
+    serializedVersion: 2
+    Hash: 69bb1c14a5444c048af9ed48011ba3cb
   m_assetBundle:
-    m_first: 14480413438151556023
-    m_second: 4787158470182912361
+    serializedVersion: 2
+    Hash: 2dd0fbb7c34dc8f46941c1e243676f42
   m_assets:
-  - m_first: 7292585370210954116
-    m_second: 3647237292165953449
-  - m_first: 13494031186277462458
-    m_second: 15456526855546169145
-  - m_first: 7868951288790596913
-    m_second: 6955956651427226281
+  - serializedVersion: 2
+    Hash: 383f3e18c64b31748b6c532f57d1801f
+  - serializedVersion: 2
+    Hash: 7c2ead03ebc2c4549a40cb0985d6dd76
+  - serializedVersion: 2
+    Hash: 1bf37369f89036949b689330011c8071
+  - serializedVersion: 2
+    Hash: 5abc85edbdd599849a591e078af9218c
+  - serializedVersion: 2
+    Hash: 13cb5fda27220aa4baf6f96f61f8e68a
+  - serializedVersion: 2
+    Hash: 73373d3121816d34a9e25561b8858860
+  - serializedVersion: 2
+    Hash: cb5ab67ec562f6a45882416d2d613c27
+  - serializedVersion: 2
+    Hash: 8465382ca3b5f744aa10a0f5054cf171
+  - serializedVersion: 2
+    Hash: 75c383a74ccffbd4797ad9e14d699bc9
+  - serializedVersion: 2
+    Hash: a5a26b8477c16534a9f71b4bfe969d32
+  - serializedVersion: 2
+    Hash: 961c71ba6ddebb4439671d6e489d80d6
+  - serializedVersion: 2
+    Hash: 839e2a0133db8b34c948047d9375f7b7

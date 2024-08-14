@@ -13,22 +13,9 @@ MonoBehaviour:
   m_Name: AssetBundleGroup_7
   m_EditorClassIdentifier: 
   m_loader:
-    m_first: 5477684760039595028
-    m_second: 14673601703235680650
+    serializedVersion: 2
+    Hash: 69bb1c14a5444c048af9ed48011ba3cb
   m_assetBundle:
-    m_first: 6508869484740731382
-    m_second: 17705792487461896985
-  m_groups:
-  - m_first: 11507853748385168883
-    m_second: 3808278517449828555
-  - m_first: 13327526040271099912
-    m_second: 17541323798215185755
-  - m_first: 5482205988348077950
-    m_second: 9493914730020462282
-  - m_first: 6729660475179201991
-    m_second: 17433182843474628377
-  m_assets:
-  - m_first: 10030699287959972353
-    m_second: 13256193304506419401
-  - m_first: 16687026080524613398
-    m_second: 4750322200724858331
+    serializedVersion: 2
+    Hash: 9759e1f6264f5a541943f241759cb7f5
+  m_assets: []

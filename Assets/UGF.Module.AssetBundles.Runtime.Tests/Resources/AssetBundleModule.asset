@@ -15,15 +15,16 @@ MonoBehaviour:
   m_unloadTrackedAssetBundlesOnUninitialize: 1
   m_storages:
   - m_guid:
-      m_first: 12084454567696379622
-      m_second: 7779584910444799019
+      serializedVersion: 2
+      Hash: 33e3aee69b67a7b42b240d0f42a3f66b
     m_asset: {fileID: 11400000, guid: 33e3aee69b67a7b42b240d0f42a3f66b, type: 2}
   m_assetBundles:
   - m_guid:
-      m_first: 14480413438151556023
-      m_second: 4787158470182912361
+      serializedVersion: 2
+      Hash: 2dd0fbb7c34dc8f46941c1e243676f42
     m_asset: {fileID: 11400000, guid: 2dd0fbb7c34dc8f46941c1e243676f42, type: 2}
   - m_guid:
-      m_first: 5437182347125505729
-      m_second: 5556169198677357896
+      serializedVersion: 2
+      Hash: 8b70bec1c0894b74487521c7727a1b4d
     m_asset: {fileID: 11400000, guid: 8b70bec1c0894b74487521c7727a1b4d, type: 2}
+  m_collections: []
